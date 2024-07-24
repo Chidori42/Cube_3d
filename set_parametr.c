@@ -6,69 +6,56 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 11:42:58 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/02/09 12:44:36 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/07/24 04:16:27 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "cub.h"
 
-void	set_p(t_data *arg)
+void	set_hei_and_wid(t_data *args)
+{
+	int	j;
+
+	j = -1;
+	args->hei = 0;
+	args->wid = 0;
+	if (!args->map)
+	{
+		ft_putstr_fd("Error\ninvalid map", 2);
+		exit(1);
+	}
+	while (args->map[++j])
+	{
+		if ((int)ft_strlen(args->map[j]) > args->wid)
+			args->wid = (int)ft_strlen(args->map[j]);
+	}
+	
+	args->hei = j;
+}
+
+void	set_p(t_data *args)
 {
 	int	i;
 	int	j;
 
 	j = 0;
-	while (arg->map[j])
+	args->x1 = args->wid;
+	args->y1 = args->hei;
+	args->pa = 0;
+	while (args->map[j])
 	{
 		i = 0;
-		while (arg->map[j][i])
+		while (args->map[j][i])
 		{
-			if (arg->map[j][i] == 'P')
+			if (args->map[j][i] == 'N' || args->map[j][i] == 'S' ||
+				args->map[j][i] == 'W' || args->map[j][i] == 'E')
 			{
-				arg->x = i;
-				arg->y = j;
+				args->x0 = (float)i;
+				args->y0 = (float)j;
+				args->pa = args->map[j][i];
 			}
-			else if (arg->map[j][i] == 'E')
-			{
-				arg->e_x_p = i;
-				arg->e_y_p = j;
-			}
-			else if (arg->map[j][i] == 'C')
-				arg->count_c++;
 			i++;
 		}
 		j++;
 	}
-}
-
-static void	check_imag_file(t_data *arg)
-{
-	if (!(arg->w) || !(arg->l) || !(arg->p_d) || !(arg->c)
-		|| !(arg->e) || !(arg->enemy) || !(arg->e_o))
-	{
-		ft_putstr_fd("check image path", 1);
-		exit (1);
-	}
-}
-
-void	set_param(t_data *args)
-{
-	int	i;
-
-	i = 50;
-	args->move = 0;
-	args->i = 0;
-	args->j = 0;
-	args->count_c = 0;
-	args->w = mlx_xpm_file_to_image(args->mlx, "./textures/W.xpm", &i, &i);
-	args->l = mlx_xpm_file_to_image(args->mlx, "./textures/L.xpm", &i, &i);
-	args->p_d = mlx_xpm_file_to_image(args->mlx, "./textures/P_d.xpm", &i, &i);
-	args->c = mlx_xpm_file_to_image(args->mlx, "./textures/C.xpm", &i, &i);
-	args->e = mlx_xpm_file_to_image(args->mlx, "./textures/E.xpm", &i, &i);
-	args->e_o = mlx_xpm_file_to_image(args->mlx, "./textures/E_O.xpm",
-			&i, &i);
-	args->enemy = mlx_xpm_file_to_image(args->mlx, "./textures/enmy.xpm",
-			&i, &i);
-	check_imag_file(args);
-	args->cp_mp = NULL;
 }

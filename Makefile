@@ -1,68 +1,84 @@
-CC = cc
 
-CFLAGS = -Wall -Wextra -Werror -g -fsanitize=address
+############################## varaibles section #######################
 
-NAME = so_long
+#Mandatory source files names.
 
-MLX_FLAGS = -L/usr/local/lib -lmlx -lXext -lX11 -lm -lbsd
+SRCS                    =	cub.c \
+							draw_map.c \
+							ft_read_map.c \
+							movemont.c \
+							raycasting.c \
+							set_parametr.c \
+							ft_free_2dm.c \
+							ft_disperse_map.c \
+							./parsing/ft_pars_map.c \
+							./parsing/ft_pars_colors.c \
+							./parsing/ft_pars_texters.c\
+							./parsing/ft_flood_map.c \
 
-BONUS_DIR = bonus
+#Mandatory object files name.
 
-SRCS = so_long.c \
-	draw_map.c \
-	read_map.c \
-	ft_putchar_fd.c \
-	ft_putstr_fd.c \
-	movemont.c \
-	set_parametr.c\
-	ft_putnbr_fd.c \
-	ft_split.c \
-	get_next_line.c \
-	get_next_line_utils.c \
-	parcing.c \
-	flood_map.c \
-	win_exit.c \
-	ft_strncmp.c \
-	ft_strrchr.c \
-	ft_check_ber.c
+OBJS                    = $(SRCS:%c=%o)
 
-SRCS_BONNUS = $(BONUS_DIR)/so_long_bonus.c\
- $(BONUS_DIR)/draw_map.c \
- $(BONUS_DIR)/read_map.c \
- $(BONUS_DIR)/ft_putchar_fd.c \
- $(BONUS_DIR)/ft_putstr_fd.c \
- $(BONUS_DIR)/ft_itoa.c \
- $(BONUS_DIR)/movemont.c \
- $(BONUS_DIR)/set_parametr.c\
- $(BONUS_DIR)/ft_split.c \
- $(BONUS_DIR)/get_next_line.c \
- $(BONUS_DIR)/get_next_line_utils.c \
- $(BONUS_DIR)/parcing.c \
- $(BONUS_DIR)/flood_map.c \
- $(BONUS_DIR)/enemy_touch.c \
- $(BONUS_DIR)/move_enemy.c \
- $(BONUS_DIR)/count_move_e.c \
- $(BONUS_DIR)/check_map.c \
+MLX_FLAGS               = -L /usr/local/lib -lmlx -framework OpenGL -framework AppKit
 
-OBJECTS = $(SRCS:.c=.o)
+FLAGS                   = -Wall -Wextra -Werror
 
-OBJECTS_BONNUS = $(SRCS_BONNUS:.c=.o)
+NAME                    = cub3D
 
-RM = rm -f
+LIBFT                   = ./libft/libft.a
 
-all: $(NAME)
+LIBFT_H                 = ./libft/libft.h
 
-$(NAME): $(OBJECTS) so_long.h
-	$(CC) $(CFLAGS) $(OBJECTS) -o $@ $(MLX_FLAGS)	
+LIBFT_SRCS              = 	./libft/ft_isalpha.c ./libft/ft_isdigit.c\
+							./libft/ft_isalnum.c ./libft/ft_isascii.c\
+							./libft/ft_isprint.c ./libft/ft_strlen.c \
+							./libft/ft_memset.c ./libft/ft_bzero.c\
+							./libft/ft_memcpy.c ./libft/ft_memmove.c\
+							./libft/ft_strlcpy.c ./libft/ft_strlcat.c\
+							./libft/ft_toupper.c ./libft/ft_tolower.c\
+							./libft/ft_strchr.c ./libft/ft_strrchr.c\
+							./libft/ft_strncmp.c ./libft/ft_memchr.c\
+							./libft/ft_memcmp.c ./libft/ft_strnstr.c\
+							./libft/ft_atoi.c ./libft/ft_calloc.c\
+							./libft/ft_strdup.c ./libft/ft_substr.c\
+							./libft/ft_strjoin.c ./libft/ft_strtrim.c\
+							./libft/ft_split.c ./libft/ft_itoa.c\
+							./libft/ft_strmapi.c ./libft/ft_striteri.c\
+							./libft/ft_putchar_fd.c ./libft/ft_putstr_fd.c\
+							./libft/ft_putendl_fd.c ./libft/ft_putnbr_fd.c\
+							./libft/ft_lstnew.c ./libft/ft_lstadd_front.c \
+							./libft/ft_lstsize.c ./libft/ft_lstlast.c\
+							./libft/ft_lstadd_back.c ./libft/ft_lstdelone.c \
+							./libft/ft_lstclear.c ./libft/ft_lstiter.c\
+							./libft/ft_lstmap.c ./libft/get_next_line.c\
+							./libft/ft_strllen.c ./libft/ft_strchar.c
 
-bonus: $(OBJECTS_BONNUS) $(BONUS_DIR)/so_long_bonus.h
-	$(CC) $(CFLAGS) $(OBJECTS_BONNUS) -o $(NAME) $(MLX_FLAGS)
+#######################################################################
 
-clean:
-	$(RM) $(OBJECTS) $(OBJECTS_BONNUS)
+############################ Rules Section ############################
 
-fclean:	clean
-	$(RM) $(NAME)
+all                     : $(NAME)
 
-re:	fclean $(NAME)
 
+%o                      : %c cub.h $(LIBFT) $(LIBFT_H)
+	gcc  -c $(FLAGS) $< -o $@
+
+$(LIBFT)                : $(LIBFT_SRCS) $(LIBFT_H)
+	make -C ./libft
+
+$(NAME)                 : $(LIBFT) $(OBJS)
+	gcc  $(FLAGS) $(OBJS) $(LIBFT) -o $(NAME) $(MLX_FLAGS)
+
+clean                   :
+	rm -f *.o
+	rm -f */*.o
+	make clean -C ./libft
+
+fclean                  : clean
+	rm -f $(NAME)
+	make fclean -C ./libft
+
+re                      : fclean all
+
+.PHONY                  : clean

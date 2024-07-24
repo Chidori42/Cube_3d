@@ -6,102 +6,70 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 11:42:46 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/01/25 00:15:05 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/07/24 01:25:45 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "cub.h"
 
 static void move_up(t_data *data)
 {
-    if (data->map[data->y - 1][data->x] != 'E')
-    {
-        data->map[data->y][data->x] = 0;
-		draw_pixel(data, 20, data->x * 50, data->y * 50, 0x000000);
-		ft_draw_lines(data, data->retate_y, data->retate_x, 0x000000);
-        data->y -= 1;
-        draw_pixel(data, 20, data->x * 50, data->y * 50, 0xFFFF00);
-		ft_draw_lines(data, data->retate_y, data->retate_x, 0xFFFF00);
-    }
+    data->map[(int)data->y0][(int)data->x0] = 0;
+    draw_pixel(data, 10, data->x0 * 50, data->y0 * 50, 0x000000);
+    data->y0 -= 0.25;
+    draw_pixel(data, 10, data->x0 * 50, data->y0 * 50, 0xFFFF00);
 }
 
 static void move_down(t_data *data)
 {
-    if (data->map[data->y + 1][data->x] != 'E')
-    {
-        data->map[data->y][data->x] = 0;
-		draw_pixel(data, 20, data->x * 50, data->y * 50, 0x000000);
-		ft_draw_lines(data, data->retate_y, data->retate_x, 0x000000);
-        data->y += 1;
-        draw_pixel(data, 20, data->x * 50, data->y * 50, 0xFFFF00);
-		ft_draw_lines(data, data->retate_y, data->retate_x, 0xFFFF00);
-    }
+    data->map[(int)data->y0][(int)data->x0] = 0;
+    draw_pixel(data, 10, data->x0 * 50, data->y0 * 50, 0x000000);
+    data->y0 += 0.25;
+    draw_pixel(data, 10, data->x0 * 50, data->y0 * 50, 0xFFFF00);
 }
 
 static void move_right(t_data *data)
 {
-    if (data->map[data->y][data->x + 1] != 'E')
-    {
-        data->map[data->y][data->x] = 0;
-		draw_pixel(data, 20, data->x * 50, data->y * 50, 0x000000);
-		ft_draw_lines(data, data->retate_y, data->retate_x, 0x000000);
-        data->x += 1;
-        draw_pixel(data, 20, data->x * 50, data->y * 50, 0xFFFF00);
-		ft_draw_lines(data, data->retate_y, data->retate_x, 0xFFFF00);
-    }
+    data->map[(int)data->y0][(int)data->x0] = 0;
+    draw_pixel(data, 10, data->x0 * 50, data->y0 * 50, 0x000000);
+    data->x0 += 0.25;
+    draw_pixel(data, 10, data->x0 * 50, data->y0 * 50, 0xFFFF00);
 }
 
-static void move_left(t_data *data)
-{
-    if (data->map[data->y][data->x - 1] != 'E')
-    {
-        data->map[data->y][data->x] = 0;
-		draw_pixel(data, 20, data->x * 50, data->y * 50, 0x000000);
-		ft_draw_lines(data, data->retate_y, data->retate_x, 0x000000);
-        data->x -= 1;
-        draw_pixel(data, 20, data->x * 50, data->y * 50, 0xFFFF00);
-		ft_draw_lines(data, data->retate_y, data->retate_x, 0xFFFF00);
-	}
+static void move_left(t_data *data) {
+    data->map[(int)data->y0][(int)data->x0] = 0;
+    draw_pixel(data, 10, data->x0 * 50, data->y0 * 50, 0x000000);
+    data->x0 -= 0.25;
+    draw_pixel(data, 10, data->x0 * 50, data->y0 * 50, 0xFFFF00);
 }
 
-int	key_press(int keycode, t_data *par)
+int	key_press(int keycode, t_data *args)
 {
-	printf("keycode: %d\n", keycode);
-	if (keycode == 119)
+    printf("keycode: %d\n", keycode);
+	// draw_direction_line(args, 0x000000);
+    if (keycode == 126)//a
 	{
-		ft_draw_lines(par, par->retate_y, par->retate_x, 0x000000);
-		par->retate_y += 1;
-		par->retate_x -= 1;
-		ft_draw_lines(par, par->retate_y, par->retate_x, 0xFFFF00);
+		if (args->map[(int)(args->y0 - 0.25)][(int)args->x0] != '1')
+			move_up(args);
 	}
-	if (keycode == 120)
+	else if (keycode == 125)//s
 	{
-		ft_draw_lines(par, par->retate_y, par->retate_x, 0x000000);
-		par->retate_y -= 1;
-		par->retate_x += 1;
-		ft_draw_lines(par, par->retate_y, par->retate_x, 0xFFFF00);
+		if (args->map[(int)(args->y0 + 0.25)][(int)args->x0] != '1')
+			move_down(args);
 	}
-	if (keycode ==  65362 || keycode == 122)
+	else if (keycode == 124)//d
 	{
-		if (par->map[par->y - 1][par->x] != '1')
-			move_up(par);
-	}
-	else if (keycode == 65364 || keycode == 115)
+		if (args->map[(int)args->y0][(int)(args->x0 + 0.25)] != '1')
+			move_right(args);
+	}	
+	else if (keycode == 123)//w
 	{
-		if (par->map[par->y + 1][par->x] != '1')
-			move_down(par);
+		if (args->map[(int)args->y0][(int)(args->x0 - 0.25)] != '1')
+			move_left(args);
 	}
-	else if (keycode == 65363 || keycode == 100)
-	{
-		if (par->map[par->y][par->x + 1] != '1')
-			move_right(par);
-	}
-	else if (keycode == 65361 || keycode == 113)
-	{
-		if (par->map[par->y][par->x - 1] != '1')
-			move_left(par);
-	}
-	else if (keycode == 65307)
-		exit(0);
-	return (0);
+    else if (keycode == 53)//esc
+        exit(0);
+	// draw_direction_line(args, 0xFF0000);
+	printf("x0: %f, y0: %f\n", args->x0, args->y0);
+    return (0);
 }
