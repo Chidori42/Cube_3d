@@ -46,10 +46,10 @@ int ft_pars_texters(t_data *args)
             args->ea = ft_strdup(p1[1]);
         else
             return (1);
-        if (p1[j + 1])
-            return (check_valid_path(p1[j + 1]));
+        if (p1[j + 1] && check_valid_path(p1[j + 1]))
+            return (1);
     }
     if (i != 4 || !args->no || !args->so || !args->we || !args->ea)
-        return (1);
+        return (printf("Error\ninvalid map\n"), 1);
     return (0);
 }

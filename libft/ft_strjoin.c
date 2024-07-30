@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ael-fagr <ael-fagr@student.42.fr>          #+#  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/02 20:18:32 by bramzil           #+#    #+#             */
-/*   Updated: 2024/07/23 23:51:42 by ael-fagr         ###   ########.fr       */
+/*   Created: 2024-07-29 20:41:00 by ael-fagr          #+#    #+#             */
+/*   Updated: 2024-07-29 20:41:00 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-
-
 
 char	*ft_strjoin(char *s1, char *s2)
 {

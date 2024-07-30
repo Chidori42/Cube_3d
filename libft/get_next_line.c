@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bramzil <bramzil@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ael-fagr <ael-fagr@student.42.fr>          #+#  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/03 19:27:09 by bramzil           #+#    #+#             */
-/*   Updated: 2024/01/18 12:44:50 by bramzil          ###   ########.fr       */
+/*   Created: 2024-07-29 20:42:52 by ael-fagr          #+#    #+#             */
+/*   Updated: 2024-07-29 20:42:52 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void	free_rst(char **str, int fd)
 {
-	if (0 < fd && fd <= OPEN_MAX)
+	if (0 < fd && fd <= 1024)
 	{
 		free (*str);
 		*str = NULL;
@@ -95,7 +95,7 @@ static char	*ft_realloc(char *ptr, size_t bf_len, size_t bf_sz)
 
 char	*get_next_line(int fd)
 {
-	static char		*rst[OPEN_MAX];
+	static char		*rst[1024];
 	char			*buf;
 	size_t			bf_len;
 	int				rb;

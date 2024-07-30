@@ -11,6 +11,7 @@ SRCS                    =	cub.c \
 							set_parametr.c \
 							ft_free_2dm.c \
 							ft_disperse_map.c \
+							./randring/ft_dda_algo.c \
 							./parsing/ft_pars_map.c \
 							./parsing/ft_pars_colors.c \
 							./parsing/ft_pars_texters.c\
@@ -20,8 +21,7 @@ SRCS                    =	cub.c \
 
 OBJS                    = $(SRCS:%c=%o)
 
-MLX_FLAGS               = -L /usr/local/lib -lmlx -framework OpenGL -framework AppKit
-
+MLX_FLAGS 				= -L/usr/local/lib -lmlx -lXext -lX11 -lm -lbsd
 FLAGS                   = -Wall -Wextra -Werror
 
 NAME                    = cub3D

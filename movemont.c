@@ -14,61 +14,67 @@
 
 static void move_up(t_data *data)
 {
-    data->map[(int)data->y0][(int)data->x0] = 0;
+    data->map[(int)data->y0][(int)data->x0] = '0';
     draw_pixel(data, 10, data->x0 * 50, data->y0 * 50, 0x000000);
     data->y0 -= 0.25;
     draw_pixel(data, 10, data->x0 * 50, data->y0 * 50, 0xFFFF00);
+	data->map[(int)data->y0][(int)data->x0] = 'P';
 }
 
 static void move_down(t_data *data)
 {
-    data->map[(int)data->y0][(int)data->x0] = 0;
+    data->map[(int)data->y0][(int)data->x0] = '0';
     draw_pixel(data, 10, data->x0 * 50, data->y0 * 50, 0x000000);
     data->y0 += 0.25;
     draw_pixel(data, 10, data->x0 * 50, data->y0 * 50, 0xFFFF00);
+	data->map[(int)data->y0][(int)data->x0] = 'P';
 }
 
 static void move_right(t_data *data)
 {
-    data->map[(int)data->y0][(int)data->x0] = 0;
+    data->map[(int)data->y0][(int)data->x0] = '0';
     draw_pixel(data, 10, data->x0 * 50, data->y0 * 50, 0x000000);
     data->x0 += 0.25;
     draw_pixel(data, 10, data->x0 * 50, data->y0 * 50, 0xFFFF00);
+	data->map[(int)data->y0][(int)data->x0] = 'P';
 }
 
 static void move_left(t_data *data) {
-    data->map[(int)data->y0][(int)data->x0] = 0;
+    data->map[(int)data->y0][(int)data->x0] = '0';
     draw_pixel(data, 10, data->x0 * 50, data->y0 * 50, 0x000000);
     data->x0 -= 0.25;
     draw_pixel(data, 10, data->x0 * 50, data->y0 * 50, 0xFFFF00);
+	data->map[(int)data->y0][(int)data->x0] = 'P';
 }
 
 int	key_press(int keycode, t_data *args)
 {
     printf("keycode: %d\n", keycode);
+	ft_dda_ago(args, args->wid - args->x0, 0, 0x000000);
 	// draw_direction_line(args, 0x000000);
-    if (keycode == 126)//a
+    if (keycode ==  65362 || keycode == 122)
 	{
-		if (args->map[(int)(args->y0 - 0.25)][(int)args->x0] != '1')
+		if (args->map[(int)(args->y0 - 0.25)][(int)(args->x0)] != '1')
 			move_up(args);
 	}
-	else if (keycode == 125)//s
+	else if (keycode == 65364 || keycode == 115)
 	{
 		if (args->map[(int)(args->y0 + 0.25)][(int)args->x0] != '1')
 			move_down(args);
 	}
-	else if (keycode == 124)//d
+	else if (keycode == 65363 || keycode == 100)
 	{
 		if (args->map[(int)args->y0][(int)(args->x0 + 0.25)] != '1')
 			move_right(args);
-	}	
-	else if (keycode == 123)//w
+	}
+	else if (keycode == 65361 || keycode == 113)
 	{
 		if (args->map[(int)args->y0][(int)(args->x0 - 0.25)] != '1')
 			move_left(args);
 	}
-    else if (keycode == 53)//esc
-        exit(0);
+	else if (keycode == 65307)
+		exit(0);
+	ft_dda_ago(args, args->wid - args->x0, 0, 0xFF0000);
 	// draw_direction_line(args, 0xFF0000);
 	printf("x0: %f, y0: %f\n", args->x0, args->y0);
     return (0);

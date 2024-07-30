@@ -19,20 +19,29 @@ static	int	ft_close(t_data *vars)
 	return (0);
 }
 
+int ft_valid_file(char *p)
+{
+	int i;
+
+	i = ft_strlen(p);
+	if (p[i - 1] != 'b' || p[i - 2] != 'u' || p[i - 3] != 'c' || p[i - 4] != '.')
+		return (ft_putendl_fd("Error\ninvalid file extantion", 2), 1);
+	return (0);
+}
+
 int	main(int ac, char **av)
 {
 	t_data	par;
 
 	if (ac == 2)
 	{
+		if (ft_valid_file(av[1]) || ft_diff_map(&par, ft_read_map(av[1])) == -1)
+			return (1); 
+		ft_setparam(&par);
+		if (ft_check_map(&par))
+			return (2);
 		par.mlx = mlx_init();
 		if (!par.mlx)
-			return (2);
-		if (ft_diff_map(&par, ft_read_map(av[1])) == -1)
-			return (1);
-		set_hei_and_wid(&par);
-		set_p(&par);
-		if (ft_check_map(&par))
 			return (2);
 		par.win = mlx_new_window(par.mlx, par.wid * 50, par.hei * 50, "cub3D");
 		if (!par.win)

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_disperse_map.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ael-fagr <ael-fagr@student.42.fr>          #+#  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024-07-29 20:48:30 by ael-fagr          #+#    #+#             */
+/*   Updated: 2024-07-29 20:48:30 by ael-fagr         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub.h"
 
 static char    **ft_disperse_map(char *file_map, int *index)
@@ -21,6 +33,19 @@ static char    **ft_disperse_map(char *file_map, int *index)
     return (tmp);
 }
 
+static int ft_check_valid_mp(t_data *args)
+{
+    int i;
+
+    i = -1;
+    while (args->map && args->map[++i])
+    {
+        if (args->map[i][0] == '\n' || args->map[i][0] == '\0')
+            return (ft_putendl_fd("Error\ninvalid map", 2), 1);
+    }
+    return (0);
+}
+
 int ft_diff_map(t_data *args, char *file_map)
 {
     int index;
@@ -31,7 +56,7 @@ int ft_diff_map(t_data *args, char *file_map)
         args->texters = ft_disperse_map(file_map, &index);
         args->colors = ft_disperse_map(file_map, &index);
         args->map = ft_disperse_map(file_map, &index);
-        if (!args->map || !args->colors || !args->texters)
+        if (!args->map || !args->colors || !args->texters || ft_check_valid_mp(args))
             return (-1);
     }
     free(file_map);
