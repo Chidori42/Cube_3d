@@ -12,22 +12,22 @@
 
 #include "../cub.h"
 
-int ft_dda_ago(t_data *args, int y1, int x1, int color)
+void dda_algo(t_data *args, float x1, float y1, float x2, float y2, int color)
 {
-    float dx = (float)x1 - args->x0; 
-    float dy = (float)y1 - args->y0; 
-   
-    float steps = fabs(dx) > fabs(dy) ? fabs(dx) : fabs(dy); 
+    float dx = x2 - x1;
+    float dy = y2 - y1;
+    int steps = fabs(dx) > fabs(dy) ? fabs(dx) : fabs(dy);
+    float x_inc = dx / (float)steps;
+    float y_inc = dy / (float)steps;
+    float x = x1;
+    float y = y1;
 
-    float Xinc = dx / steps * 0.25; 
-    float Yinc = dy / steps * 0.25; 
-    float X = args->x0; 
-    float Y = args->y0; 
-    for (int i = 0; i <= steps; i++) {
-        if (args->map[(int)Y][(int)X] == '1')
-            break ;
-        draw_pixel(args, 3, X * 50, Y * 50, color);
-        X += Xinc;
-        Y += Yinc;
-    } 
+    for (int i = 0; i <= steps; i++)
+    {
+        if (args->map[(int)(y / 50)][(int)(x / 50)] == '1')
+            return ;
+        draw_pixel(args, 1, x, y, color);
+        x += x_inc;
+        y += y_inc;
+    }
 }

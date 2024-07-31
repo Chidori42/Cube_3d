@@ -27,7 +27,10 @@
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 1486969768
 # endif 
-#define PI 3.1415926535
+#define MOVE_STEP 0.25
+#define PI 3.14159265358979323846
+#define FOV 60 // Field of view in degrees
+#define DEG_TO_RAD(deg) ((deg) * (PI / 180.0))
 
 typedef struct s_data
 {
@@ -56,7 +59,6 @@ typedef struct s_data
 void	draw_map(t_data *arg);
 char	*ft_read_map(char *p);
 void	ft_free_2dm(char **arr);
-void	set_param(t_data *args);
 size_t	check_flood(t_data *arg);
 void 	ft_setparam(t_data *args);
 int		ft_check_map(t_data *args);
@@ -64,8 +66,7 @@ int    	ft_pars_colors(t_data *args);
 int		ft_pars_texters(t_data *args);
 int		key_press(int keycode, t_data *par);
 int		ft_diff_map(t_data *args, char *file_map);
-void    draw_direction_line(t_data *data, int color);
-int		ft_dda_ago(t_data *args, int y1, int x1, int color);
 int		draw_pixel(t_data *data, int pixel_size, int a, int b, int color);
+void	dda_algo(t_data *args, float x1, float y1, float x2, float y2, int color);
 
 #endif

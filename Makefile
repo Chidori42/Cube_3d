@@ -7,7 +7,6 @@ SRCS                    =	cub.c \
 							draw_map.c \
 							ft_read_map.c \
 							movemont.c \
-							raycasting.c \
 							set_parametr.c \
 							ft_free_2dm.c \
 							ft_disperse_map.c \
@@ -22,7 +21,7 @@ SRCS                    =	cub.c \
 OBJS                    = $(SRCS:%c=%o)
 
 MLX_FLAGS 				= -L/usr/local/lib -lmlx -lXext -lX11 -lm -lbsd
-FLAGS                   = -Wall -Wextra -Werror
+FLAGS                   = -Wall -Wextra -Werror -g -fsanitize=address
 
 NAME                    = cub3D
 
