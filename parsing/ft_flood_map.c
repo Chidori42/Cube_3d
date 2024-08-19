@@ -3,27 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   ft_flood_map.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ael-fagr <ael-fagr@student.42.fr>          #+#  +:+       +#+        */
+/*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024-07-29 20:47:20 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024-07-29 20:47:20 by ael-fagr         ###   ########.fr       */
+/*   Created: 2024/07/29 20:47:20 by ael-fagr          #+#    #+#             */
+/*   Updated: 2024/08/16 20:04:16 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub.h"
 
-static	char **copy_map(t_data *args)
+static	char **copy_map(t_data *data, t_pars *args)
 {
 	int	i;
 	int	j;
 
 	i = 0;
-	args->cp_mp = (char **)malloc(sizeof(char *) * (args->hei + 1));
+	args->cp_mp = (char **)malloc(sizeof(char *) * (data->hei + 1));
     if (!(args->cp_mp))
         return (NULL);
 	while (args->map[i])
 	{
-		args->cp_mp[i] = (char *)malloc((args->wid + 1) * sizeof(char));
+		args->cp_mp[i] = (char *)malloc((data->wid + 1) * sizeof(char));
         if (!(args->cp_mp[i]))
             return (NULL);
 		j = 0;
@@ -39,7 +39,7 @@ static	char **copy_map(t_data *args)
     return (args->cp_mp);
 }
 
-static	void flood_fill(t_data *args, int x, int y)
+static	void flood_fill(t_pars *args, int x, int y)
 {
     if (args->cp_mp[y][x] == 32)
     {
@@ -58,14 +58,13 @@ static	void flood_fill(t_data *args, int x, int y)
 	}
 }
 
-size_t	check_flood(t_data *args)
+size_t	check_flood(t_data *data, t_pars *args)
 {
 	size_t	i;
 	size_t	j;
 
 	i = 0;
-	copy_map(args);
-    printf("x0 = %f, y0 = %f\n", args->x0, args->y0);
+	copy_map(data, args);
 	flood_fill(args, (int)args->x0, (int)args->y0);
 	while (args->cp_mp[i])
 	{

@@ -6,11 +6,18 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 03:37:07 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/07/24 07:54:32 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/08/19 03:21:16 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub.h"
+
+int is_white_space(char c)
+{
+    if (c == ' ' || (c >= 9 && c <= 13))
+        return (1);
+    return (0);
+}
 
 static int check_valid_path(char *str)
 {
@@ -23,7 +30,7 @@ static int check_valid_path(char *str)
     return (0);
 }
 
-int ft_pars_texters(t_data *args)
+int ft_pars_texters(t_pars *args)
 {
     int i;
     int j;
@@ -33,7 +40,7 @@ int ft_pars_texters(t_data *args)
     while (args->texters && args->texters[++i])
     {
         j = 0;
-        p1 = ft_split(args->texters[i], ' ');
+        p1 = my_split(args->texters[i]);
         if (!p1)
             return (-2);
         if (ft_strncmp(p1[j], "NO", 2) == 0)

@@ -6,17 +6,20 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 08:54:18 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/07/24 02:56:17 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/08/19 02:18:08 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-static	int	ft_close(t_data *vars)
+static	void	ft_close(void *param)
 {
-	mlx_destroy_window(vars->mlx, vars->win);
+	t_data *data;
+
+	data = param;
+	mlx_close_window(data->mlx);
+	mlx_terminate(data->mlx);
 	exit(0);
-	return (0);
 }
 
 int ft_valid_file(char *p)
@@ -31,24 +34,25 @@ int ft_valid_file(char *p)
 
 int	main(int ac, char **av)
 {
-	t_data	par;
+	t_data	data;
+	t_pars	args;
+	t_camera camera;
+	t_params params;
 
+	params.data = &data;
+	params.pars = &args;
+	params.camera = &camera;
 	if (ac == 2)
 	{
-		if (ft_valid_file(av[1]) || ft_diff_map(&par, ft_read_map(av[1])) == -1)
+		if (ft_valid_file(av[1]) || ft_diff_map(&args, ft_read_map(av[1])) == -1)
 			return (1); 
-		ft_setparam(&par);
-		if (ft_check_map(&par))
+		ft_setparam(&params);
+		if (ft_check_map(&data, &args))
 			return (2);
-		par.mlx = mlx_init();
-		if (!par.mlx)
-			return (2);
-		par.win = mlx_new_window(par.mlx, par.wid * 50, par.hei * 50, "cub3D");
-		if (!par.win)
-			return (2);
-		draw_map(&par);
-		mlx_hook(par.win, 2, 1L << 0, &key_press, &par);
-		mlx_hook(par.win, 17, 0L, &ft_close, &par);
-		mlx_loop(par.mlx);
+		init_mlx(&data);
+		draw_map(&data, &args);
+		mlx_loop_hook(data.mlx, key_press, &params);
+		mlx_close_hook(data.mlx, ft_close, &data);
+		mlx_loop(data.mlx);
 	}
 }

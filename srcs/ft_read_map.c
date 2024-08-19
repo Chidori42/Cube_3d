@@ -6,11 +6,11 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 11:42:52 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/07/24 04:12:05 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/08/18 00:31:12 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub.h"
+#include "../cub.h"
 
 static	void	check_empty_line(char *str)
 {

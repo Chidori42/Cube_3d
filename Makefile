@@ -4,13 +4,15 @@
 #Mandatory source files names.
 
 SRCS                    =	cub.c \
-							draw_map.c \
-							ft_read_map.c \
-							movemont.c \
-							set_parametr.c \
-							ft_free_2dm.c \
-							ft_disperse_map.c \
-							./randring/ft_dda_algo.c \
+							srcs/draw_map.c \
+							srcs/ft_read_map.c \
+							srcs/movemont.c \
+							srcs/set_parametr.c \
+							srcs/ft_free_2dm.c \
+							srcs/my_split.c \
+							srcs/ft_disperse_map.c \
+							rander/ft_draw_camera.c \
+							srcs/ft_allocate.c \
 							./parsing/ft_pars_map.c \
 							./parsing/ft_pars_colors.c \
 							./parsing/ft_pars_texters.c\
@@ -20,9 +22,8 @@ SRCS                    =	cub.c \
 
 OBJS                    = $(SRCS:%c=%o)
 
-MLX_FLAGS 				= -L/usr/local/lib -lmlx -lXext -lX11 -lm -lbsd
+MLX_FLAGS 				= ./MLX42/libmlx42.a -lglfw -L"/Users/$(USER)/.brew/opt/glfw/lib/"
 FLAGS                   = -Wall -Wextra -Werror -g -fsanitize=address
-
 NAME                    = cub3D
 
 LIBFT                   = ./libft/libft.a
@@ -61,13 +62,13 @@ all                     : $(NAME)
 
 
 %o                      : %c cub.h $(LIBFT) $(LIBFT_H)
-	gcc  -c $(FLAGS) $< -o $@
+	cc  -c $(FLAGS) $< -o $@
 
 $(LIBFT)                : $(LIBFT_SRCS) $(LIBFT_H)
 	make -C ./libft
 
 $(NAME)                 : $(LIBFT) $(OBJS)
-	gcc  $(FLAGS) $(OBJS) $(LIBFT) -o $(NAME) $(MLX_FLAGS)
+	cc  $(FLAGS) $(OBJS) $(LIBFT) -o $(NAME) $(MLX_FLAGS) 
 
 clean                   :
 	rm -f *.o

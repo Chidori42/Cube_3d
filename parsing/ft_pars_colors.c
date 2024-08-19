@@ -6,7 +6,7 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 02:57:49 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/07/24 08:21:36 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/08/19 03:20:23 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static int ft_check_digit(char *str)
     int i;
 
     i = -1;
-    while (str[++i])
+    while (str && str[++i])
     {
         if (!ft_isdigit(str[i]))
             return (1);
@@ -25,10 +25,24 @@ static int ft_check_digit(char *str)
     return (0);
 }
 
-static int check_c_and_f(t_data *args, char **p)
+static int check_valid_color(char *str)
 {
     int i;
-    int j;
+
+    i = 0;
+    while (str && str[i])
+    {
+        if ((str[i] == ',' && str[i + 1] == ',')
+            || (str[i] == ',' && str[i + 1] == '\0'))
+            return (ft_putendl_fd("Error\ninvalid color identify", 2), 1);
+        i++;
+    }
+    return (0);
+}
+
+static int check_c_and_f(t_pars *args, char **p)
+{
+    int i;
 
     i = -1;
     while (p && p[++i])
@@ -47,14 +61,15 @@ static int check_c_and_f(t_data *args, char **p)
         }
         else
         {
-            if (ft_check_digit(p[i]))
+            if (ft_check_digit(p[i]) || ft_atoi(p[i]) < 0
+                || ft_atoi(p[i]) > 255)
                 return (ft_putendl_fd("Error\ninvalid Number", 2), 1);
         }
     }
     return (0);
 }
 
-static int ft_check_colors(t_data *args, char **str)
+static int ft_check_colors(t_pars *args, char **str)
 {
     int i;
     char **p;
@@ -64,7 +79,7 @@ static int ft_check_colors(t_data *args, char **str)
     {
         if (i == 0)
         {
-            p = ft_split(str[i], ' ');
+            p = my_split(str[i]);
             if (p && check_c_and_f(args, p))
                 return (1);
         }
@@ -72,10 +87,12 @@ static int ft_check_colors(t_data *args, char **str)
             if (ft_check_digit(str[i]))
                 return (ft_putendl_fd("Error\ninvalid Number", 2), 1);
     }
+    if (i != 3)
+        return (ft_putendl_fd("Error\ninvalid Number", 2), 1);
     return (0);
 }
 
-int    ft_pars_colors(t_data *args)
+int    ft_pars_colors(t_pars *args)
 {
     int i;
     int j;
@@ -85,9 +102,11 @@ int    ft_pars_colors(t_data *args)
     while (args->colors && args->colors[++i])
     {
         j = 0;
-       p = ft_split(args->colors[i], ',');
-       if (!p)
-            return (-2);
+        if (check_valid_color(args->colors[i]))
+            return (1);
+        p = ft_split(args->colors[i], ',');
+        if (!p)
+            return (1);
         if (ft_check_colors(args, p) != 0)
             return (1);
     }

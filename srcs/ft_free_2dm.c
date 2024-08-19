@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_free_2dm.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ael-fagr <ael-fagr@student.42.fr>          #+#  +:+       +#+        */
+/*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024-07-29 20:48:41 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024-07-29 20:48:41 by ael-fagr         ###   ########.fr       */
+/*   Created: 2024/07/29 20:48:41 by ael-fagr          #+#    #+#             */
+/*   Updated: 2024/08/18 00:31:09 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub.h"
+#include "../cub.h"
 
 void	ft_free_2dm(char **arr)
 {
