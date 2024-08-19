@@ -3,8 +3,8 @@ SO ./textures/black.jpeg
 WE ./textures/black.jpeg
 EA ./textures/black.jpeg
 
-C 220,111,256
-F 25,250,256
+C 220,111,1
+F 25,250,255
 
         1111111111111111111111111
         1000000000110000000000001

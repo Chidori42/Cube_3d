@@ -6,7 +6,7 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 02:57:49 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/08/19 03:20:23 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/08/19 03:32:48 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,8 @@ static int ft_check_colors(t_pars *args, char **str)
                 return (1);
         }
         else
-            if (ft_check_digit(str[i]))
+            if (ft_check_digit(str[i]) || ft_atoi(str[i]) < 0
+                || ft_atoi(str[i]) > 255)
                 return (ft_putendl_fd("Error\ninvalid Number", 2), 1);
     }
     if (i != 3)
