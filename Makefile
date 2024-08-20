@@ -8,15 +8,13 @@ SRCS                    =	cub.c \
 							srcs/ft_read_map.c \
 							srcs/movemont.c \
 							srcs/set_parametr.c \
-							srcs/ft_free_2dm.c \
+							srcs/ft_free_resorses.c \
 							srcs/my_split.c \
 							srcs/ft_disperse_map.c \
 							rander/ft_draw_camera.c \
-							srcs/ft_allocate.c \
 							./parsing/ft_pars_map.c \
 							./parsing/ft_pars_colors.c \
 							./parsing/ft_pars_texters.c\
-							./parsing/ft_flood_map.c \
 
 #Mandatory object files name.
 

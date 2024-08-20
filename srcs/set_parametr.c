@@ -6,7 +6,7 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 11:42:58 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/08/18 22:58:20 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/08/20 03:56:40 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,6 @@ int init_mlx(t_data *data)
 
 void ft_setparam(t_params *param)
 {
-	ft_allocat_memory();
 	param->data->hei = 0;
 	param->data->wid = 0;
 	param->pars->pa = 0;
@@ -95,4 +94,5 @@ void ft_setparam(t_params *param)
 	param->pars->x1 = param->data->wid;
 	param->pars->y1 = param->data->hei;
 	set_p(param->pars);
+	init_camera(param->pars, param->camera);
 }

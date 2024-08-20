@@ -6,7 +6,7 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 05:43:32 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/08/19 03:14:19 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/08/20 04:01:32 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,6 @@ typedef struct s_pars
 	char		**map;
 	char		**texters;
 	char 		**colors;
-	char 		**cp_mp;
 } t_pars;
 
 typedef struct s_params
@@ -79,13 +78,12 @@ char	**my_split(char const *s);
 int 	is_white_space(char c);
 void	draw_map(t_data *data, t_pars *args);
 char	*ft_read_map(char *p);
-int 	ft_allocat_memory(void);
 void	ft_free_2dm(char **arr);
-size_t	check_flood(t_data *data, t_pars *args);
 void 	ft_setparam(t_params *param);
 int		ft_check_map(t_data *data, t_pars *args);
 int    	ft_pars_colors(t_pars *args);
 int		ft_pars_texters(t_pars *args);
+void 	ft_free_exit(t_params *param);
 void	key_press(void *p);
 int		ft_diff_map(t_pars *args, char *file_map);
 int		draw_pixel(t_data *data, int pixel_size, int a, int b, int color);

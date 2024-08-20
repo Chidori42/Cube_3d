@@ -6,7 +6,7 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 11:43:08 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/08/18 05:17:44 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/08/19 23:01:45 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ int draw_pixel(t_data *data, int pixel_size, int a, int b, int color)
     }
 	return (0);
 }
+
 void	draw_map(t_data *data, t_pars *args)
 {
     int i;

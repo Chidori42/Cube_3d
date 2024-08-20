@@ -6,7 +6,7 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 08:54:18 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/08/19 02:18:08 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/08/20 04:37:22 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,10 @@ int	main(int ac, char **av)
 	if (ac == 2)
 	{
 		if (ft_valid_file(av[1]) || ft_diff_map(&args, ft_read_map(av[1])) == -1)
-			return (1); 
+			return (ft_free_exit(&params), 1); 
 		ft_setparam(&params);
 		if (ft_check_map(&data, &args))
-			return (2);
+			return (ft_free_exit(&params), 1);
 		init_mlx(&data);
 		draw_map(&data, &args);
 		mlx_loop_hook(data.mlx, key_press, &params);

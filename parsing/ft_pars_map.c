@@ -6,7 +6,7 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 20:47:41 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/08/19 03:03:33 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/08/19 22:54:17 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,8 +109,8 @@ static int ft_count_player(t_pars *args)
 int ft_check_map(t_data *data, t_pars *args)
 {
     if (ft_check_valid_char(args) || ft_count_player(args)
-        || ft_check_borders(data, args) || check_flood(data, args)
-        || ft_pars_colors(args) || ft_pars_texters(args))
+        || ft_check_borders(data, args) || ft_pars_colors(args)
+        || ft_pars_texters(args))
         return (1);
     return (0);
 }
