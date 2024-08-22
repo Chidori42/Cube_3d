@@ -6,21 +6,11 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 08:54:18 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/08/20 04:37:22 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/08/22 10:32:15 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
-
-static	void	ft_close(void *param)
-{
-	t_data *data;
-
-	data = param;
-	mlx_close_window(data->mlx);
-	mlx_terminate(data->mlx);
-	exit(0);
-}
 
 int ft_valid_file(char *p)
 {
@@ -36,12 +26,10 @@ int	main(int ac, char **av)
 {
 	t_data	data;
 	t_pars	args;
-	t_camera camera;
 	t_params params;
 
 	params.data = &data;
 	params.pars = &args;
-	params.camera = &camera;
 	if (ac == 2)
 	{
 		if (ft_valid_file(av[1]) || ft_diff_map(&args, ft_read_map(av[1])) == -1)
@@ -49,10 +37,5 @@ int	main(int ac, char **av)
 		ft_setparam(&params);
 		if (ft_check_map(&data, &args))
 			return (ft_free_exit(&params), 1);
-		init_mlx(&data);
-		draw_map(&data, &args);
-		mlx_loop_hook(data.mlx, key_press, &params);
-		mlx_close_hook(data.mlx, ft_close, &data);
-		mlx_loop(data.mlx);
 	}
 }

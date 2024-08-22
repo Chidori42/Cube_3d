@@ -6,7 +6,7 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 20:48:30 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/08/20 04:22:53 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/08/20 22:46:31 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,11 @@ static char    **ft_disperse_map(char *file_map, int *index)
     while (file_map[++i])
     {
         if (file_map[i] == '\n' && file_map[i + 1] == '\n')
+        {
+            while(file_map[i] == '\n')
+                i++;
             break ;
+        }
     }
     str = ft_substr(file_map, *index, i - (*index));
     tmp = ft_split(str, '\n');
