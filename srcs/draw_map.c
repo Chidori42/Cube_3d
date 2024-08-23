@@ -6,7 +6,7 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 11:43:08 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/08/22 10:35:40 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/08/23 15:32:57 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,9 @@ void	draw_map(t_params *param)
                 draw_pixel(param->data, 49, i * 50, j * 50, 0xFFFFFF);
             else if (param->pars->map[j][i] == 'N' || param->pars->map[j][i] == 'S'
                 || param->pars->map[j][i] == 'W' || param->pars->map[j][i] == 'E')
-                draw_pixel(param->data, 10, i * 50, j * 50, 0xFF00FF);
-            // else if (args->map[j][i] == '0')
-            //     draw_pixel(data, 49, i * 50, j * 50, 0x000000);
+                draw_player(param, 0xFF00FF);
+            else if (param->pars->map[j][i] == '0')
+                draw_pixel(param->data, 49, i * 50, j * 50, 0x000000);
             i++;
         }
         j++;

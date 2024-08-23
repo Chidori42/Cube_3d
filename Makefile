@@ -6,10 +6,12 @@
 SRCS                    =	cub.c \
 							srcs/draw_map.c \
 							srcs/ft_read_map.c \
+							srcs/movemont.c \
 							srcs/set_parametr.c \
 							srcs/ft_free_resorses.c \
 							srcs/my_split.c \
 							srcs/ft_disperse_map.c \
+							srcs/ft_minimap.c \
 							./parsing/ft_pars_map.c \
 							./parsing/ft_pars_colors.c \
 							./parsing/ft_pars_texters.c\
@@ -19,7 +21,7 @@ SRCS                    =	cub.c \
 OBJS                    = $(SRCS:%c=%o)
 
 MLX_FLAGS 				= ./MLX42/libmlx42.a -lglfw -L"/Users/$(USER)/.brew/opt/glfw/lib/"
-FLAGS                   = -Wall -Wextra -Werror -g -fsanitize=address
+FLAGS                   = -Wall -Wextra -Werror
 NAME                    = cub3D
 
 LIBFT                   = ./libft/libft.a
