@@ -6,7 +6,7 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 05:43:32 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/08/23 15:44:25 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/08/24 12:16:30 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 #  define BUFFER_SIZE 1486969768
 # endif 
 #define MOVE_STEP 0.25
-#define PI 3.14159265358979323846
+#define PI 3.14159265359
 #define FOV 60
 #define DEG_TO_RAD(deg) ((deg) * (PI / 180.0))
 
@@ -36,6 +36,7 @@ typedef struct s_data
 {
 	mlx_t				*mlx;
 	mlx_image_t			*img;
+	mlx_image_t			*minimap;
 	int					fd;
 	int					hei;
 	int					wid;
@@ -83,9 +84,8 @@ int    	ft_pars_colors(t_pars *args);
 int		ft_pars_texters(t_pars *args);
 void 	ft_free_exit(t_params *param);
 void	key_press(void *p);
-int		ft_diff_map(t_pars *args, char *file_map);
+int 	ft_disperse_map(t_pars *args, char *file_map);
 int		draw_pixel(t_data *data, int pixel_size, int a, int b, int color);
-void 	draw_player(t_params *param, int color);
-void	draw_minimap(t_params *param);
+void 	create_minimap(t_params *param, int minimap_size);
 
 #endif

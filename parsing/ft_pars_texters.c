@@ -6,7 +6,7 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 03:37:07 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/08/20 21:52:37 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/08/24 13:43:49 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ char **ft_split_texter(char *str)
 
     i = 0;
     p = malloc(3 * sizeof(char *));
+    if (!p)
+        return (NULL);
     while (is_white_space(*str))
         str++;
     while (str[i] && !is_white_space(str[i]))
@@ -77,13 +79,13 @@ int ft_pars_texters(t_pars *args)
         p1 = ft_split_texter(args->texters[i]);
         if (!p1)
             return (-2);
-        if (ft_strncmp(p1[j], "NO", 2) == 0)
+        if (ft_strncmp(p1[j], "NO", ft_strlen(p1[j])) == 0)
             args->no = ft_strdup(p1[1]);
-        else if (ft_strncmp(p1[j], "SO", 2) == 0)
+        else if (ft_strncmp(p1[j], "SO", ft_strlen(p1[j])) == 0)
             args->so = ft_strdup(p1[1]);
-        else if (ft_strncmp(p1[j], "WE", 2) == 0)
+        else if (ft_strncmp(p1[j], "WE", ft_strlen(p1[j])) == 0)
             args->we = ft_strdup(p1[1]);
-        else if (ft_strncmp(p1[j], "EA", 2) == 0)
+        else if (ft_strncmp(p1[j], "EA", ft_strlen(p1[j])) == 0)
             args->ea = ft_strdup(p1[1]);
         else
             return (ft_putendl_fd("Error\ninvalid map", 2), ft_free_2dm(p1), 1);

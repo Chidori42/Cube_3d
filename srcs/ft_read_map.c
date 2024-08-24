@@ -6,7 +6,7 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 11:42:52 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/08/18 00:31:12 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/08/23 19:00:14 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ char	*ft_read_map(char *p)
 	while (line)
 	{
 		str = ft_strjoin(str, line);
-		free(line);
 		line = get_next_line(fd);
 	}
 	check_empty_line(str);

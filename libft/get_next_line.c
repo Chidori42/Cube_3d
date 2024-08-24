@@ -3,120 +3,100 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ael-fagr <ael-fagr@student.42.fr>          #+#  +:+       +#+        */
+/*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024-07-29 20:42:52 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024-07-29 20:42:52 by ael-fagr         ###   ########.fr       */
+/*   Created: 2024/07/29 20:42:52 by ael-fagr          #+#    #+#             */
+/*   Updated: 2024/08/24 11:40:01 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static void	free_rst(char **str, int fd)
+static char	*ft_get_line(char *buffer)
 {
-	if (0 < fd && fd <= 1024)
-	{
-		free (*str);
-		*str = NULL;
-	}
-}
+	size_t	i;
+	char	*str;
 
-static char	*ft_substring_part(char *rst, char *buf, size_t bf_len)
-{
-	size_t			len;
-	char			*line;
-
-	len = ft_strllen(buf, '\n');
-	line = ft_calloc((len + 1), 1);
-	if (!line)
+	i = 0;
+	if (buffer[i] == '\0' || !buffer)
 		return (NULL);
-	ft_bzero(line, len);
-	ft_memcpy(line, buf, len);
-	line[len] = '\0';
-	if (ft_strllen(buf, '\n') < bf_len)
-	{
-		len = bf_len - ft_strllen(buf, '\n');
-		ft_bzero(rst, len);
-		ft_memcpy(rst, (buf + ft_strllen(buf, '\n')), len);
-	}
-	return (line);
-}
-
-static char	*ft_substring(char **rst, char *buf, size_t bf_len)
-{
-	char		*line;
-
-	if (!buf)
+	while (buffer[i] && buffer[i] != '\n')
+		i++;
+	if (buffer[i] == '\n')
+		i++;
+	str = (char *)malloc(i + 1);
+	if (!str)
 		return (NULL);
-	else if (!bf_len)
-		return (free(buf), NULL);
-	else if (ft_strchar(buf, '\n'))
+	i = 0;
+	while (buffer[i] && buffer[i] != '\n')
 	{
-		line = ft_substring_part(*rst, buf, bf_len);
-		if (!line)
-			return (free(buf), free(*rst), *rst = NULL, NULL);
+		str[i] = buffer[i];
+		i++;
 	}
-	else
-	{
-		line = ft_calloc((bf_len + 1), 1);
-		if (!line)
-			return (free(buf), NULL);
-		ft_memcpy(line, buf, bf_len);
-	}
-	line[bf_len] = '\0';
-	return (free(buf), line);
+	if (buffer[i] == '\n')
+		str[i++] = '\n';
+	str[i] = '\0';
+	return (str);
 }
 
-static char	*ft_realloc(char *ptr, size_t bf_len, size_t bf_sz)
+static char	*ft_get_new_line(char *buffer)
 {
-	char		*rtn;
+	size_t	i;
+	size_t	j;
+	char	*str;
 
-	rtn = NULL;
-	if (!ptr && bf_sz)
+	i = 0;
+	while (buffer[i] && buffer[i] != '\n')
+		i++;
+	if (buffer[i] == '\0')
+		return (free(buffer), NULL);
+	str = malloc(ft_strlen(buffer) - i);
+	if (!str)
+		return (free(buffer), NULL);
+	i++;
+	j = 0;
+	while (buffer[i])
+		str[j++] = buffer[i++];
+	str[j] = '\0';
+	free (buffer);
+	return (str);
+}
+
+static char	*ft_read_fun(int fd, char *buffer)
+{
+	char	*new_buff;
+	int		_byte;
+
+	new_buff = (char *)malloc((size_t)BUFFER_SIZE + 1);
+	if (!new_buff)
+		return (free(buffer), NULL);
+	_byte = 1;
+	while (ft_strchr(buffer, '\n') == NULL && _byte > 0)
 	{
-		rtn = ft_calloc((bf_sz + 1), 1);
-		if (!rtn)
+		_byte = read(fd, new_buff, BUFFER_SIZE);
+		if (_byte == -1)
+			return (free(new_buff), free(buffer), NULL);
+		new_buff[_byte] = '\0';
+		buffer = ft_strjoin(buffer, new_buff);
+		if (!buffer)
 			return (NULL);
 	}
-	else if (ptr)
-	{
-		if (!bf_len)
-			bf_len = ft_strllen(ptr, '\0');
-		rtn = ft_calloc((bf_len + bf_sz + 1), 1);
-		if (!rtn)
-			return (free(ptr), NULL);
-		rtn[bf_len] = '\0';
-		ft_bzero((rtn + bf_len), bf_sz);
-		ft_memcpy(rtn, ptr, bf_len);
-		free (ptr);
-	}
-	return (rtn);
+	return (free(new_buff), buffer);
 }
 
 char	*get_next_line(int fd)
 {
-	static char		*rst[1024];
-	char			*buf;
-	size_t			bf_len;
-	int				rb;
+	char		*line;
+	static char	*buffer;
 
-	if ((read(fd, 0, 0) < 0) || (BUFFER_SIZE < 0) || (INT_MAX < BUFFER_SIZE))
-		return (free_rst(&rst[fd], fd), NULL);
-	buf = rst[fd];
-	rst[fd] = NULL;
-	rb = 1;
-	bf_len = ft_strllen(buf, '\0');
-	while (!ft_strchar(buf, '\n') && rb)
-	{
-		buf = ft_realloc(buf, bf_len, BUFFER_SIZE);
-		if (!buf)
-			return (free(rst[fd]), rst[fd] = NULL, NULL);
-		rb = read(fd, (buf + bf_len), BUFFER_SIZE);
-		bf_len += rb;
-	}
-	if (ft_strchar(buf, '\n') && (bf_len - ft_strllen(buf, '\n')))
-		rst[fd] = ft_calloc((bf_len - ft_strllen(buf, '\n') + 1), 1);
-	if (ft_strchr(buf, '\n') && (bf_len - ft_strllen(buf, '\n')) && !rst[fd])
-		return (free(buf), NULL);
-	return (ft_substring(&rst[fd], buf, bf_len));
+	if (fd < 0 || fd > OPEN_MAX || BUFFER_SIZE <= 0)
+		return (NULL);
+	buffer = ft_read_fun(fd, buffer);
+	if (!buffer)
+		return (NULL);
+	line = ft_get_line(buffer);
+	if (!line)
+		return (free(buffer), buffer = NULL, NULL);
+	buffer = ft_get_new_line(buffer);
+	return (line);
 }
