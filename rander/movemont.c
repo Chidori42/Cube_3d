@@ -6,7 +6,7 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 11:42:46 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/08/25 14:40:23 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/08/25 18:32:36 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ void draw_player_circle(t_params *param, int x, int y, int color)
     }
     mlx_put_pixel(param->data->img, x, y, 0x000FFF);
 }
-
 
 static void move_player(t_params *param, float dx, float dy)
 {
