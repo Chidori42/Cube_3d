@@ -6,14 +6,14 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 11:43:08 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/08/24 09:00:19 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/08/25 14:39:06 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub.h"
 
 
-int draw_pixel(t_data *data, int pixel_size, int a, int b, int color)
+int draw_pixel(mlx_image_t *img, float pixel_size, int a, int b, int color)
 {
     int i;
     int j;
@@ -25,7 +25,7 @@ int draw_pixel(t_data *data, int pixel_size, int a, int b, int color)
         j = 0;
         while (j < pixel_size)
         {
-            mlx_put_pixel(data->img, (a  + j), (b + i), color);
+            mlx_put_pixel(img, (a  + j), (b + i), color);
             j++;
         }
         i++;
@@ -46,9 +46,10 @@ void	draw_map(t_params *param)
         while (param->pars->map[j][i])
         {
             if (param->pars->map[j][i] == '1')
-                draw_pixel(param->data, 49, i * 50, j * 50, 0xFFFFFF);
+                draw_pixel(param->data->img, 49, i * 50, j * 50, 0xFFFFFFF);
             i++;
         }
         j++;
     }
+    draw_player_circle(param, param->player->x * 50, param->player->y * 50, 0xFF00FFF);
 }

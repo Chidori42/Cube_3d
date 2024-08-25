@@ -6,21 +6,21 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 08:54:18 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/08/24 12:22:13 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/08/25 12:28:59 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-// static	void	ft_close(void *param)
-// {
-// 	t_data *data;
+static	void	ft_close(void *param)
+{
+	t_data *data;
 
-// 	data = param;
-// 	mlx_close_window(data->mlx);
-// 	mlx_terminate(data->mlx);
-// 	exit(0);
-// }
+	data = param;
+	mlx_close_window(data->mlx);
+	mlx_terminate(data->mlx);
+	exit(0);
+}
 
 int ft_valid_file(char *p)
 {
@@ -49,11 +49,11 @@ int	main(int ac, char **av)
 		ft_setparam(&params);
 		if (ft_check_map(&data, &args))
 			return (1);
-		// init_mlx(&data);
-		// draw_map(&params);
-		// create_minimap(&params, 200);
-		// mlx_loop_hook(data.mlx, key_press, &params);
-		// mlx_close_hook(data.mlx, ft_close, &data);
-		// mlx_loop(data.mlx);
+		init_mlx(&data);
+		draw_map(&params);
+		create_minimap(&params);
+		mlx_loop_hook(data.mlx, key_press, &params);
+		mlx_close_hook(data.mlx, ft_close, &data);
+		mlx_loop(data.mlx);
 	}
 }

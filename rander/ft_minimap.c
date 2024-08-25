@@ -6,58 +6,46 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 14:54:35 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/08/24 10:06:44 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/08/25 12:52:09 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub.h"
 
-void draw_minimap_player(t_params *param, int color)
+void draw_minimap(t_params *param)
 {
-    int player_size = 5;
-    int x = param->player->x * player_size;
-    int y = param->player->y * player_size;
-    int map_width = param->data->wid;
-    int map_height = param->data->hei;
+    int x;
+    int y;
+    int color;
 
-    for (int i = 0; i < player_size; i++)
+    y = 0;
+    while (param->pars->map[y])
     {
-        for (int j = 0; j <= i; j++)
+        x = 0;
+        while (param->pars->map[y][x])
         {
-            if ((x - j >= 0) && (x + j < map_width) && (y + i >= 0) && (y + i < map_height))
-            {
-                mlx_put_pixel(param->data->img, x - j, y + i, color);
-                mlx_put_pixel(param->data->img, x + j, y + i, color);
-            }
+            if (param->pars->map[y][x] == '1')
+                color = 0xFFFFFF;
+            else
+                color = 0;
+            draw_pixel(param->data->minimap, 3, x * 5, y * 5, color);
+            x++;
         }
+        y++;
     }
-}
-
-void draw_minimap_circle(t_params *param, int x, int y, int radius, int color)
-{
-    int thickness = 1;
-    for (int i = -radius; i <= radius; i++)
-    {
-        for (int j = -radius; j <= radius; j++)
-        {
-            int distance_squared = i * i + j * j;
-            if (distance_squared <= (radius * radius) && distance_squared >= ((radius - thickness) * (radius - thickness)))
-                mlx_put_pixel(param->data->img, x + j, y + i, color);
-        }
-    }
-    draw_minimap_player(param, 0xFF0FF0);
+    draw_pixel(param->data->minimap, 1.5, param->player->x * 5, param->player->y * 5, 0xFF00FF);
 }
 
 
-void create_minimap(t_params *param, int minimap_size)
+void create_minimap(t_params *param)
 {
     mlx_delete_image(param->data->mlx, param->data->minimap);
-    param->data->minimap = mlx_new_image(param->data->mlx, minimap_size, minimap_size);
+    param->data->minimap = mlx_new_image(param->data->mlx, param->data->wid * 5, param->data->hei * 5);
     if (!param->data->minimap)
     {
         ft_putstr_fd("Error\nFailed to create minimap image", 2);
         exit(1);
     }
-    draw_minimap_circle(param, minimap_size / 2, minimap_size / 2, minimap_size / 2, 0xFF00FF);
+    draw_minimap(param);
     mlx_image_to_window(param->data->mlx, param->data->minimap, 0, 0);
 }

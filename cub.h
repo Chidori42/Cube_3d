@@ -6,7 +6,7 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 05:43:32 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/08/24 12:16:30 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/08/25 12:57:54 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 1486969768
 # endif 
-#define MOVE_STEP 0.25
+#define MOVE_STEP 0.1
 #define PI 3.14159265359
 #define FOV 60
 #define DEG_TO_RAD(deg) ((deg) * (PI / 180.0))
@@ -85,7 +85,8 @@ int		ft_pars_texters(t_pars *args);
 void 	ft_free_exit(t_params *param);
 void	key_press(void *p);
 int 	ft_disperse_map(t_pars *args, char *file_map);
-int		draw_pixel(t_data *data, int pixel_size, int a, int b, int color);
-void 	create_minimap(t_params *param, int minimap_size);
+int 	draw_pixel(mlx_image_t *img, float pixel_size, int a, int b, int color);
+void 	draw_player_circle(t_params *param, int x, int y, int color);
+void 	create_minimap(t_params *param);
 
 #endif

@@ -6,11 +6,32 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 11:42:46 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/08/24 10:03:14 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/08/25 14:40:23 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub.h"
+
+void draw_player_circle(t_params *param, int x, int y, int color)
+{
+    int i, j;
+    int r = 7;
+
+    for (i = -r; i <= r; i++)
+    {
+        for (j = -r; j <= r; j++)
+        {
+            if (i * i + j * j <= r * r)
+            {
+                int px = x + i;
+                int py = y + j;
+				mlx_put_pixel(param->data->img, px, py, color);
+            }
+        }
+    }
+    mlx_put_pixel(param->data->img, x, y, 0x000FFF);
+}
+
 
 static void move_player(t_params *param, float dx, float dy)
 {
@@ -25,7 +46,7 @@ static void move_player(t_params *param, float dx, float dy)
     }
 	mlx_image_to_window(param->data->mlx, param->data->img, 0, 0);
     draw_map(param);
-    create_minimap(param, 200);
+    create_minimap(param);
 }
 
 void key_press(void *p)

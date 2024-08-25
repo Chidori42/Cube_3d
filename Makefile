@@ -50,7 +50,8 @@ LIBFT_SRCS              = 	./libft/ft_isalpha.c ./libft/ft_isdigit.c\
 							./libft/ft_lstadd_back.c ./libft/ft_lstdelone.c \
 							./libft/ft_lstclear.c ./libft/ft_lstiter.c\
 							./libft/ft_lstmap.c ./libft/get_next_line.c\
-							./libft/ft_strllen.c ./libft/ft_strchar.c
+							./libft/ft_strllen.c ./libft/ft_strchar.c \
+							./libft/ft_strcmp.c
 
 #######################################################################
 
