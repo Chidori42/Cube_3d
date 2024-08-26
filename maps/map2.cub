@@ -1,13 +1,16 @@
+
 NO ./textures/black.jpeg
+
 C   220,111,1
 
 SO    ./textures/black.jpeg
 
 F   25,250,0
 
-WE ./textures/black.jpeg
+WE ./textures/black.jpeg     
 
 EA     ./textures/black.jpeg
+
         1111111111111111111111111    
         1000000000110000000000001   
         1011000001110000000000001

@@ -6,7 +6,7 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 20:48:30 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/08/24 13:37:13 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/08/26 15:51:06 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int ft_disperse_map(t_pars *args, char *file_map)
             map = ft_strjoin(map, file_map);
             break;
         }
-        file_map++;
+        file_map += i;
     }
     if (get_map_data(args, colors, texters, map))
         return (1);

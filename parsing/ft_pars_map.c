@@ -6,7 +6,7 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 20:47:41 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/08/24 13:36:42 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/08/26 15:39:40 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,13 +65,13 @@ static int ft_check_valid_char(t_data *data, t_pars *args)
     while (args->map && args->map[j])
     {
         i = 0;
-        while (args->map[j][i])
+        while (args->map[j] && args->map[j][i])
         {
             if (check_sides(data, args, i, j))
                 return (1);
             if (args->map[j][i] != '1' && args->map[j][i] != '0' && args->map[j][i] != 'N'
                 && args->map[j][i] != 'S' && args->map[j][i] != 'E' && args->map[j][i] != 'W'
-                && args->map[j][i] != 32)
+                && !is_white_space(args->map[j][i]))
             {
                 ft_putstr_fd("Error\ninvalid Character", 2);
                 return (1);
