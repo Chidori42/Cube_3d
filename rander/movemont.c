@@ -6,7 +6,7 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 11:42:46 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/08/26 16:10:17 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/08/27 13:33:50 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,9 @@ static void move_player(t_params *param, float dx, float dy)
     }
 	mlx_image_to_window(param->data->mlx, param->data->img, 0, 0);
     draw_map(param);
-    create_minimap(param);
+    int px = param->player->x * 50;
+    int py = param->player->y * 50;
+    draw_line(param, px, py, px + 50 * cos(0), py + 50 * sin(0), 0x00FFFF);
 }
 
 void key_press(void *p)

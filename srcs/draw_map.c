@@ -6,7 +6,7 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 11:43:08 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/08/25 14:39:06 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/08/26 18:22:52 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	draw_map(t_params *param)
 {
     int i;
     int j;
+    int mini_map_size = param->data->wid / 7;
 
     j = 0;
     i = 0;
@@ -44,12 +45,13 @@ void	draw_map(t_params *param)
     {
         i = 0;
         while (param->pars->map[j][i])
-        {
-            if (param->pars->map[j][i] == '1')
+        {     
+            if (param->pars->map[j][i] == '1' && !(j < mini_map_size && i < mini_map_size))
                 draw_pixel(param->data->img, 49, i * 50, j * 50, 0xFFFFFFF);
             i++;
         }
         j++;
     }
     draw_player_circle(param, param->player->x * 50, param->player->y * 50, 0xFF00FFF);
+    draw_minimap(param);
 }

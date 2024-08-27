@@ -6,7 +6,7 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 08:54:18 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/08/25 12:28:59 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/08/26 17:01:42 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	main(int ac, char **av)
 			return (1);
 		init_mlx(&data);
 		draw_map(&params);
-		create_minimap(&params);
+		// create_minimap(&params);
 		mlx_loop_hook(data.mlx, key_press, &params);
 		mlx_close_hook(data.mlx, ft_close, &data);
 		mlx_loop(data.mlx);

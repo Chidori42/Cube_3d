@@ -6,7 +6,7 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 05:43:32 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/08/25 12:57:54 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/08/26 20:13:44 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,6 @@ typedef struct s_data
 {
 	mlx_t				*mlx;
 	mlx_image_t			*img;
-	mlx_image_t			*minimap;
-	int					fd;
 	int					hei;
 	int					wid;
 }	t_data;
@@ -85,8 +83,9 @@ int		ft_pars_texters(t_pars *args);
 void 	ft_free_exit(t_params *param);
 void	key_press(void *p);
 int 	ft_disperse_map(t_pars *args, char *file_map);
+void 	draw_line(t_params *param, int start_x, int start_y, int end_x, int end_y, int color);
 int 	draw_pixel(mlx_image_t *img, float pixel_size, int a, int b, int color);
 void 	draw_player_circle(t_params *param, int x, int y, int color);
-void 	create_minimap(t_params *param);
+void 	draw_minimap(t_params *param);
 
 #endif

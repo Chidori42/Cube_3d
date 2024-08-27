@@ -11,6 +11,7 @@ SRCS                    =	cub.c \
 							srcs/my_split.c \
 							rander/movemont.c \
 							rander/ft_minimap.c \
+							rander/ft_presenham.c \
 							parsing/ft_disperse_map.c \
 							parsing/ft_pars_map.c \
 							parsing/ft_pars_colors.c \
