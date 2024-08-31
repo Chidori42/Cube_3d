@@ -4,11 +4,12 @@
 #Mandatory source files names.
 
 SRCS                    =	cub.c \
-							srcs/draw_map.c \
 							srcs/ft_read_map.c \
 							srcs/set_parametr.c \
 							srcs/ft_free_resorses.c \
+							srcs/ft_check_window_size.c \
 							srcs/my_split.c \
+							rander/draw_map.c \
 							rander/movemont.c \
 							rander/ft_minimap.c \
 							rander/ft_presenham.c \
@@ -22,7 +23,7 @@ SRCS                    =	cub.c \
 OBJS                    = $(SRCS:%c=%o)
 
 MLX_FLAGS 				= ./MLX42/libmlx42.a -lglfw -L"/Users/$(USER)/.brew/opt/glfw/lib/"
-FLAGS                   = -Wall -Wextra -Werror -g -fsanitize=address
+FLAGS                   = -Wall -Wextra -Werror
 NAME                    = cub3D
 
 LIBFT                   = ./libft/libft.a

@@ -6,7 +6,7 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 08:54:18 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/08/26 17:01:42 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/08/31 13:30:23 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ static	void	ft_close(void *param)
 	data = param;
 	mlx_close_window(data->mlx);
 	mlx_terminate(data->mlx);
+	ft_free_exit(param);
 	exit(0);
 }
 
@@ -32,6 +33,10 @@ int ft_valid_file(char *p)
 	return (0);
 }
 
+void fun()
+{
+	system("leaks cub3D");
+}
 int	main(int ac, char **av)
 {
 	t_data	data;
@@ -39,19 +44,21 @@ int	main(int ac, char **av)
 	t_player player;
 	t_params params;
 
+	atexit(fun);
 	params.data = &data;
 	params.pars = &args;
 	params.player = &player;
 	if (ac == 2)
 	{
-		if (ft_valid_file(av[1]) || ft_disperse_map(&args, ft_read_map(av[1])) == -1)
-			return (1); 
+		if (ft_valid_file(av[1]) || ft_disperse_map(&data, ft_read_map(av[1])) == -1)
+			return (ft_free_exit(&params), 1);
 		ft_setparam(&params);
 		if (ft_check_map(&data, &args))
-			return (1);
+			return (ft_free_exit(&params), 1);
 		init_mlx(&data);
+		if (ft_check_window_size(&data))
+			return (1);
 		draw_map(&params);
-		// create_minimap(&params);
 		mlx_loop_hook(data.mlx, key_press, &params);
 		mlx_close_hook(data.mlx, ft_close, &data);
 		mlx_loop(data.mlx);

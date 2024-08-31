@@ -6,7 +6,7 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 02:57:49 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/08/25 12:24:11 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/08/31 13:28:42 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ static int ft_check_colors(t_pars *args, char **str)
         {
             p = ft_split_color(str[i]);
             if (p && check_c_and_f(args, p))
-                return (1);
+                return (ft_free_2dm(p), 1);
             ft_free_2dm(p);
         }
         else
@@ -115,19 +115,19 @@ static int ft_check_colors(t_pars *args, char **str)
     return (0);
 }
 
-int    ft_pars_colors(t_pars *args)
+int    ft_pars_colors(t_data *data, t_pars *args)
 {
     int i;
     int j;
     char **p;
 
     i = -1;
-    while (args->colors && args->colors[++i])
+    while (data->colors && data->colors[++i])
     {
         j = 0;
-        if (check_valid_color(args->colors[i]))
+        if (check_valid_color(data->colors[i]))
             return (1);
-        p = ft_split(args->colors[i], ',');
+        p = ft_split(data->colors[i], ',');
         if (!p)
             return (1);
         if (ft_check_colors(args, p) != 0)

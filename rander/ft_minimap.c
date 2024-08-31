@@ -6,7 +6,7 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 14:54:35 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/08/26 20:34:12 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/08/29 10:55:33 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,12 @@ void draw_new_mini_map(t_params *param, int start_x, int start_y, int end_x, int
     int x, y;
 
     y = start_y;
-    while (param->pars->map[y] && y < end_y)
+    while (param->data->map[y] && y < end_y)
     {
         x = start_x;
-        while (param->pars->map[y][x] && x < end_x)
+        while (param->data->map[y][x] && x < end_x)
         {
-            if (param->pars->map[y][x] == '1')
+            if (param->data->map[y][x] == '1')
                 draw_pixel(param->data->img, 4, x * 5, y * 5, 0xFFFFFF);
             else
                 draw_pixel(param->data->img, 4, x * 5, y * 5, 0x00000000);
@@ -35,7 +35,7 @@ void draw_new_mini_map(t_params *param, int start_x, int start_y, int end_x, int
 
 void draw_minimap(t_params *param)
 {
-    int radius =  10;
+    int radius =  (param->data->hei * 50) / 5;
     int start_x = param->player->x - radius;
     int start_y = param->player->y - radius;
     int end_x = param->player->x + radius;

@@ -6,7 +6,7 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 05:43:32 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/08/26 20:13:44 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/08/29 13:43:35 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,15 @@
 #  define BUFFER_SIZE 1486969768
 # endif 
 #define MOVE_STEP 0.1
-#define PI 3.14159265359
-#define FOV 60
 #define DEG_TO_RAD(deg) ((deg) * (PI / 180.0))
 
 typedef struct s_data
 {
 	mlx_t				*mlx;
 	mlx_image_t			*img;
+	char				**map;
+	char				**texters;
+	char 				**colors;
 	int					hei;
 	int					wid;
 }	t_data;
@@ -47,7 +48,8 @@ typedef struct s_player
 	float 		dx;
 	float 		dy;
 	char 		p_char;
-	float 		theta;
+	float 		angle;
+	float 		fov;
 } 	t_player;
 
 typedef struct s_pars
@@ -58,9 +60,6 @@ typedef struct s_pars
 	char		*ea;
 	int			is_c;
 	int 		is_f;
-	char		**map;
-	char		**texters;
-	char 		**colors;
 } t_pars;
 
 typedef struct s_params
@@ -72,20 +71,22 @@ typedef struct s_params
 
 int 	init_mlx(t_data *data);
 char	**my_split(char const *s);
+void	set_hei_and_wid(t_data *data);
 int 	is_white_space(char c);
 void	draw_map(t_params *param);
 char	*ft_read_map(char *p);
 void	ft_free_2dm(char **arr);
 void 	ft_setparam(t_params *param);
 int		ft_check_map(t_data *data, t_pars *args);
-int    	ft_pars_colors(t_pars *args);
-int		ft_pars_texters(t_pars *args);
+int    	ft_pars_colors(t_data *data, t_pars *args);
+int 	ft_pars_texters(t_data *data, t_pars *args);
 void 	ft_free_exit(t_params *param);
 void	key_press(void *p);
-int 	ft_disperse_map(t_pars *args, char *file_map);
-void 	draw_line(t_params *param, int start_x, int start_y, int end_x, int end_y, int color);
+int		ft_disperse_map(t_data *data, char *file_map);
 int 	draw_pixel(mlx_image_t *img, float pixel_size, int a, int b, int color);
 void 	draw_player_circle(t_params *param, int x, int y, int color);
 void 	draw_minimap(t_params *param);
+void	draw_line(t_data *data, int x0, int y0, int x1, int y1, int color);
+int 	ft_check_window_size(t_data *data);
 
 #endif

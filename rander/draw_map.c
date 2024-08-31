@@ -6,7 +6,7 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 11:43:08 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/08/26 18:22:52 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/08/29 12:32:46 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,25 @@ int draw_pixel(mlx_image_t *img, float pixel_size, int a, int b, int color)
 	return (0);
 }
 
+void draw_minimap_border(mlx_image_t *img, int size)
+{
+    int i;
+    int j;
+
+    i = 0;
+    while (i < size)
+    {
+        j = 0;
+        while (j < size)
+        {
+            if (i == 0 || j == 0 || i == size - 1 || j == size - 1)
+                draw_pixel(img, 2, j, i, 0x00FFFF);
+            j++;
+        }
+        i++;
+    }
+}
+
 void	draw_map(t_params *param)
 {
     int i;
@@ -41,17 +60,18 @@ void	draw_map(t_params *param)
 
     j = 0;
     i = 0;
-    while (param->pars->map[j])
+    while (param->data->map[j])
     {
         i = 0;
-        while (param->pars->map[j][i])
+        while (param->data->map[j][i])
         {     
-            if (param->pars->map[j][i] == '1' && !(j < mini_map_size && i < mini_map_size))
+            if (param->data->map[j][i] == '1' && !(j < mini_map_size && i < mini_map_size))
                 draw_pixel(param->data->img, 49, i * 50, j * 50, 0xFFFFFFF);
             i++;
         }
         j++;
     }
     draw_player_circle(param, param->player->x * 50, param->player->y * 50, 0xFF00FFF);
-    draw_minimap(param);
+    // draw_minimap(param);
+    draw_minimap_border(param->data->img, mini_map_size * 40);
 }

@@ -6,7 +6,7 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 20:48:41 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/08/20 21:48:04 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/08/30 18:09:00 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,20 +27,20 @@ void	ft_free_2dm(char **arr)
 
 void ft_free_exit(t_params *param)
 {
-    if (param->pars->no)
-        free((param->pars->no));
-    if (param->pars->so)
-        free((param->pars->so));
-    if (param->pars->we)
-        free((param->pars->we));
-    if (param->pars->ea)
-        free((param->pars->ea));
-    if (param->pars->texters)
-        ft_free_2dm((param->pars->texters));
-    if (param->pars->colors)
-        ft_free_2dm((param->pars->colors));
-    if (param->pars->map)
-        ft_free_2dm((param->pars->map));
+    // if (param->pars->no)
+    //     free((param->pars->no));
+    // if (param->pars->so)
+    //     free((param->pars->so));
+    // if (param->pars->we)
+    //     free((param->pars->we));
+    // if (param->pars->ea)
+    //     free((param->pars->ea));
+    if (param->data->texters)
+        ft_free_2dm((param->data->texters));
+    if (param->data->colors)
+        ft_free_2dm((param->data->colors));
+    if (param->data->map)
+        ft_free_2dm((param->data->map));
     exit(0);
 }
  

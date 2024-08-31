@@ -6,32 +6,34 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 20:04:33 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/08/26 20:13:17 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/08/29 13:43:23 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub.h"
 
-void draw_line(t_params *param, int start_x, int start_y, int end_x, int end_y, int color)
+void draw_line(t_data *data, int x0, int y0, int x1, int y1, int color)
 {
-    int dy = end_y - start_y;
-    int dx = end_x - start_x;
-    int d = (2 * dy) - dx;
-    int step;
-    if (d > 0)
-        step = 2 * dy - 2 * dx;
-    else
-        step = 2 * dy;
-    while (start_x < end_x)
-    {
-        mlx_put_pixel(param->data->img, start_x, start_y, color);
-        if (d > 0)
-        {
-            start_y++;
-            d += step;
+    int dx = abs(x1 - x0);
+    int dy = abs(y1 - y0);
+    int sx = (x0 < x1) ? 1 : -1;
+    int sy = (y0 < y1) ? 1 : -1; 
+    int err = dx - dy;
+    int e2;
+
+    while (1) {
+        if (data->map[y0 / 50][x0 / 50] == '1')
+            break;
+        mlx_put_pixel(data->img, x0, y0, color);
+        if (x0 == x1 && y0 == y1) break;
+        e2 = 2 * err;
+        if (e2 > -dy) {
+            err -= dy;
+            x0 += sx;
         }
-        else
-            d += 2 * dy;
-        start_x++;
+        if (e2 < dx) {
+            err += dx;
+            y0 += sy;
+        }
     }
 }

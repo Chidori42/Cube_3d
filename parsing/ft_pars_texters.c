@@ -6,7 +6,7 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 03:37:07 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/08/24 13:43:49 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/08/27 20:19:56 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,17 +66,17 @@ char **ft_split_texter(char *str)
     return (p);
 }
 
-int ft_pars_texters(t_pars *args)
+int ft_pars_texters(t_data *data, t_pars *args)
 {
     int i;
     int j;
     char **p1;
 
     i = -1;
-    while (args->texters && args->texters[++i])
+    while (data->texters && data->texters[++i])
     {
         j = 0;
-        p1 = ft_split_texter(args->texters[i]);
+        p1 = ft_split_texter(data->texters[i]);
         if (!p1)
             return (-2);
         if (ft_strncmp(p1[j], "NO", ft_strlen(p1[j])) == 0)
