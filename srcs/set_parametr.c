@@ -6,7 +6,7 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 11:42:58 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/08/29 18:24:33 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/09/07 17:49:19 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,21 +15,19 @@
 void	set_hei_and_wid(t_data *data)
 {
 	int	j;
+	int len;
 
 	j = -1;
-	if (!data->map)
-	{
-		ft_putstr_fd("Error\ninvalid map", 2);
-		exit(1);
-	}
 	data->wid = 0;
 	data->hei = 0;
-	while (data->map[++j])
+	while (data->map && data->map[++j])
 	{
-		if ((int)ft_strlen(data->map[j]) > data->wid)
-			data->wid = (int)ft_strlen(data->map[j]);
+		len = (int)ft_strlen(data->map[j]);
+		while (is_white_space(data->map[j][len - 1]))
+			len--;
+		if (len > data->wid)
+			data->wid = len;
 	}
-	
 	data->hei = j;
 }
 
@@ -43,7 +41,7 @@ static void	init_player(t_params *param)
     param->player->fov = 60.0f;
 	param->player->dx = cos(param->player->angle);
 	param->player->dy = sin(param->player->angle);
-	while (param->data->map[j])
+	while (param->data->map && param->data->map[j])
 	{
 		i = 0;
 		while (param->data->map[j][i])

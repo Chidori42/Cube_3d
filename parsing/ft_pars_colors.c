@@ -6,7 +6,7 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 02:57:49 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/08/31 13:28:42 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/09/06 18:38:02 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static int check_valid_color(char *str)
     {
         if ((str[i] == ',' && str[i + 1] == ',')
             || (str[i] == ',' && str[i + 1] == '\0'))
-            return (ft_putendl_fd("Error\ninvalid color identify", 2), 1);
+            return (ft_putendl_fd("Error\ninvalid color identify1", 2), 1);
         i++;
     }
     return (0);
@@ -57,7 +57,7 @@ static int check_c_and_f(t_pars *args, char **p)
                     args->is_f++;
             }
             else
-                return (ft_putendl_fd("Error\ninvalid color identify", 2), 1);
+                return (ft_putendl_fd("Error\ninvalid color identify2", 2), 1);
         }
         else
         {
@@ -137,6 +137,6 @@ int    ft_pars_colors(t_data *data, t_pars *args)
     if (i != 2)
         return (ft_putstr_fd("Error\ninvalid number of colors", 2), 1);
     if (args->is_f != 1 || args->is_c != 1)
-        return (ft_putstr_fd("Error\ninvalid color identify", 2), 1);
+        return (ft_putstr_fd("Error\ninvalid color identify3", 2), 1);
     return (0);
 }

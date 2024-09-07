@@ -6,7 +6,7 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 20:47:41 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/08/28 02:02:07 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/09/07 16:57:37 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ static int ft_count_player(t_data *data)
 
     j = 0;
     count = 0;
-    while (data->map[j])
+    while (data->map && data->map[j])
     {
         i = 0;
         while (data->map[j][i])

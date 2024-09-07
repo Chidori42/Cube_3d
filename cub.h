@@ -6,7 +6,7 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 05:43:32 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/08/29 13:43:35 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/09/07 18:13:02 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,8 @@ int		ft_disperse_map(t_data *data, char *file_map);
 int 	draw_pixel(mlx_image_t *img, float pixel_size, int a, int b, int color);
 void 	draw_player_circle(t_params *param, int x, int y, int color);
 void 	draw_minimap(t_params *param);
+int 	ft_get_map(t_data *data, char *map);
+char    **ft_add_spaces(t_data *data, char **str);
 void	draw_line(t_data *data, int x0, int y0, int x1, int y1, int color);
 int 	ft_check_window_size(t_data *data);
 

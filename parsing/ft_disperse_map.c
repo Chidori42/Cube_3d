@@ -6,7 +6,7 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 20:48:30 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/08/31 13:26:43 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/09/07 18:29:39 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ char    **ft_add_spaces(t_data *data, char **str)
     int i;
     int j;
 
-    size = data->wid;
+    size = data->wid + 1;
     new_str = malloc(sizeof(char **) * (data->hei + 1));
     i = 0;
     while (str[i] && i < data->hei)
@@ -72,26 +72,26 @@ char    **ft_add_spaces(t_data *data, char **str)
     return (ft_free_2dm(str), new_str);
 }
 
-int get_map_data(t_data *data, char *colors, char *texters, char *map)
+int get_data(t_data *data, char *colors, char *texters, char *map)
 {
-    data->texters = ft_split(texters, '\n');
-    data->colors = ft_split(colors, '\n');
-    data->map = ft_split(map, '\n');
-    if (!data->texters || !data->colors || !data->map)
-    {
-        free(texters);
-        free(colors);
-        free(map);
-        return (ft_putstr_fd("Error\ninvalid map", 2), 1);
-    }
-    set_hei_and_wid(data);
-    data->map = ft_add_spaces(data, data->map);
-    if (!data->map)
+    data->map = NULL;
+    data->texters = NULL;
+    data->colors = NULL;
+    if (ft_get_map(data, map))
     {
         free(texters);
         free(colors);
         free(map);
         return (1);
+    }
+    data->texters = ft_split(texters, '\n');
+    data->colors = ft_split(colors, '\n');
+    if (!data->texters || !data->colors || !data->map)
+    {
+        free(texters);
+        free(colors);
+        free(map);
+        return (ft_putstr_fd("Error\ninvalid file informations", 2), 1);
     }
     free(texters);
     free(colors);
@@ -109,9 +109,9 @@ int ft_disperse_map(t_data *data, char *file_map)
 
     i = 0;
     tmp = file_map;
+    (void)data;
     while (file_map && file_map[i])
     {
-        i = 0;
         while (is_white_space(file_map[i]))
             i++;
         if ((!ft_strncmp(file_map + i, "NO", 2) || !ft_strncmp(file_map + i, "SO", 2)
@@ -124,10 +124,14 @@ int ft_disperse_map(t_data *data, char *file_map)
             map = ft_strjoin(map, file_map);
             break;
         }
+        while (file_map[i] == '\n')
+            i++;
         file_map += i;
+        i = 0;
     }
-    if (get_map_data(data, colors, texters, map))
-        return (free(tmp), 1);
-    return (free(tmp), 0);
+    free(tmp);
+    if (get_data(data, colors, texters, map))
+        return (1);
+    return (0);
 }
 
