@@ -6,7 +6,7 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 11:43:08 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/09/09 08:34:41 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/09/09 13:38:18 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	draw_map(t_params *param)
         while (param->data->map[j][i])
         {     
             if (param->data->map[j][i] == '1')
-                draw_pixel(param->data->img, 49, i * 50, j * 50, 0xFFFFFFF);
+                draw_pixel(param->data->img, 49, i * 50, j * 50, param->pars->ceiling_color);
             i++;
         }
         j++;

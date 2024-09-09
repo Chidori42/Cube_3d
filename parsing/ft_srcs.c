@@ -6,7 +6,7 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 18:07:16 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/09/09 12:04:10 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/09/09 13:40:25 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int ft_get_colore(int a, int b, int c)
 {
-    return (a << b << c);
+    return (a << 16 | b << 8 | c);
 }
 void ft_set_colore(t_pars *args)
 {
