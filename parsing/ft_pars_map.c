@@ -6,7 +6,7 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 20:47:41 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/09/07 16:57:37 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/09/09 08:37:55 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static int ft_check_borders(t_data *data)
     j = -1;
     while (data->map[0][++j])
         if (data->map[0][j] != '1' && !is_white_space(data->map[0][j]))
-            return (ft_putstr_fd("Error\ninvalid borders1", 2), 1);
+            return (ft_putstr_fd("Error\ninvalid borders", 2), 1);
     j = -1;
     while (data->map[++j])
         if (data->map[j][ft_strlen(data->map[j]) - 1] != '1' &&
@@ -28,17 +28,16 @@ static int ft_check_borders(t_data *data)
             return (ft_putstr_fd("Error\ninvalid borders", 2), 1);
     i = -1;
     j = data->hei - 1;
-    printf("hei: %d\n", j);
     while (data->map[j][++i])
         if (data->map[j][i] != '1' && !is_white_space(data->map[j][i]))
-            return (ft_putstr_fd("Error\ninvalid borders3", 2), 1);
+            return (ft_putstr_fd("Error\ninvalid borders", 2), 1);
     i = -1;
     while (data->map[++i])
     {
         j = -1;
         while (is_white_space(data->map[i][++j]));
         if (data->map[i][j] != '1')
-                return (ft_putstr_fd("Error\ninvalid borders4", 2), 1);
+                return (ft_putstr_fd("Error\ninvalid borders", 2), 1);
     }
     return (0);
 }

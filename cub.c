@@ -6,7 +6,7 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 08:54:18 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/09/07 18:30:38 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/09/09 08:36:17 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	main(int ac, char **av)
 	t_player player;
 	t_params params;
 
-	atexit(ff);
+	// atexit(ff);
 	params.data = &data;
 	params.pars = &args;
 	params.player = &player;
@@ -56,10 +56,9 @@ int	main(int ac, char **av)
 		ft_setparam(&params);
 		if (ft_check_map(&data, &args))
 			return (ft_free_exit(&params), 1);
-		ft_free_exit(&params);
-		// init_mlx(&data);
-		// if (ft_check_window_size(&data))
-		// 	return (1);
+		init_mlx(&data);
+		if (ft_check_window_size(&data))
+			return (1);
 		// draw_map(&params);
 		// mlx_loop_hook(data.mlx, key_press, &params);
 		// mlx_close_hook(data.mlx, ft_close, &data);
