@@ -27,6 +27,10 @@
 #  define BUFFER_SIZE 5
 # endif
 
+#ifndef OPEN_MAX
+#define OPEN_MAX 1024
+#endif
+
 //type definition for data structure used in bonus functions.
 
 typedef struct s_list
