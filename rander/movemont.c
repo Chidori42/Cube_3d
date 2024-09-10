@@ -6,7 +6,7 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 11:42:46 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/09/08 04:58:21 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/09/09 19:20:55 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void key_press(void *p)
     {
         move_player(param, 1);
     }
-    if (mlx_is_key_down(param->data->mlx, 'S'))
+    else if (mlx_is_key_down(param->data->mlx, 'S'))
     {
         param->player->dx = -param->player->dx;
         param->player->dy = -param->player->dy;
@@ -81,7 +81,7 @@ void key_press(void *p)
         param->player->dx = cos(param->player->angle);
         param->player->dy = sin(param->player->angle);
     }
-    if (mlx_is_key_down(param->data->mlx, 'D'))
+    else if (mlx_is_key_down(param->data->mlx, 'D'))
     {
         param->player->dx = cos(param->player->angle + M_PI / 2);
         param->player->dy = sin(param->player->angle + M_PI / 2);
@@ -89,7 +89,7 @@ void key_press(void *p)
         param->player->dx = cos(param->player->angle);
         param->player->dy = sin(param->player->angle);
     }
-    if (mlx_is_key_down(param->data->mlx, 'A'))
+    else if (mlx_is_key_down(param->data->mlx, 'A'))
     {
         param->player->dx = cos(param->player->angle - M_PI / 2);
         param->player->dy = sin(param->player->angle - M_PI / 2);
@@ -98,7 +98,7 @@ void key_press(void *p)
         param->player->dy = sin(param->player->angle);
     }
 
-    if (mlx_is_key_down(param->data->mlx, MLX_KEY_ESCAPE))
+    else if (mlx_is_key_down(param->data->mlx, MLX_KEY_ESCAPE))
     {
         ft_free_exit(param);
         mlx_close_window(param->data->mlx);

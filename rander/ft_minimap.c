@@ -6,44 +6,46 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 14:54:35 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/09/09 08:33:05 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/09/10 23:50:29 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub.h"
 
-void draw_square_minimap(t_params *param, int x, int y, int minimap_width, int minimap_height)
+void draw_centered_minimap(t_params *param, int tile_size, int minimap_width, int minimap_height)
 {
-    int i;
-    int j;
-    int color;
+    float i, j;
+    float map_x, map_y;
 
-    i = 0;
-    j = 0;
-    while (i < minimap_height)
+    float start_x = param->player->x - minimap_width / 2;
+    float start_y =  param->player->y - minimap_height / 2;
+
+    for (i = 0; i < minimap_height; i += 0.1)
     {
-        j = 0;
-        while (j < minimap_width)
+        for (j = 0; j < minimap_width; j += 0.1)
         {
-            if (param->data->map[(int)(i)][(int)(j)] == '1')
-                color = 0xFFFFFF;
-            else
-                color = 0x000000;
-            draw_pixel(param->data->img, 3, x + j, y + i, color);
-            j++;
+            map_x = start_x + j;
+            map_y = start_y + i;
+            if (map_x >= 0 && map_x < param->data->wid && map_y >= 0 && map_y < param->data->hei)
+            {
+                float draw_x = j * tile_size;
+                float draw_y = i * tile_size;
+                if (param->data->map[(int)map_y][(int)map_x] == '1')
+                    draw_pixel(param->data->img, tile_size / 10, draw_x, draw_y, 0xFFFFFF);
+                else if (param->data->map[(int)map_y][(int)map_x] == '0')
+                    draw_pixel(param->data->img, tile_size / 10, draw_x, draw_y, 0x0000FF);
+            }
         }
-        i++;
     }
+    int player_draw_x = (minimap_width / 2) * tile_size;
+    int player_draw_y = (minimap_height / 2) * tile_size;
+    draw_player_circle(param, player_draw_x, player_draw_y, 15, 0xFF00FF);
 }
 
 void draw_minimap(t_params *param)
 {
-    int minimap_width = 200;
-    int minimap_height = 200;
-    int minimap_x = 50;
-    int minimap_y = 50;
-
-    draw_square_minimap(param, minimap_x, minimap_y, minimap_width, minimap_height);
+    int tile_size = 45;
+    int minimap_width = 3; 
+    int minimap_height = 3;   
+    draw_centered_minimap(param, tile_size, minimap_width, minimap_height);
 }
-
-
