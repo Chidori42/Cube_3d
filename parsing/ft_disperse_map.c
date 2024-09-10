@@ -74,9 +74,6 @@ char    **ft_add_spaces(t_data *data, char **str)
 
 int get_data(t_data *data, char *colors, char *texters, char *map)
 {
-    data->map = NULL;
-    data->texters = NULL;
-    data->colors = NULL;
     if (ft_get_map(data, map))
     {
         free(texters);

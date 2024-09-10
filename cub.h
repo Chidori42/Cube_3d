@@ -96,6 +96,7 @@ int 	ft_check_digit(char *str);
 void	draw_line(t_data *data, int x0, int y0, int x1, int y1, int color);
 int 	ft_check_window_size(t_data *data);
 void 	ft_set_colore(t_pars *args);
+void	init_player(t_params *param);
 void 	draw_line(t_data *data, int x0, int y0, int x1, int y1, int color);
 
 #endif

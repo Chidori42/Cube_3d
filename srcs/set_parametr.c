@@ -31,7 +31,7 @@ void	set_hei_and_wid(t_data *data)
 	data->hei = j;
 }
 
-static void	init_player(t_params *param)
+void	init_player(t_params *param)
 {
 	int	i;
 	int	j;
@@ -75,11 +75,13 @@ int init_mlx(t_data *data)
 
 void ft_setparam(t_params *param)
 {
+	param->data->texters = NULL;
+	param->data->colors = NULL;
+	param->data->map = NULL;
 	param->pars->no = NULL;
 	param->pars->so = NULL;
 	param->pars->we = NULL;
 	param->pars->ea = NULL;
 	param->pars->is_c = 0;
 	param->pars->is_f = 0;
-	init_player(param);
 }

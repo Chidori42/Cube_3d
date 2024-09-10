@@ -44,21 +44,22 @@ int	main(int ac, char **av)
 	t_player player;
 	t_params params;
 
-	// atexit(ff);
+	atexit(ff);
 	params.data = &data;
 	params.pars = &args;
 	params.player = &player;
 	params.data->map = NULL;
 	if (ac == 2)
 	{
+		ft_setparam(&params);
 		if (ft_valid_file(av[1]) || ft_disperse_map(&data, ft_read_map(av[1])))
 			return (ft_free_exit(&params), 1);
-		ft_setparam(&params);
 		if (ft_check_map(&data, &args))
 			return (ft_free_exit(&params), 1);
 		init_mlx(&data);
 		if (ft_check_window_size(&data))
-			return (1);
+			return (ft_free_exit(&params), 1);
+		init_player(&params);
 		draw_map(&params);
 		mlx_loop_hook(data.mlx, key_press, &params);
 		mlx_close_hook(data.mlx, ft_close, &data);

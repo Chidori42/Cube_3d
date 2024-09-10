@@ -12,24 +12,18 @@
 
 #include "../cub.h"
 
-void draw_square_minimap(t_params *param, int x, int y, int minimap_width, int minimap_height)
+void ft_draw_square(t_data *data, int x, int y, int color)
 {
     int i;
     int j;
-    int color;
 
     i = 0;
-    j = 0;
-    while (i < minimap_height)
+    while (i < 10)
     {
         j = 0;
-        while (j < minimap_width)
+        while (j < 10)
         {
-            if (param->data->map[(int)(i)][(int)(j)] == '1')
-                color = 0xFFFFFF;
-            else
-                color = 0x000000;
-            draw_pixel(param->data->img, 3, x + j, y + i, color);
+            mlx_put_pixel(data->img, x * 10 + j, y * 10 + i, color);
             j++;
         }
         i++;
@@ -38,12 +32,27 @@ void draw_square_minimap(t_params *param, int x, int y, int minimap_width, int m
 
 void draw_minimap(t_params *param)
 {
-    int minimap_width = 200;
-    int minimap_height = 200;
-    int minimap_x = 50;
-    int minimap_y = 50;
+    int i;
+    int j;
 
-    draw_square_minimap(param, minimap_x, minimap_y, minimap_width, minimap_height);
+    i = param->player->x - 5;
+
+    while (i < param->player->x + 5)
+    {
+        j = param->player->y - 5;
+        while (j < param->player->y + 5)
+        {
+            if (i >= 0 && j >= 0 && i < param->data->wid && j < param->data->hei)
+            {
+                if (param->data->map[j][i] == '1')
+                    ft_draw_square(param->data, i - param->player->x + 5, j - param->player->y + 5, 0xFF00FF);
+                else if (param->data->map[j][i] == '0')
+                    ft_draw_square(param->data, i - param->player->x + 5, j - param->player->y + 5, 0x00000000);
+            }
+            j++;
+        }
+        i++;
+    }
 }
 
 
