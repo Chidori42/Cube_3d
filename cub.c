@@ -33,10 +33,6 @@ int ft_valid_file(char *p)
 	return (0);
 }
 
-void ff()
-{
-	system("leaks cub3D");
-}
 int	main(int ac, char **av)
 {
 	t_data	data;
@@ -44,7 +40,6 @@ int	main(int ac, char **av)
 	t_player player;
 	t_params params;
 
-	atexit(ff);
 	params.data = &data;
 	params.pars = &args;
 	params.player = &player;
