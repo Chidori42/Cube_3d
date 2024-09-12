@@ -6,33 +6,37 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 08:13:11 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/09/12 09:57:43 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/09/12 13:15:59 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub.h"
 
-void ft_init_texters(t_params *param, t_texture *texture, char *path)
+static t_texture   *ft_get_data(char *path)
 {
     mlx_texture_t *img;
+    t_texture *texture;
+    
+    texture = malloc(sizeof(t_texture));
+    if (!texture)
+        return (ft_putendl_fd("Error\nmalloc failed", 2), NULL);
     img = mlx_load_png(path);
+    if (!img)
+        return (ft_putendl_fd("Error\nloading texture failed", 2), NULL);
     texture->height = img->height;
     texture->width = img->width;
     texture->pixel_data = img->pixels;
     printf("height: %d\n", texture->height);
     printf("width: %d\n", texture->width);
-    for (int y = 0; y < texture->height; y++)
-    {
-        for (int x = 0; x < texture->width; x++)
-        {
-            unsigned int pixel_index = (y * texture->width + x) * 4;
-            unsigned int r = texture->pixel_data[pixel_index];
-            unsigned int g = texture->pixel_data[pixel_index + 1];
-            unsigned int b = texture->pixel_data[pixel_index + 2];
-            unsigned int a = texture->pixel_data[pixel_index + 3];
-            int color = a << 24 | r << 16 | g << 8 | b;
-            printf("Pixel at (%u, %u): color = %d \n", x, y, color);
-            draw_pixel(param->data->img, 3, x * 3, y * 3, color);
-        }
-    }
+    return (texture);
+}
+
+void ft_init_texters(t_params *param)
+{
+    param->pars->north = ft_get_data(param->pars->no);
+    param->pars->south = ft_get_data(param->pars->so);
+    param->pars->west = ft_get_data(param->pars->we);
+    param->pars->east = ft_get_data(param->pars->ea);
+
+    printf("south data %s \n", param->pars->south->pixel_data);
 }

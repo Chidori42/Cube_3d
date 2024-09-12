@@ -6,7 +6,7 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 05:43:32 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/09/12 09:56:43 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/09/12 12:59:14 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,10 +72,10 @@ typedef struct s_pars
 	int 		f[3];
 	int			floor_color;
 	int			ceiling_color;
-	mlx_texture_t	*north;
-	mlx_texture_t	*south;
-	mlx_texture_t	*west;
-	mlx_texture_t	*east;
+	t_texture	*north;
+	t_texture	*south;
+	t_texture	*west;
+	t_texture	*east;
 } t_pars;
 
 typedef struct s_params
@@ -110,6 +110,6 @@ void 	ft_set_colore(t_pars *args);
 void	key_press(void *p);
 void	init_player(t_params *param);
 void 	draw_line(t_data *data, int x0, int y0, int x1, int y1, int color);
-void 	ft_init_texters(t_params *param, t_texture *texture, char *path);
 int		ft_get_colore(int a, int b, int c);
+void	ft_init_texters(t_params *param);
 #endif
