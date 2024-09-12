@@ -6,7 +6,7 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 05:43:32 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/09/09 10:30:40 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/09/12 09:56:43 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,14 @@ typedef struct s_data
 	int					wid;
 }	t_data;
 
+typedef struct s_texture
+{
+	int 			height;
+	int 			width;
+	unsigned char 	*pixel_data;
+	
+} t_texture;
+
 typedef struct s_player
 {
 	float 		x;
@@ -64,6 +72,10 @@ typedef struct s_pars
 	int 		f[3];
 	int			floor_color;
 	int			ceiling_color;
+	mlx_texture_t	*north;
+	mlx_texture_t	*south;
+	mlx_texture_t	*west;
+	mlx_texture_t	*east;
 } t_pars;
 
 typedef struct s_params
@@ -85,7 +97,6 @@ int		ft_check_map(t_data *data, t_pars *args);
 int    	ft_pars_colors(t_data *data, t_pars *args);
 int 	ft_pars_texters(t_data *data, t_pars *args);
 void 	ft_free_exit(t_params *param);
-void	key_press(void *p);
 int		ft_disperse_map(t_data *data, char *file_map);
 int 	draw_pixel(mlx_image_t *img, float pixel_size, int a, int b, int color);
 void 	draw_player_circle(t_params *param, float x, float y, int size, int color);
@@ -96,7 +107,9 @@ int 	ft_check_digit(char *str);
 void	draw_line(t_data *data, int x0, int y0, int x1, int y1, int color);
 int 	ft_check_window_size(t_data *data);
 void 	ft_set_colore(t_pars *args);
+void	key_press(void *p);
 void	init_player(t_params *param);
 void 	draw_line(t_data *data, int x0, int y0, int x1, int y1, int color);
-
+void 	ft_init_texters(t_params *param, t_texture *texture, char *path);
+int		ft_get_colore(int a, int b, int c);
 #endif

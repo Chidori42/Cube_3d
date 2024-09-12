@@ -9,6 +9,7 @@ SRCS                    =	cub.c \
 							srcs/ft_check_window_size.c \
 							srcs/my_split.c \
 							srcs/ft_read_map.c \
+							rander/ft_texters.c \
 							rander/draw_map.c \
 							rander/movemont.c \
 							rander/ft_minimap.c \
@@ -23,8 +24,8 @@ SRCS                    =	cub.c \
 
 OBJS                    = $(SRCS:%c=%o)
 
-MLX_FLAGS 				= -L./MLX42 -lmlx42 -Iinclude -ldl -lglfw -pthread -lm
-FLAGS                   = -Wall -Wextra -Werror -g -fsanitize=address
+MLX_FLAGS 				= -L./MLX42 -lmlx42 -Iinclude -lglfw -L"/Users/$(USER)/.brew/opt/glfw/lib/" -lm
+FLAGS                   = -Wall -Wextra -Werror
 NAME                    = cub3D
 
 LIBFT                   = ./libft/libft.a
@@ -70,7 +71,7 @@ $(LIBFT)                : $(LIBFT_SRCS) $(LIBFT_H)
 	make -C ./libft
 
 $(NAME)                 : $(LIBFT) $(OBJS)
-	cc  $(FLAGS) $(OBJS) $(LIBFT) -o $(NAME) $(MLX_FLAGS) 
+	cc  $(FLAGS) $(LIBFT) $(OBJS) -o $(NAME) $(MLX_FLAGS) 
 
 clean                   :
 	rm -f *.o

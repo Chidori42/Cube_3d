@@ -6,7 +6,7 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 20:43:09 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/08/25 12:00:57 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/09/11 04:51:46 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,6 @@
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 5
 # endif
-
-#ifndef OPEN_MAX
-#define OPEN_MAX 1024
-#endif
 
 //type definition for data structure used in bonus functions.
 

@@ -6,7 +6,7 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 08:54:18 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/09/09 13:37:39 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/09/12 12:26:54 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ int	main(int ac, char **av)
 {
 	t_data	data;
 	t_pars	args;
+	// t_texture texters;
 	t_player player;
 	t_params params;
 
@@ -55,6 +56,7 @@ int	main(int ac, char **av)
 		if (ft_check_window_size(&data))
 			return (ft_free_exit(&params), 1);
 		init_player(&params);
+		// ft_init_texters(&params, &texters, args.no);
 		draw_map(&params);
 		mlx_loop_hook(data.mlx, key_press, &params);
 		mlx_close_hook(data.mlx, ft_close, &data);
