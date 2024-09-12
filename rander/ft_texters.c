@@ -6,7 +6,7 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 08:13:11 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/09/12 13:15:59 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/09/12 14:32:13 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,17 @@ static t_texture   *ft_get_data(char *path)
 void ft_init_texters(t_params *param)
 {
     param->pars->north = ft_get_data(param->pars->no);
-    param->pars->south = ft_get_data(param->pars->so);
-    param->pars->west = ft_get_data(param->pars->we);
-    param->pars->east = ft_get_data(param->pars->ea);
-
-    printf("south data %s \n", param->pars->south->pixel_data);
+    for (int i = 0; i < param->pars->north->height; i++)
+    {
+        for (int j = 0; j < param->pars->north->width; j++)
+        {
+            int pixel_index = (i * param->pars->north->width + j) * 4;
+            unsigned int r = param->pars->north->pixel_data[pixel_index];
+            unsigned int g = param->pars->north->pixel_data[pixel_index + 1];
+            unsigned int b = param->pars->north->pixel_data[pixel_index + 2];
+            unsigned int a = param->pars->north->pixel_data[pixel_index + 3];
+            uint32_t color = (r << 24) | (g << 16) | (b << 8) | a;
+            mlx_put_pixel(param->data->img, j, i, color);
+        }
+    }
 }
