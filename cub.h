@@ -6,7 +6,7 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 05:43:32 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/09/12 12:59:14 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/09/13 15:05:26 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,12 +104,11 @@ void 	draw_minimap(t_params *param);
 int 	ft_get_map(t_data *data, char *map);
 char    **ft_add_spaces(t_data *data, char **str);
 int 	ft_check_digit(char *str);
-void	draw_line(t_data *data, int x0, int y0, int x1, int y1, int color);
 int 	ft_check_window_size(t_data *data);
 void 	ft_set_colore(t_pars *args);
 void	key_press(void *p);
 void	init_player(t_params *param);
-void 	draw_line(t_data *data, int x0, int y0, int x1, int y1, int color);
+int 	draw_line(t_data *data, int x0, int y0, int x1, int y1, int color);
 int		ft_get_colore(int a, int b, int c);
 void	ft_init_texters(t_params *param);
 #endif

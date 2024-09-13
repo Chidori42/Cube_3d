@@ -6,7 +6,7 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 11:42:46 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/09/13 10:22:44 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/09/13 15:31:00 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,36 @@ void draw_player_circle(t_params *param, float x, float y, int size, int color)
     mlx_put_pixel(param->data->img, x, y, 0x00FF00);
 }
 
-void ft_cast_rays(t_params *param)
+int count_dis_to_wall(t_data *data, int x0, int y0, int x1, int y1)
+{
+    int dx = abs(x1 - x0);
+    int dy = abs(y1 - y0);
+    int sx = (x0 < x1) ? 1 : -1;
+    int sy = (y0 < y1) ? 1 : -1; 
+    int err = dx - dy;
+    int e2;
+    int hei = 0;
+
+    while (1)
+    {
+        if (data->map[y0 / 50][x0 / 50] == '1')
+            break;
+        if (x0 == x1 && y0 == y1) break;
+        e2 = 2 * err;
+        if (e2 > -dy) {
+            err -= dy;
+            x0 += sx;
+        }
+        if (e2 < dx) {
+            err += dx;
+            y0 += sy;
+        }
+        hei++;
+    }
+    return (hei);
+}
+
+void ft_rander_map(t_params *param)
 {
     double  player_x;
     double  player_y;
@@ -40,16 +69,22 @@ void ft_cast_rays(t_params *param)
     player_x = param->player->x * 50;
     player_y = param->player->y * 50;
     fov_angle = 60 * M_PI / 180.0;
-    num_rays = 100;
+    num_rays = param->data->wid * 50;
     line_length = param->data->wid * 50;
-    angle_step = fov_angle / num_rays; // angle between each ray
+    angle_step = fov_angle / num_rays;
     for (int i = 0; i <= num_rays; i++)
     {
         double ray_angle = param->player->angle - fov_angle / 2.0 + i * angle_step;
         double end_x = player_x + line_length * cos(ray_angle);
         double end_y = player_y + line_length * sin(ray_angle);
-
-        draw_line(param->data, player_x, player_y, end_x, end_y, param->pars->floor_color);
+        double dis_to_wall = count_dis_to_wall(param->data, player_x, player_y, end_x, end_y);
+        double wall_height = 64 / dis_to_wall * 277; 
+        double wall_start = param->data->hei * 50 / 2 - wall_height / 2;
+        double wall_end = param->data->hei * 50 / 2 + wall_height / 2;
+        for (int y = wall_start; y < wall_end; y++)
+        {
+           draw_pixel(param->data->img, 1, i , y, 0xFF00FF);
+        }
     }
 }
 
@@ -70,8 +105,9 @@ static void move_player(t_params *param, int m)
         param->player->x = new_x;
         param->player->y = new_y;
     }
-    draw_map(param);
-    ft_cast_rays(param);
+    // draw_map(param);
+    ft_rander_map(param);
+    draw_minimap(param);
 }
 
 void key_press(void *p)

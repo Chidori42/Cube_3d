@@ -6,13 +6,13 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 20:04:33 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/08/29 13:43:23 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/09/13 14:54:21 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub.h"
 
-void draw_line(t_data *data, int x0, int y0, int x1, int y1, int color)
+int draw_line(t_data *data, int x0, int y0, int x1, int y1, int color)
 {
     int dx = abs(x1 - x0);
     int dy = abs(y1 - y0);
@@ -20,6 +20,7 @@ void draw_line(t_data *data, int x0, int y0, int x1, int y1, int color)
     int sy = (y0 < y1) ? 1 : -1; 
     int err = dx - dy;
     int e2;
+    int hei = 0;
 
     while (1) {
         if (data->map[y0 / 50][x0 / 50] == '1')
@@ -35,5 +36,7 @@ void draw_line(t_data *data, int x0, int y0, int x1, int y1, int color)
             err += dx;
             y0 += sy;
         }
+        hei++;
     }
+    return (hei);
 }

@@ -6,7 +6,7 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 14:54:35 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/09/13 08:17:57 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/09/13 11:59:54 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,9 @@ void draw_centered_minimap(t_params *param, int tile_size, int minimap_width, in
             if (map_x >= 0 && map_x < param->data->wid && map_y >= 0 && map_y < param->data->hei)
             {
                 if (param->data->map[(int)map_y][(int)map_x] == '1')
-                    draw_pixel(param->data->img, 4, j * tile_size, i * tile_size, 0xFFFFFF);
+                    draw_pixel(param->data->img, 5, j * tile_size, i * tile_size, 0xFFFFFF);
                 else
-                    draw_pixel(param->data->img, 4, j * tile_size, i * tile_size, 0x0000FF);
+                    draw_pixel(param->data->img, 5, j * tile_size, i * tile_size, 0x0000FF);
             }
         }
     }
@@ -42,7 +42,7 @@ void draw_centered_minimap(t_params *param, int tile_size, int minimap_width, in
 
 void draw_minimap(t_params *param)
 {
-    int tile_size = 45;
+    int tile_size = 55;
     int minimap_width = 3; 
     int minimap_height = 3;   
     draw_centered_minimap(param, tile_size, minimap_width, minimap_height);

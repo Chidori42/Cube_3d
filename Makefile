@@ -25,7 +25,7 @@ SRCS                    =	cub.c \
 OBJS                    = $(SRCS:%c=%o)
 
 MLX_FLAGS 				= -L./MLX42 -lmlx42 -Iinclude -lglfw -L"/Users/$(USER)/.brew/opt/glfw/lib/" -lm
-FLAGS                   = -Wall -Wextra -Werror
+FLAGS                   = -Wall -Wextra -Werror -g -fsanitize=address
 NAME                    = cub3D
 
 LIBFT                   = ./libft/libft.a
