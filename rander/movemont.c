@@ -6,7 +6,7 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 11:42:46 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/09/11 05:32:48 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/09/13 10:22:44 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,39 @@ void draw_player_circle(t_params *param, float x, float y, int size, int color)
     mlx_put_pixel(param->data->img, x, y, 0x00FF00);
 }
 
+void ft_cast_rays(t_params *param)
+{
+    double  player_x;
+    double  player_y;
+    double  fov_angle;
+    double  line_length; 
+    int     num_rays;
+    double  angle_step;
+
+    player_x = param->player->x * 50;
+    player_y = param->player->y * 50;
+    fov_angle = 60 * M_PI / 180.0;
+    num_rays = 100;
+    line_length = param->data->wid * 50;
+    angle_step = fov_angle / num_rays; // angle between each ray
+    for (int i = 0; i <= num_rays; i++)
+    {
+        double ray_angle = param->player->angle - fov_angle / 2.0 + i * angle_step;
+        double end_x = player_x + line_length * cos(ray_angle);
+        double end_y = player_y + line_length * sin(ray_angle);
+
+        draw_line(param->data, player_x, player_y, end_x, end_y, param->pars->floor_color);
+    }
+}
+
 static void move_player(t_params *param, int m)
 {
-    unsigned int clr = 255 << 24 | 255 << 16 | 255 << 8 | 0;
+    unsigned int clear = 255 << 24 | 255 << 16 | 255 << 8 | 0;
     for (int i = 0; i < param->data->hei * 50; i++)
     {
         for (int j = 0; j < param->data->wid * 50; j++)
         {
-            mlx_put_pixel(param->data->img, j, i, clr);
+            mlx_put_pixel(param->data->img, j, i, clear);
         }
     }
     double new_x = param->player->x + param->player->dx * MOVE_STEP;
@@ -45,10 +70,8 @@ static void move_player(t_params *param, int m)
         param->player->x = new_x;
         param->player->y = new_y;
     }
-
     draw_map(param);
-    draw_line(param->data, param->player->x * 50, param->player->y * 50,
-              param->player->x * 50 + param->player->dx * 50, param->player->y * 50 + param->player->dy * 50, 0x00FFFF);
+    ft_cast_rays(param);
 }
 
 void key_press(void *p)
