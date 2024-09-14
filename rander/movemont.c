@@ -6,7 +6,7 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 11:42:46 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/09/13 15:31:00 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/09/14 08:19:02 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,15 @@ int count_dis_to_wall(t_data *data, int x0, int y0, int x1, int y1)
     }
     return (hei);
 }
+int get_pixel_color (t_texture *texture, int x, int y)
+{
+    int color;
+    unsigned char *color_ptr;
+
+    color_ptr = texture->pixel_data + (y * texture->width + x) * 4;
+    color = color_ptr[0] << 24 | color_ptr[1] << 16 | color_ptr[2] << 8 | color_ptr[3];
+    return (color);
+}
 
 void ft_rander_map(t_params *param)
 {
@@ -78,12 +87,14 @@ void ft_rander_map(t_params *param)
         double end_x = player_x + line_length * cos(ray_angle);
         double end_y = player_y + line_length * sin(ray_angle);
         double dis_to_wall = count_dis_to_wall(param->data, player_x, player_y, end_x, end_y);
-        double wall_height = 64 / dis_to_wall * 277; 
+        double wall_height = 64 / dis_to_wall * 277;
         double wall_start = param->data->hei * 50 / 2 - wall_height / 2;
         double wall_end = param->data->hei * 50 / 2 + wall_height / 2;
         for (int y = wall_start; y < wall_end; y++)
         {
-           draw_pixel(param->data->img, 1, i , y, 0xFF00FF);
+            if (y < 0 || y >= param->data->hei * 50)
+                continue;
+            mlx_put_pixel(param->data->img, i, y, 0x00FF00FF);
         }
     }
 }
