@@ -6,7 +6,7 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 05:43:32 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/09/13 15:05:26 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/09/14 09:38:10 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,4 +111,5 @@ void	init_player(t_params *param);
 int 	draw_line(t_data *data, int x0, int y0, int x1, int y1, int color);
 int		ft_get_colore(int a, int b, int c);
 void	ft_init_texters(t_params *param);
+void	ft_rander_map(t_params *param);
 #endif

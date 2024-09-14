@@ -6,7 +6,7 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 11:43:08 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/09/13 11:45:25 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/09/14 09:38:34 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ void	draw_map(t_params *param)
     //     }
     //     j++;
     // }
-    draw_player_circle(param, param->player->x * 50, param->player->y * 50, 15, 0xFF00FF);
+    // draw_player_circle(param, param->player->x * 50, param->player->y * 50, 15, 0xFF00FF);
+    ft_rander_map(param);
     draw_minimap(param);
 }

@@ -6,7 +6,7 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 11:42:46 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/09/14 08:19:02 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/09/14 10:08:35 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ int count_dis_to_wall(t_data *data, int x0, int y0, int x1, int y1)
     int e2;
     int hei = 0;
 
+    (void)data;
     while (1)
     {
         if (data->map[y0 / 50][x0 / 50] == '1')
@@ -88,8 +89,8 @@ void ft_rander_map(t_params *param)
         double end_y = player_y + line_length * sin(ray_angle);
         double dis_to_wall = count_dis_to_wall(param->data, player_x, player_y, end_x, end_y);
         double wall_height = 64 / dis_to_wall * 277;
-        double wall_start = param->data->hei * 50 / 2 - wall_height / 2;
-        double wall_end = param->data->hei * 50 / 2 + wall_height / 2;
+        double wall_start = param->data->hei * 50 / 2 - wall_height;
+        double wall_end = param->data->hei * 50 / 2 + wall_height;
         for (int y = wall_start; y < wall_end; y++)
         {
             if (y < 0 || y >= param->data->hei * 50)
