@@ -6,7 +6,7 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 20:48:30 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/09/07 18:29:39 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/09/14 14:33:06 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,12 +49,14 @@ char    **ft_add_spaces(t_data *data, char **str)
 
     size = data->wid + 1;
     new_str = malloc(sizeof(char **) * (data->hei + 1));
+    if (!new_str)
+        return (ft_free_2dm(str), NULL);
     i = 0;
     while (str[i] && i < data->hei)
     {
         new_str[i] = malloc(sizeof(char) * (size + 1));
         if (!new_str[i])
-            return (NULL);
+            return (ft_free_2dm(str), NULL);
         j = 0;
         len = ft_strlen(str[i]);
         while (j < size)

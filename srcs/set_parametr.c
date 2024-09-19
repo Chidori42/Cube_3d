@@ -6,7 +6,7 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 11:42:58 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/09/07 17:49:19 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/09/19 14:02:29 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	init_player(t_params *param)
 
 int init_mlx(t_data *data)
 {
-	data->mlx = mlx_init(data->wid * 50, data->hei * 50, "cub3D", true);
+	data->mlx = mlx_init(1900, 1000, "cub3D", true);
 	data->img = mlx_new_image(data->mlx, data->wid * 50, data->hei * 50);
 	if (mlx_image_to_window(data->mlx, data->img, 0, 0) == -1
 		|| !data->mlx || !data->img)
@@ -84,4 +84,5 @@ void ft_setparam(t_params *param)
 	param->pars->ea = NULL;
 	param->pars->is_c = 0;
 	param->pars->is_f = 0;
+	param->menu->check = 0;
 }

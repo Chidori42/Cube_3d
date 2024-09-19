@@ -9,6 +9,8 @@ SRCS                    =	cub.c \
 							srcs/ft_check_window_size.c \
 							srcs/my_split.c \
 							srcs/ft_read_map.c \
+							rander/ft_menu.c \
+							rander/ft_mlx_loop.c \
 							rander/ft_texters.c \
 							rander/draw_map.c \
 							rander/movemont.c \
@@ -24,7 +26,12 @@ SRCS                    =	cub.c \
 
 OBJS                    = $(SRCS:%c=%o)
 
-MLX_FLAGS 				= -L./MLX42 -lmlx42 -Iinclude -lglfw -L"/Users/$(USER)/.brew/opt/glfw/lib/" -lm
+MLX_REPO 		= if [ ! -d "MLX42" ]; then git clone https://github.com/codam-coding-college/MLX42; fi
+MLX_DIR 		= ./MLX42
+MLX_BUILD_DIR 	= $(MLX_DIR)/build
+MLX_LIB			= $(MLX_BUILD_DIR)/libmlx42.a
+
+MLX_FLAGS 				= -L$(MLX_BUILD_DIR) -lmlx42 -Iinclude -lglfw -L"/Users/$(USER)/.brew/opt/glfw/lib/" -lm
 FLAGS                   = -Wall -Wextra -Werror -g -fsanitize=address
 NAME                    = cub3D
 
@@ -63,15 +70,19 @@ LIBFT_SRCS              = 	./libft/ft_isalpha.c ./libft/ft_isdigit.c\
 
 all                     : $(NAME)
 
-
 %o                      : %c cub.h $(LIBFT) $(LIBFT_H)
 	cc  -c $(FLAGS) $< -o $@
+
+$(NAME)                 : $(MLX_LIB) $(LIBFT) $(OBJS)
+	cc  $(FLAGS) $(LIBFT) $(OBJS) -o $(NAME) $(MLX_FLAGS) 
+
+$(MLX_LIB):
+	$(MLX_REPO)
+	cd $(MLX_DIR) && cmake -B build && make -C build
 
 $(LIBFT)                : $(LIBFT_SRCS) $(LIBFT_H)
 	make -C ./libft
 
-$(NAME)                 : $(LIBFT) $(OBJS)
-	cc  $(FLAGS) $(LIBFT) $(OBJS) -o $(NAME) $(MLX_FLAGS) 
 
 clean                   :
 	rm -f *.o
@@ -80,6 +91,7 @@ clean                   :
 
 fclean                  : clean
 	rm -f $(NAME)
+	rm -f $(MLX_LIB)
 	make fclean -C ./libft
 
 re                      : fclean all

@@ -6,13 +6,13 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 08:13:11 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/09/14 08:00:52 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/09/18 14:47:12 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub.h"
 
-static t_texture   *ft_get_data(char *path)
+t_texture   *ft_get_data(char *path)
 {
     mlx_texture_t *img;
     t_texture *texture;
@@ -26,12 +26,13 @@ static t_texture   *ft_get_data(char *path)
     texture->height = img->height;
     texture->width = img->width;
     texture->pixel_data = img->pixels;
-    printf("height: %d\n", texture->height);
-    printf("width: %d\n", texture->width);
     return (texture);
 }
 
 void ft_init_texters(t_params *param)
 {
     param->pars->north = ft_get_data(param->pars->no);
+    param->pars->south = ft_get_data(param->pars->so);
+    param->pars->west = ft_get_data(param->pars->we);
+    param->pars->east = ft_get_data(param->pars->ea);
 }

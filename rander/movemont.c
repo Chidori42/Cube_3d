@@ -6,13 +6,13 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 11:42:46 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/09/14 10:08:35 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/09/19 14:22:30 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub.h"
 
-void draw_player_circle(t_params *param, float x, float y, int size, int color)
+void draw_player_circle(mlx_image_t *img, float x, float y, int size, int color)
 {
     int i, j;
     int r = size / 2;
@@ -22,10 +22,10 @@ void draw_player_circle(t_params *param, float x, float y, int size, int color)
         for (j = -r; j < r; j++)
         {
             if (i * i + j * j <= r * r)
-                draw_pixel(param->data->img, 1, x + i, y + j, color);
+                draw_pixel(img, 1, x + i, y + j, color);
         }
     }
-    mlx_put_pixel(param->data->img, x, y, 0x00FF00);
+    mlx_put_pixel(img, x, y, 0x00FF00);
 }
 
 int count_dis_to_wall(t_data *data, int x0, int y0, int x1, int y1)
@@ -71,31 +71,29 @@ void ft_rander_map(t_params *param)
 {
     double  player_x;
     double  player_y;
-    double  fov_angle;
     double  line_length; 
     int     num_rays;
     double  angle_step;
 
     player_x = param->player->x * 50;
     player_y = param->player->y * 50;
-    fov_angle = 60 * M_PI / 180.0;
-    num_rays = param->data->wid * 50;
     line_length = param->data->wid * 50;
-    angle_step = fov_angle / num_rays;
+    num_rays = param->data->wid * 50;
+    angle_step = (DEG_TO_RAD(60) / num_rays);
     for (int i = 0; i <= num_rays; i++)
     {
-        double ray_angle = param->player->angle - fov_angle / 2.0 + i * angle_step;
+        double ray_angle = param->player->angle - DEG_TO_RAD(60) / 2.0 + i * angle_step;
         double end_x = player_x + line_length * cos(ray_angle);
         double end_y = player_y + line_length * sin(ray_angle);
-        double dis_to_wall = count_dis_to_wall(param->data, player_x, player_y, end_x, end_y);
-        double wall_height = 64 / dis_to_wall * 277;
-        double wall_start = param->data->hei * 50 / 2 - wall_height;
-        double wall_end = param->data->hei * 50 / 2 + wall_height;
+        double wall_distance = count_dis_to_wall(param->data, player_x, player_y, end_x, end_y);
+        double wall_height = (60 * 277) / wall_distance;
+        double wall_start = (param->data->hei * 50 / 2) - (wall_height / 2);
+        double wall_end = (param->data->hei * 50 / 2) + (wall_height / 2);
         for (int y = wall_start; y < wall_end; y++)
         {
-            if (y < 0 || y >= param->data->hei * 50)
-                continue;
-            mlx_put_pixel(param->data->img, i, y, 0x00FF00FF);
+            if (y < 0 || y > (param->data->hei * 50))
+                continue;;
+            mlx_put_pixel(param->data->img, i, y, param->pars->floor_color);
         }
     }
 }
@@ -119,7 +117,8 @@ static void move_player(t_params *param, int m)
     }
     // draw_map(param);
     ft_rander_map(param);
-    draw_minimap(param);
+    if (draw_minimap(param) != 0)
+        ft_free_exit(param);
 }
 
 void key_press(void *p)
@@ -173,6 +172,12 @@ void key_press(void *p)
         param->player->dy = sin(param->player->angle);
     }
 
+    if (mlx_is_key_down(param->data->mlx, 257))
+    {
+        printf("kk");
+        clear_window(param->data);
+        param->menu->check = 1;
+    }
     if (mlx_is_key_down(param->data->mlx, MLX_KEY_ESCAPE))
     {
         ft_free_exit(param);

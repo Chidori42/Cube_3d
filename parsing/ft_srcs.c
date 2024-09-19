@@ -6,15 +6,15 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 18:07:16 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/09/09 13:40:25 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/09/18 17:56:06 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub.h"
 
-int ft_get_colore(int a, int b, int c)
+int ft_get_colore(int r, int g, int b)
 {
-    return (a << 16 | b << 8 | c);
+    return (r << 24 | g << 16 | b << 8 | 255);
 }
 void ft_set_colore(t_pars *args)
 {

@@ -59,6 +59,8 @@
   "files.associations": {
     "algorithm": "c",
     "cub.h": "c",
-    "libft.h": "c"
+    "libft.h": "c",
+    "chrono": "c",
+    "complex": "c"
   }
 }
