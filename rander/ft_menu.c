@@ -6,45 +6,51 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 14:26:52 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/09/19 14:24:19 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/09/21 14:28:16 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub.h"
 
-void clear_window(t_data *data)
+void ft_clear_image(mlx_image_t *img)
 {
     unsigned int clear = 255 << 24 | 255 << 16 | 255 << 8 | 0;
-    for (int i = 0; i < 1000; i++)
+    for (uint32_t i = 0; i < img->height; i++)
     {
-        for (int j = 0; j < 1900; j++)
+        for (uint32_t j = 0; j < img->width; j++)
         {
-            mlx_put_pixel(data->img, j, i, clear);
+            mlx_put_pixel(img, j, i, clear);
         }
     }
 }
 
-int ft_push_images(t_data *data, t_menu *menu)
+void draw_texter(mlx_image_t *img, t_texture   *texter)
 {
-    mlx_texture_t *back_texture;
-    mlx_texture_t *start_texture;
+    int i, j;
+    uint32_t color;
 
-    start_texture = mlx_load_png("textures/start.png");
-    back_texture = mlx_load_png("textures/back.png");
-    menu->back_img = mlx_texture_to_image(data->mlx, back_texture);
-    menu->start_img = mlx_texture_to_image(data->mlx, start_texture);
-    mlx_resize_image(menu->start_img, 100, 100);
-    mlx_resize_image(menu->back_img, 400, 700);
-    if (mlx_image_to_window(data->mlx, menu->start_img, 900, 200) == -1)
-        return (ft_putendl_fd("Error\nputting start image to window failed", 2), 1);
-    if (mlx_image_to_window(data->mlx, menu->back_img, 750, 300) == -1)
-        return (ft_putendl_fd("Error\nputting back image to window failed", 2), 1);
-    mlx_delete_texture(start_texture);
-    mlx_delete_texture(back_texture);
-    return (0);
+    i = 0;
+    while (i < texter->height)
+    {
+        j = 0;
+        while (j < texter->width)
+        {
+            uint32_t r = texter->pixel_data[(i * texter->width + j) * 4];
+            uint32_t g = texter->pixel_data[(i * texter->width + j) * 4 + 1];
+            uint32_t b = texter->pixel_data[(i * texter->width + j) * 4 + 2];
+            color = ft_get_colore(r, g, b);
+            mlx_put_pixel(img, j, i, color);
+            j++;
+        }
+        i++;
+    }
 }
 
-void ft_menu_loop(t_params *param)
+int ft_push_menu(t_data *data, t_menu *menu)
 {
-    ft_push_images(param->data, param->menu);
+    menu->back_tex = ft_get_data("textures/menu_back.png");
+    draw_texter(data->img, menu->back_tex);
+    if (mlx_image_to_window(data->mlx,  data->img, 0, 0) == -1)
+        return (ft_putendl_fd("Error\nputting back image to window failed", 2), 1);
+    return (0);
 }

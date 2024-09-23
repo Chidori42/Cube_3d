@@ -6,13 +6,11 @@
 SRCS                    =	cub.c \
 							srcs/set_parametr.c \
 							srcs/ft_free_resorses.c \
-							srcs/ft_check_window_size.c \
 							srcs/my_split.c \
 							srcs/ft_read_map.c \
 							rander/ft_menu.c \
 							rander/ft_mlx_loop.c \
 							rander/ft_texters.c \
-							rander/draw_map.c \
 							rander/movemont.c \
 							rander/ft_minimap.c \
 							rander/ft_presenham.c \

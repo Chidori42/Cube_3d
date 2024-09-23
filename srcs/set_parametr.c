@@ -6,11 +6,31 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 11:42:58 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/09/19 14:02:29 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/09/22 16:30:24 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub.h"
+
+int draw_pixel(mlx_image_t *img, float pixel_size, int a, int b, int color)
+{
+    int i;
+    int j;
+
+    i = 0;
+    j = 0;
+	while (i < pixel_size)
+    {
+        j = 0;
+        while (j < pixel_size)
+        {
+            mlx_put_pixel(img, (a  + j), (b + i), color);
+            j++;
+        }
+        i++;
+    }
+	return (0);
+}
 
 void	set_hei_and_wid(t_data *data)
 {
@@ -18,17 +38,17 @@ void	set_hei_and_wid(t_data *data)
 	int len;
 
 	j = -1;
-	data->wid = 0;
-	data->hei = 0;
+	data->map_wid = 0;
+	data->map_hei = 0;
 	while (data->map && data->map[++j])
 	{
 		len = (int)ft_strlen(data->map[j]);
 		while (is_white_space(data->map[j][len - 1]))
 			len--;
-		if (len > data->wid)
-			data->wid = len;
+		if (len > data->map_wid)
+			data->map_wid = len;
 	}
-	data->hei = j;
+	data->map_hei = j;
 }
 
 void	init_player(t_params *param)
@@ -59,22 +79,10 @@ void	init_player(t_params *param)
 	}
 }
 
-int init_mlx(t_data *data)
-{
-	data->mlx = mlx_init(1900, 1000, "cub3D", true);
-	data->img = mlx_new_image(data->mlx, data->wid * 50, data->hei * 50);
-	if (mlx_image_to_window(data->mlx, data->img, 0, 0) == -1
-		|| !data->mlx || !data->img)
-	{
-		mlx_close_window(data->mlx);
-		puts(mlx_strerror(mlx_errno));
-		return(EXIT_FAILURE);
-	}
-	return (0);
-}
-
 void ft_setparam(t_params *param)
 {
+	param->data->win_width = 1900;
+	param->data->win_hei = 1000;
 	param->data->texters = NULL;
 	param->data->colors = NULL;
 	param->data->map = NULL;

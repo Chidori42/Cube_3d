@@ -6,7 +6,7 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 14:54:35 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/09/18 10:04:09 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/09/22 12:18:47 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,10 @@ void draw_centered_minimap(t_params *param, int range)
         {
             map_x = start_x + j;
             map_y = start_y + i;
-            if (map_x > 0 && map_x < param->data->wid && map_y > 0 && map_y < param->data->hei)
+            if (map_x > 0 && map_x < param->data->map_wid && map_y > 0 && map_y < param->data->map_hei)
             {
                 if (param->data->map[(int)map_y][(int)map_x] == '1')
-                    draw_pixel(param->data->img, 4, j * 33.33, i * 33.33, param->pars->floor_color);
+                    draw_pixel(param->data->img, 4, j * 33.33, i * 33.33, param->pars->ceiling_color);
                 else
                     draw_pixel(param->data->img, 4, j * 33.33, i * 33.33, 0x0000FFF);
             }

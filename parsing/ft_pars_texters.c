@@ -6,7 +6,7 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 03:37:07 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/08/27 20:19:56 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/09/23 14:16:06 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,12 +88,12 @@ int ft_pars_texters(t_data *data, t_pars *args)
         else if (ft_strncmp(p1[j], "EA", ft_strlen(p1[j])) == 0)
             args->ea = ft_strdup(p1[1]);
         else
-            return (ft_putendl_fd("Error\ninvalid map", 2), ft_free_2dm(p1), 1);
+            return (ft_putendl_fd("Error\ninvalid map11", 2), ft_free_2dm(p1), 1);
         if (p1[j + 1] && check_valid_path(p1[j + 1]))
             return (ft_free_2dm(p1), 1);
         ft_free_2dm(p1);
     }
     if (i != 4 || !args->no || !args->so || !args->we || !args->ea)
-        return (ft_putendl_fd("Error\ninvalid map", 2), 1);
+        return (ft_putendl_fd("Error\ninvalid map22", 2), 1);
     return (0);
 }

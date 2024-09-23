@@ -6,7 +6,7 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 05:43:32 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/09/19 14:13:51 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/09/23 17:35:19 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,16 @@ typedef struct s_data
 {
 	mlx_t				*mlx;
 	mlx_image_t			*img;
+	mlx_texture_t		*weapen_txt[19];
+	mlx_image_t			*weapen_img;
+	char				*weap_path[19];
 	char				**map;
 	char				**texters;
 	char 				**colors;
-	int					hei;
-	int					wid;
+	int					map_hei;
+	int					map_wid;
+	int					win_hei;
+	int					win_width;
 }	t_data;
 
 
@@ -53,9 +58,7 @@ typedef struct s_texture
 
 typedef struct s_menu
 {
-	mlx_image_t			*img;
-	mlx_image_t			*start_img;
-    mlx_image_t			*back_img;
+    t_texture		*back_tex;
 	int					hei;
 	int					wid;
 	int					check;
@@ -99,11 +102,9 @@ typedef struct s_params
 	t_menu		*menu;
 } t_params;
 
-int 		init_mlx(t_data *data);
 char		**my_split(char const *s);
 void		set_hei_and_wid(t_data *data);
 int 		is_white_space(char c);
-void		draw_map(t_params *param);
 char		*ft_read_map(char *p);
 void		ft_free_2dm(char **arr);
 void 		ft_setparam(t_params *param);
@@ -118,18 +119,17 @@ int			draw_minimap(t_params *param);
 int 		ft_get_map(t_data *data, char *map);
 char    	**ft_add_spaces(t_data *data, char **str);
 int 		ft_check_digit(char *str);
-int 		t_check_window_size(t_data *data);
 void 		ft_set_colore(t_pars *args);
 void		key_press(void *p);
 void		init_player(t_params *param);
 int 		draw_line(t_data *data, int x0, int y0, int x1, int y1, int color);
 int			ft_get_colore(int r, int g, int b);
 void		ft_init_texters(t_params *param);
-void		ft_rander_map(t_params *param);
-int			get_pixel_color (t_texture *texture, int x, int y);
+int			ft_get_colore(int r, int g, int b);
 t_texture   *ft_get_data(char *path);
 void		ft_close(void *param);
-void 		ft_mlx_loop(t_params *param);
-void		ft_menu_loop(t_params *param);
-void		clear_window(t_data *data);
+int 		ft_mlx_loop(t_params *param);
+int			ft_push_menu(t_data *data, t_menu *menu);
+void		ft_clear_image(mlx_image_t *img);
+int draw_line(t_data *data, int x0, int y0, int x1, int y1, int color);
 #endif

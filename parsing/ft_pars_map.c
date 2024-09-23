@@ -6,7 +6,7 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 20:47:41 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/09/09 08:37:55 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/09/23 14:15:26 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static int ft_check_borders(t_data *data)
             !is_white_space(data->map[j][ft_strlen(data->map[j]) - 1]))
             return (ft_putstr_fd("Error\ninvalid borders", 2), 1);
     i = -1;
-    j = data->hei - 1;
+    j = data->map_hei - 1;
     while (data->map[j][++i])
         if (data->map[j][i] != '1' && !is_white_space(data->map[j][i]))
             return (ft_putstr_fd("Error\ninvalid borders", 2), 1);
@@ -48,10 +48,10 @@ static int check_sides(t_data *data, int i, int j)
         || data->map[j][i] == 'W' || data->map[j][i] == 'E')
     {
         if ((j - 1  > 0 && is_white_space(data->map[j - 1][i]))
-            || (j + 1 < data->hei && is_white_space(data->map[j + 1][i]))
+            || (j + 1 < data->map_hei && is_white_space(data->map[j + 1][i]))
             || (i + 1 < (int)ft_strlen(data->map[j]) && is_white_space(data->map[j][i + 1]))
             || (i - 1 > 0 && is_white_space(data->map[j][i - 1])))
-            return (ft_putstr_fd("Error\ninvalid map", 2), 1);
+            return (ft_putstr_fd("Error\ninvalid map1", 2), 1);
     }
     return (0);
 }
@@ -104,7 +104,7 @@ static int ft_count_player(t_data *data)
         j++;
     }
     if (count != 1)
-        return (ft_putstr_fd("Error\ninvalid map", 2), 1);
+        return (ft_putstr_fd("Error\nInvalid number of player", 2), 1);
     return (0);
 }
 

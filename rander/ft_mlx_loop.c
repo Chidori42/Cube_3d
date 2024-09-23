@@ -6,7 +6,7 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 12:55:03 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/09/19 14:23:06 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/09/22 16:34:03 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,10 @@ void	ft_close(void *param)
 	exit(0);
 }
 
-void ft_mlx_loop(t_params *param)
+int	ft_mlx_loop(t_params *param)
 {
 	init_player(param);
 	ft_init_texters(param);
-	draw_map(param);
+	// draw_minimap(param);
+	return (0);
 }
