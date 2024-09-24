@@ -1,15 +1,10 @@
 EA   ./textures/wall.png
-F               0,0,0
+F               9,255,120
 WE   ./textures/wall.png
 SO   ./textures/wall.png
 C               25,23,250
 
 NO   ./textures/wall1.png
-
-
-
-
-
 
             11111111111111111111111111111
             10000000000000000001100000001     

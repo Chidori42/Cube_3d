@@ -6,7 +6,7 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 14:26:52 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/09/21 14:28:16 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/09/24 21:07:16 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,5 @@ int ft_push_menu(t_data *data, t_menu *menu)
 {
     menu->back_tex = ft_get_data("textures/menu_back.png");
     draw_texter(data->img, menu->back_tex);
-    if (mlx_image_to_window(data->mlx,  data->img, 0, 0) == -1)
-        return (ft_putendl_fd("Error\nputting back image to window failed", 2), 1);
     return (0);
 }

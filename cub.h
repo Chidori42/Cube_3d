@@ -6,7 +6,7 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 05:43:32 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/09/23 17:35:19 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/09/24 16:06:08 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,10 @@ typedef struct s_data
 	int					map_wid;
 	int					win_hei;
 	int					win_width;
+	bool 				is_play;
+	bool 				is_load;
+	int 				fram;
+	int					ammo;
 }	t_data;
 
 
@@ -123,7 +127,6 @@ void 		ft_set_colore(t_pars *args);
 void		key_press(void *p);
 void		init_player(t_params *param);
 int 		draw_line(t_data *data, int x0, int y0, int x1, int y1, int color);
-int			ft_get_colore(int r, int g, int b);
 void		ft_init_texters(t_params *param);
 int			ft_get_colore(int r, int g, int b);
 t_texture   *ft_get_data(char *path);
@@ -131,5 +134,8 @@ void		ft_close(void *param);
 int 		ft_mlx_loop(t_params *param);
 int			ft_push_menu(t_data *data, t_menu *menu);
 void		ft_clear_image(mlx_image_t *img);
-int draw_line(t_data *data, int x0, int y0, int x1, int y1, int color);
+void 		ft_rander_map(t_params *param);
+int			ft_init_weapen_images(t_data *data);
+void		weapen_hooks(void *p);
+int 		draw_line(t_data *data, int x0, int y0, int x1, int y1, int color);
 #endif

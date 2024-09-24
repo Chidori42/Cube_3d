@@ -6,7 +6,7 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 11:42:58 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/09/22 16:30:24 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/09/24 16:08:40 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,9 +83,12 @@ void ft_setparam(t_params *param)
 {
 	param->data->win_width = 1900;
 	param->data->win_hei = 1000;
+	param->data->is_play = false;
+	param->data->is_load = false;
 	param->data->texters = NULL;
 	param->data->colors = NULL;
 	param->data->map = NULL;
+	param->data->ammo = 8;
 	param->pars->no = NULL;
 	param->pars->so = NULL;
 	param->pars->we = NULL;

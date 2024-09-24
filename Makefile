@@ -12,6 +12,7 @@ SRCS                    =	cub.c \
 							rander/ft_mlx_loop.c \
 							rander/ft_texters.c \
 							rander/movemont.c \
+							rander/ft_sprites.c \
 							rander/ft_minimap.c \
 							rander/ft_presenham.c \
 							parsing/ft_srcs.c \
