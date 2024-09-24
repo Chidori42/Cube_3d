@@ -6,7 +6,7 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 12:55:03 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/09/24 21:07:45 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/09/24 22:39:11 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ int	ft_mlx_loop(t_params *param)
 	ft_rander_map(param);
 	draw_minimap(param);
 	param->data->weapen_img = mlx_texture_to_image(param->data->mlx, param->data->weapen_txt[0]);
-	mlx_image_to_window(param->data->mlx, param->data->weapen_img, 700, 700);
+	mlx_resize_image(param->data->weapen_img, 375, 400);
+	mlx_image_to_window(param->data->mlx, param->data->weapen_img, 600, 600);
 	return (0);
 }

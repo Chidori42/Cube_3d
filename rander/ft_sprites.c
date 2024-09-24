@@ -6,11 +6,22 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 15:18:58 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/09/24 18:27:19 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/09/24 22:39:23 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub.h"
+
+void play_sound(const char *file)
+{
+    char command[256];
+
+    // Format the command to use afplay for sound playback
+    snprintf(command, sizeof(command), "afplay %s &", file);  // The & runs it in the background
+
+    // Execute the system command to play the sound
+    system(command);
+}
 
 int	ft_get_pngs_path(t_data *data)
 {
@@ -20,7 +31,7 @@ int	ft_get_pngs_path(t_data *data)
 
 	while (i < 14)
 	{
-		path = ft_strdup("textures/iloveimg-resized/");
+		path = ft_strdup("textures/weapen_pngs/");
 		tmp = ft_strjoin(ft_itoa(i + 1), ".png");
 		data->weap_path[i] = ft_strjoin(path, tmp);
 		if (!(data->weap_path[i]))
@@ -55,6 +66,7 @@ void ft_load(t_data *data)
     {
 		mlx_delete_image(data->mlx, data->weapen_img);
 		data->weapen_img = mlx_texture_to_image(data->mlx, data->weapen_txt[data->fram]);
+		mlx_resize_image(data->weapen_img, 375, 400);
 		mlx_image_to_window(data->mlx, data->weapen_img, 700, 700);
         data->fram++;
         if (data->fram >= 14)
@@ -64,7 +76,8 @@ void ft_load(t_data *data)
             data->ammo = 8;
 			mlx_delete_image(data->mlx, data->weapen_img);
 			data->weapen_img = mlx_texture_to_image(data->mlx, data->weapen_txt[3]);
-			mlx_image_to_window(data->mlx, data->weapen_img, 700, 700);
+			mlx_resize_image(data->weapen_img, 375, 400);
+			mlx_image_to_window(data->mlx, data->weapen_img, 600, 600);
         }
 	}
     frame_delay++;
@@ -78,8 +91,11 @@ void ft_shoot(t_data *data)
     {
 		mlx_delete_image(data->mlx, data->weapen_img);
 		data->weapen_img = mlx_texture_to_image(data->mlx, data->weapen_txt[data->fram]);
-		mlx_image_to_window(data->mlx, data->weapen_img, 700, 700);
+		mlx_resize_image(data->weapen_img, 375, 400);
+		mlx_image_to_window(data->mlx, data->weapen_img, 600, 600);
         data->fram++;
+		if (data->fram == 2)
+			play_sound("textures/gun.mp3");
         if (data->fram >= 3)
         {
             frame_delay = 0;
@@ -106,6 +122,7 @@ void weapen_hooks(void *p)
 	{
         data->is_load = true;
         data->fram = 4;
+		play_sound("textures/load-gun2.mp3");
 	}
 	if (data->is_load == true || data->ammo == 0)
         ft_load(data);  
