@@ -6,7 +6,7 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 11:42:52 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/08/31 13:23:27 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/09/21 11:20:53 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,10 @@ char	*ft_read_map(char *p)
 		exit(1);
 	line = get_next_line(fd);
 	if (!line)
+	{
+		ft_putstr_fd("Error\nempty file", 2);
 		exit(1);
+	}
 	while (line)
 	{
 		str = ft_strjoin(str, line);

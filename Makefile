@@ -6,22 +6,21 @@
 SRCS                    =	cub.c \
 							srcs/set_parametr.c \
 							srcs/ft_free_resorses.c \
-							srcs/ft_check_window_size.c \
-							srcs/my_split.c \
 							srcs/ft_read_map.c \
-							rander/ft_menu.c \
+							srcs/help_func.c \
 							rander/ft_mlx_loop.c \
 							rander/ft_texters.c \
-							rander/draw_map.c \
 							rander/movemont.c \
+							rander/ft_sprites.c \
 							rander/ft_minimap.c \
-							rander/ft_presenham.c \
 							parsing/ft_srcs.c \
 							parsing/ft_disperse_map.c \
 							parsing/ft_pars_map.c \
 							parsing/ft_pars_colors.c \
 							parsing/ft_pars_texters.c\
-
+							start_game.c \
+							ray_casting.c \
+							render_wall.c
 #Mandatory object files name.
 
 OBJS                    = $(SRCS:%c=%o)
@@ -32,7 +31,7 @@ MLX_BUILD_DIR 	= $(MLX_DIR)/build
 MLX_LIB			= $(MLX_BUILD_DIR)/libmlx42.a
 
 MLX_FLAGS 				= -L$(MLX_BUILD_DIR) -lmlx42 -Iinclude -lglfw -L"/Users/$(USER)/.brew/opt/glfw/lib/" -lm
-FLAGS                   = -Wall -Wextra -Werror -g -fsanitize=address
+FLAGS                   = -Wall -Wextra -Werror
 NAME                    = cub3D
 
 LIBFT                   = ./libft/libft.a

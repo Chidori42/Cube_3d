@@ -6,7 +6,7 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 20:48:30 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/09/14 14:33:06 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/09/29 15:40:04 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,12 +47,12 @@ char    **ft_add_spaces(t_data *data, char **str)
     int i;
     int j;
 
-    size = data->wid + 1;
-    new_str = malloc(sizeof(char **) * (data->hei + 1));
+    size = data->map_w + 1;
+    new_str = malloc(sizeof(char **) * (data->map_h + 1));
     if (!new_str)
         return (ft_free_2dm(str), NULL);
     i = 0;
-    while (str[i] && i < data->hei)
+    while (str[i] && i < data->map_h)
     {
         new_str[i] = malloc(sizeof(char) * (size + 1));
         if (!new_str[i])
@@ -92,6 +92,9 @@ int get_data(t_data *data, char *colors, char *texters, char *map)
         free(map);
         return (ft_putstr_fd("Error\ninvalid file informations", 2), 1);
     }
+    int i = 0;
+    while (data->texters[i])
+        printf("[%s]\n", data->texters[i++]);
     free(texters);
     free(colors);
     free(map);
@@ -108,14 +111,13 @@ int ft_disperse_map(t_data *data, char *file_map)
 
     i = 0;
     tmp = file_map;
-    (void)data;
     while (file_map && file_map[i])
     {
-        while (is_white_space(file_map[i]))
+        while (file_map[i] == ' ')
             i++;
         if ((!ft_strncmp(file_map + i, "NO", 2) || !ft_strncmp(file_map + i, "SO", 2)
             || !ft_strncmp(file_map + i, "WE", 2) || !ft_strncmp(file_map + i, "EA", 2)))
-            texters = ft_join_line(&file_map, texters, ft_read_line(file_map));
+            texters = ft_join_line(&file_map, texters, ft_read_line(file_map + i));
         else if ((!ft_strncmp(file_map + i, "C", 1) || !ft_strncmp(file_map + i, "F", 1)))
             colors = ft_join_line(&file_map, colors, ft_read_line(file_map));
         else

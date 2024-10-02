@@ -6,18 +6,11 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 03:37:07 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/08/27 20:19:56 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/09/28 11:26:12 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub.h"
-
-int is_white_space(char c)
-{
-    if (c == ' ' || (c >= 9 && c <= 13))
-        return (1);
-    return (0);
-}
 
 static int check_valid_path(char *str)
 {
@@ -35,7 +28,7 @@ static char *check_end_spaces(char *str)
     int i;
 
     i = ft_strlen(str) - 1;
-    while (is_white_space(str[i]))
+    while (str && str[i] == ' ')
         i--;
     str[i + 1] = '\0';
     return (str);
@@ -50,18 +43,15 @@ char **ft_split_texter(char *str)
     p = malloc(3 * sizeof(char *));
     if (!p)
         return (NULL);
-    while (is_white_space(*str))
+    while (*str == ' ')
         str++;
-    while (str[i] && !is_white_space(str[i]))
+    while (str[i] && str[i] != ' ')
         i++;
     p[0] = ft_substr(str, 0, i);
     str += i;
-    while (is_white_space(*str))
+    while (*str == ' ')
         str++;
-    i = 0;
-    while (str[i])
-        i++;
-    p[1] = check_end_spaces(ft_substr(str, 0, i));
+    p[1] = check_end_spaces(ft_substr(str, 0, ft_strlen(str)));
     p[2] = NULL;
     return (p);
 }
@@ -88,12 +78,12 @@ int ft_pars_texters(t_data *data, t_pars *args)
         else if (ft_strncmp(p1[j], "EA", ft_strlen(p1[j])) == 0)
             args->ea = ft_strdup(p1[1]);
         else
-            return (ft_putendl_fd("Error\ninvalid map", 2), ft_free_2dm(p1), 1);
+            return (ft_putendl_fd("Error\ninvalid map11", 2), ft_free_2dm(p1), 1);
         if (p1[j + 1] && check_valid_path(p1[j + 1]))
             return (ft_free_2dm(p1), 1);
         ft_free_2dm(p1);
     }
     if (i != 4 || !args->no || !args->so || !args->we || !args->ea)
-        return (ft_putendl_fd("Error\ninvalid map", 2), 1);
+        return (ft_putendl_fd("Error\ninvalid map22", 2), 1);
     return (0);
 }
