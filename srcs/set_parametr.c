@@ -6,7 +6,7 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 11:42:58 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/09/24 16:08:40 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/09/28 11:27:26 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	set_hei_and_wid(t_data *data)
 	while (data->map && data->map[++j])
 	{
 		len = (int)ft_strlen(data->map[j]);
-		while (is_white_space(data->map[j][len - 1]))
+		while (data->map[j][len - 1] == ' ')
 			len--;
 		if (len > data->map_wid)
 			data->map_wid = len;

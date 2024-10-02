@@ -6,7 +6,7 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 20:47:41 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/09/23 14:15:26 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/09/29 16:09:37 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,23 +19,23 @@ static int ft_check_borders(t_data *data)
 
     j = -1;
     while (data->map[0][++j])
-        if (data->map[0][j] != '1' && !is_white_space(data->map[0][j]))
+        if (data->map[0][j] != '1' && data->map[0][j] != ' ')
             return (ft_putstr_fd("Error\ninvalid borders", 2), 1);
     j = -1;
     while (data->map[++j])
         if (data->map[j][ft_strlen(data->map[j]) - 1] != '1' &&
-            !is_white_space(data->map[j][ft_strlen(data->map[j]) - 1]))
+            data->map[j][ft_strlen(data->map[j]) - 1] != ' ')
             return (ft_putstr_fd("Error\ninvalid borders", 2), 1);
     i = -1;
     j = data->map_hei - 1;
     while (data->map[j][++i])
-        if (data->map[j][i] != '1' && !is_white_space(data->map[j][i]))
+        if (data->map[j][i] != '1' && data->map[j][i] != ' ')
             return (ft_putstr_fd("Error\ninvalid borders", 2), 1);
     i = -1;
     while (data->map[++i])
     {
         j = -1;
-        while (is_white_space(data->map[i][++j]));
+        while (data->map[i][++j] == ' ');
         if (data->map[i][j] != '1')
                 return (ft_putstr_fd("Error\ninvalid borders", 2), 1);
     }
@@ -45,12 +45,12 @@ static int ft_check_borders(t_data *data)
 static int check_sides(t_data *data, int i, int j)
 {
     if (data->map[j][i] == '0' || data->map[j][i] == 'N' || data->map[j][i] == 'S'
-        || data->map[j][i] == 'W' || data->map[j][i] == 'E')
+        || data->map[j][i] == 'W' || data->map[j][i] == 'E') 
     {
-        if ((j - 1  > 0 && is_white_space(data->map[j - 1][i]))
-            || (j + 1 < data->map_hei && is_white_space(data->map[j + 1][i]))
-            || (i + 1 < (int)ft_strlen(data->map[j]) && is_white_space(data->map[j][i + 1]))
-            || (i - 1 > 0 && is_white_space(data->map[j][i - 1])))
+        if ((j - 1  > 0 && data->map[j - 1][i] == ' ')
+            || (j + 1 < data->map_hei && data->map[j + 1][i] == ' ')
+            || (i + 1 < (int)ft_strlen(data->map[j]) && data->map[j][i + 1] == ' ')
+            || (i - 1 > 0 && data->map[j][i - 1] == ' '))
             return (ft_putstr_fd("Error\ninvalid map1", 2), 1);
     }
     return (0);
@@ -71,7 +71,7 @@ static int ft_check_valid_char(t_data *data)
                 return (1);
             if (data->map[j][i] != '1' && data->map[j][i] != '0' && data->map[j][i] != 'N'
                 && data->map[j][i] != 'S' && data->map[j][i] != 'E' && data->map[j][i] != 'W'
-                && !is_white_space(data->map[j][i]))
+                && data->map[j][i] != ' ')
             {
                 ft_putstr_fd("Error\ninvalid Character", 2);
                 return (1);

@@ -6,7 +6,7 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 08:54:18 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/09/24 21:07:24 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/10/01 19:22:57 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,26 @@ int ft_valid_file(char *p)
 	if (p[i - 1] != 'b' || p[i - 2] != 'u' || p[i - 3] != 'c' || p[i - 4] != '.')
 		return (ft_putendl_fd("Error\ninvalid file extantion", 2), 1);
 	return (0);
+}
+
+void rotate_view(t_player *player, int new_x)
+{
+	// Calculate how much the mouse moved on the X-axis
+	int dx = new_x - player->angle;
+	// Adjust the factor 0.005 to control sensitivity
+	player->angle = dx  * 0.005;
+}
+
+void	mouse_move(void *p)
+{
+    t_params *param = (t_params *)p;
+
+    int new_x = 0;
+    int new_y = 0;
+
+    mlx_get_mouse_pos(param->data->mlx, &new_x, &new_y);
+    rotate_view(param->player, new_x);
+    draw_minimap(param);
 }
 
 int	main(int ac, char **av)
@@ -36,7 +56,6 @@ int	main(int ac, char **av)
 	params.menu = &menu;
 	params.player = &player;
 	params.texture = &texture;
-
 	if (ac == 2)
 	{
 		ft_setparam(&params);
@@ -47,11 +66,11 @@ int	main(int ac, char **av)
 		data.mlx = mlx_init(data.win_width, data.win_hei, "cub3D", true);
 		data.img = mlx_new_image(data.mlx, data.win_width, data.win_hei);
 		if (ft_init_weapen_images(&data))
-			return (1);
-		// if (menu.check == 0)
-		// 	ft_push_menu(&data, &menu);
-		ft_mlx_loop(&params);
+			return (ft_free_exit(&params), 1);
+		if (ft_mlx_loop(&params))
+			return (ft_free_exit(&params), 1);
 		mlx_loop_hook(data.mlx, weapen_hooks, &data);
+		mlx_loop_hook(data.mlx, mouse_move, &params);
 		mlx_loop_hook(data.mlx, key_press, &params);
 		mlx_close_hook(data.mlx, ft_close, &data);
 		mlx_loop(data.mlx);

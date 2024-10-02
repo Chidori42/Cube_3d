@@ -6,7 +6,7 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 02:57:49 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/09/09 10:29:39 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/09/29 15:43:31 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,27 +61,6 @@ static int check_c_and_f(t_pars *args, char **p, char *character)
     return (0);
 }
 
-char **ft_split_color(char *str)
-{
-    char **p;
-    int i;
-    int j;
-
-    i = 0;
-    p = malloc(sizeof(char *) * 3);
-    while (str[i] && is_white_space(str[i]))
-        i++;
-    j = i;
-    while (str[j] && !is_white_space(str[j]))
-        j++;
-    p[0] = ft_substr(str, i, j - i);
-    while (str[j] && is_white_space(str[j]))
-        j++;
-    p[1] = ft_substr(str, j, ft_strlen(str) - j);
-    p[2] = NULL;
-    return (p);
-}
-
 static int ft_check_colors(t_pars *args, char **str)
 {
     int i;
@@ -91,9 +70,9 @@ static int ft_check_colors(t_pars *args, char **str)
     i = -1;
     while (str[++i])
     {
-        if (i == 0)
+        if (i == 0) 
         {
-            p = ft_split_color(str[i]);
+            p = ft_split(str[i], ' ');
             if (p && check_c_and_f(args, p, &charactr))
                 return (ft_free_2dm(p), 1);
             ft_free_2dm(p);

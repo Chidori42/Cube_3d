@@ -6,7 +6,7 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 20:48:30 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/09/23 14:32:32 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/09/29 15:40:04 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,10 +111,9 @@ int ft_disperse_map(t_data *data, char *file_map)
 
     i = 0;
     tmp = file_map;
-    (void)data;
     while (file_map && file_map[i])
     {
-        while (is_white_space(file_map[i]))
+        while (file_map[i] == ' ')
             i++;
         if ((!ft_strncmp(file_map + i, "NO", 2) || !ft_strncmp(file_map + i, "SO", 2)
             || !ft_strncmp(file_map + i, "WE", 2) || !ft_strncmp(file_map + i, "EA", 2)))
