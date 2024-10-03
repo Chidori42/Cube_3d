@@ -1,5 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   render_wall.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/10/02 17:57:50 by ael-fagr          #+#    #+#             */
+/*   Updated: 2024/10/02 19:54:49 by ael-fagr         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-#include "cub.h"
+#include "../cub.h"
 
 int get_color(t_data *dt, float ray_angle)
 {
@@ -22,13 +33,13 @@ int get_color(t_data *dt, float ray_angle)
 
 void     ft_mlx_put_pixel(t_data *dt, int x, int y, int color)
 {
-    if (x <= 0)
+    if (x < 0)
         return ;
-    else if (x >= S_W)
+    else if (x > S_W)
         return;
-    if (y <= 0)
+    if (y < 0)
         return;
-    else if (y >= S_H)
+    else if (y > S_H)
         return;
     mlx_put_pixel(dt->img, x, y, color);
 }

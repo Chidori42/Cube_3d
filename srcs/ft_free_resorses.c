@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/29 20:48:41 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/09/29 15:25:45 by ael-fagr         ###   ########.fr       */
+/*   Created: 2024/10/02 18:13:34 by ael-fagr          #+#    #+#             */
+/*   Updated: 2024/10/02 18:14:07 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,22 +25,14 @@ void	ft_free_2dm(char **arr)
     free(arr);
 }
 
-void ft_free_exit(t_params *param)
+void ft_free_exit(t_data *data)
 {
-    // if (param->pars->no)
-    //     free((param->pars->no));
-    // if (param->pars->so)
-    //     free((param->pars->so));
-    // if (param->pars->we)
-    //     free((param->pars->we));
-    // if (param->pars->ea)
-    //     free((param->pars->ea));
-    if (param->data->texters)
-        ft_free_2dm((param->data->texters));
-    if (param->data->colors)
-        ft_free_2dm((param->data->colors));
-    if (param->data->map)
-        ft_free_2dm((param->data->map));
+    if (data->texters)
+        ft_free_2dm((data->texters));
+    if (data->colors)
+        ft_free_2dm((data->colors));
+    if (data->map)
+        ft_free_2dm((data->map));
     exit(0);
 }
  

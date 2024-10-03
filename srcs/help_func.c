@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   help_func.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/10/02 18:14:41 by ael-fagr          #+#    #+#             */
+/*   Updated: 2024/10/03 14:42:50 by ael-fagr         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../cub.h"
 
 bool check_map_collision(t_data *dt, int grid_x, int grid_y)
@@ -17,12 +29,13 @@ float normalize_angle(float ray_angle)
 		ray_angle -= (2 * M_PI);
 	return (ray_angle);
 }
-bool find_wall_at(int x, int y, char **grid) 
+
+bool find_wall_at(t_data *dt, int x, int y, char **grid) 
 {
-    if (x < 0 || x > S_W || y < 0 || y > S_H)
-		return (false);
     int grid_x = floor(x / TILE_SIZE);
     int grid_y = floor(y / TILE_SIZE);
+    if (grid_x < 0 || grid_x >= dt->map_w || grid_y < 0 || grid_y >= dt->map_h)
+        return (false);
     return (grid[grid_y][grid_x] == '1');
 }
 
@@ -48,6 +61,7 @@ void    get_player_pos(char **grid, t_data *dt)
         i++;
     }
 }
+
 void init_data(t_data *dt)
 {
 	dt->player = calloc(1, sizeof(t_player));

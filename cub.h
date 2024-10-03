@@ -6,7 +6,7 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 05:43:32 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/09/30 16:17:38 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/10/02 20:18:04 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,11 +138,11 @@ void 		ft_setparam(t_params *param);
 int			ft_check_map(t_data *data, t_pars *args);
 int    		ft_pars_colors(t_data *data, t_pars *args);
 int 		ft_pars_texters(t_data *data, t_pars *args);
-void 		ft_free_exit(t_params *param);
+void 		ft_free_exit(t_data *data);
 int			ft_disperse_map(t_data *data, char *file_map);
 int 		draw_pixel(mlx_image_t *img, float pixel_size, int a, int b, int color);
 void 		draw_player_circle(mlx_image_t *img, float x, float y, int size, int color);
-int			draw_minimap(t_params *param);
+int         draw_minimap(t_data *dt);
 int 		ft_get_map(t_data *data, char *map);
 char    	**ft_add_spaces(t_data *data, char **str);
 int 		ft_check_digit(char *str);
@@ -150,17 +150,16 @@ void 		ft_set_colore(t_pars *args);
 void		ft_init_texters(t_params *param);
 int			ft_get_colore(int r, int g, int b);
 t_texture   *ft_get_data(char *path);
-void		ft_close(void *param);
-int 		ft_mlx_loop(t_params *param);
 void		ft_clear_image(mlx_image_t *img);
 int			ft_init_weapen_images(t_data *data);
 void		weapen_hooks(void *p);
 
 
 bool		check_map_collision(t_data *dt, int grid_x, int grid_y);
+void		get_player_pos(char **grid, t_data *dt);
 float		normalize_angle(float ray_angle);
 void		init_data(t_data *dt);
-bool		find_wall_at(int x, int y, char **grid);
+bool		find_wall_at(t_data *dt, int x, int y, char **grid);
 void		start_game(t_data *data);
 void		casting_rays(t_data *dt);
 void		render_wall(t_data *dt, int ray);

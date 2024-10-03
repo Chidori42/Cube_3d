@@ -1,5 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ray_casting.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/10/02 17:57:43 by ael-fagr          #+#    #+#             */
+/*   Updated: 2024/10/02 20:01:33 by ael-fagr         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-#include "cub.h"
+#include "../cub.h"
 
 float    horz_intersection(t_data *dt, float angle)
 {
@@ -25,7 +36,7 @@ float    horz_intersection(t_data *dt, float angle)
     {
         float x_check = next_horz_x;
         float y_check = next_horz_y + (dt->ray->ray_facing_up ? -1 : 0);
-        if (find_wall_at(x_check, y_check, dt->map))
+        if (find_wall_at(dt, x_check, y_check, dt->map))
             break;
         else
         {
@@ -66,7 +77,7 @@ float    vert_intersection(t_data *dt, float angle)
     {
         float x_check = next_vert_x + (dt->ray->ray_facing_left ? -1 : 0);
         float y_check = next_vert_y;
-        if (find_wall_at(x_check, y_check, dt->map))
+        if (find_wall_at(dt, x_check, y_check, dt->map))
         {
             break;
         }

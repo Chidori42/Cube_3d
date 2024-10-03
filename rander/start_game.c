@@ -1,4 +1,36 @@
-#include "cub.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   start_game.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/10/02 17:58:00 by ael-fagr          #+#    #+#             */
+/*   Updated: 2024/10/02 20:18:29 by ael-fagr         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../cub.h"
+
+void ft_clear_image(mlx_image_t *img)
+{
+    uint32_t        i;
+    uint32_t        j;
+    unsigned int    clear;
+    
+    i = 0;
+    clear = 255 << 24 | 255 << 16 | 255 << 8 | 0;
+    while (i < img->height)
+    {
+        j = 0;
+        while (j < img->width)
+        {
+            mlx_put_pixel(img, j, i, clear);
+            j++;
+        }
+        i++;
+    }
+}
 
 void    move_player(t_data *dt, int move_x, int move_y)
 {
@@ -17,6 +49,7 @@ void    move_player(t_data *dt, int move_x, int move_y)
 		dt->player->y = new_y;  
 	}
 }
+
 void	player_rotation(t_data *dt, char rot_inc) 
 {
 	if (rot_inc == '+')
@@ -98,6 +131,7 @@ void key_handler(mlx_key_data_t keydata, void* param)
             dt->player->turn_direction = 0;
     }
 }
+
 void init_player(t_data *dt)
 {
     dt->player->x = dt->p_x_pos_in_map * TILE_SIZE + TILE_SIZE / 2; 
@@ -105,6 +139,7 @@ void init_player(t_data *dt)
 	dt->player->fov_in_rd = (FOV_ANGLE * M_PI) / 180; 
 	dt->player->rot_angle = M_PI; 
 }
+
 void game_loop(void *param) 
 {
     t_data *data;
@@ -118,11 +153,14 @@ void game_loop(void *param)
         perror("Error creating image");
         exit(1) ;
     }
-    //render_map(data);
-    // render_player(data);
+    ft_clear_image(data->img);
     hook_player(data, 0, 0);
     casting_rays(data);
+    draw_minimap(data);
     mlx_image_to_window(data->mlx, data->img, 0, 0);
+    // data->weapen_img = mlx_texture_to_image(data->mlx, data->weapen_txt[0]);
+    // mlx_resize_image(data->weapen_img, 375, 400);
+    // mlx_image_to_window(data->mlx, data->weapen_img, 600, 600);
 }
 
 void start_game(t_data *data)
@@ -132,10 +170,10 @@ void start_game(t_data *data)
     if (!data->mlx)
     {
         perror("Error initializing window");
-        // free 
-        exit(0);
+        ft_free_exit(data);
     }
 	mlx_loop_hook(data->mlx, game_loop, data);
 	mlx_key_hook(data->mlx,  key_handler, data);
+    mlx_loop_hook(data->mlx, weapen_hooks, data);
 	mlx_loop(data->mlx);
 }
