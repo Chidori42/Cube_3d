@@ -6,7 +6,7 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 15:18:58 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/09/29 15:27:05 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/10/03 18:22:40 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void ft_load(t_data *data)
 		mlx_delete_image(data->mlx, data->weapen_img);
 		data->weapen_img = mlx_texture_to_image(data->mlx, data->weapen_txt[data->fram]);
 		mlx_resize_image(data->weapen_img, 375, 400);
-		mlx_image_to_window(data->mlx, data->weapen_img, 700, 700);
+		mlx_image_to_window(data->mlx, data->weapen_img, 600, 600);
         data->fram++;
         if (data->fram >= 14)
         {

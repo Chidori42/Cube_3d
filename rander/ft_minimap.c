@@ -6,7 +6,7 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 14:54:35 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/10/02 20:27:05 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/10/03 21:25:19 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,9 @@ void draw_centered_minimap(t_data *data, int range, float start_x, float start_y
         j = 0;
         while (j < range)
         {
-            map_x = start_x + j;
-            map_y = start_y + i;
-            if (map_x > 0 && map_x < data->map_w && map_y > 0 && map_y < data->map_h)
+            map_x = (start_x / TILE_SIZE - 4) + j;
+            map_y = (start_y / TILE_SIZE - 4) + i;
+            if (map_x > 0 && (int)map_x < data->map_w && map_y > 0 && (int)map_y < data->map_h)
             {
                 if (data->map[(int)map_y][(int)map_x] == '1')
                     draw_pixel(data->img, 4, j * 25, i * 25, data->pars.ceiling_color);
@@ -72,12 +72,8 @@ int draw_minimap(t_data *dt)
     float   start_y;
 
     range = 8;
-    float px = dt->player->x / TILE_SIZE;
-    float py = dt->player->y / TILE_SIZE;
-    printf("player_x: %d, player_y: %d\n", dt->p_x_pos_in_map, dt->p_y_pos_in_map);
-    printf("player_x: %f, player_y: %f\n", px, py);
-    start_x = px - range / 2;
-    start_y =  py - range / 2;
+    start_x = dt->player->x - range / 2;
+    start_y =  dt->player->y - range / 2;
     draw_centered_minimap(dt, range, start_x, start_y);
     return (0);
 }

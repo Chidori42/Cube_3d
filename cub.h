@@ -6,7 +6,7 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 05:43:32 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/10/02 20:18:04 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/10/03 21:08:03 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,11 +156,13 @@ void		weapen_hooks(void *p);
 
 
 bool		check_map_collision(t_data *dt, int grid_x, int grid_y);
+void		game_loop(t_data *data);
 void		get_player_pos(char **grid, t_data *dt);
 float		normalize_angle(float ray_angle);
 void		init_data(t_data *dt);
 bool		find_wall_at(t_data *dt, int x, int y, char **grid);
 void		start_game(t_data *data);
 void		casting_rays(t_data *dt);
+void		key_handler(void* param);
 void		render_wall(t_data *dt, int ray);
 #endif

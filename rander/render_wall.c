@@ -6,7 +6,7 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 17:57:50 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/10/02 19:54:49 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/10/03 18:03:11 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,11 @@ void     ft_mlx_put_pixel(t_data *dt, int x, int y, int color)
 {
     if (x < 0)
         return ;
-    else if (x > S_W)
+    else if (x >= S_W)
         return;
     if (y < 0)
         return;
-    else if (y > S_H)
+    else if (y >= S_H)
         return;
     mlx_put_pixel(dt->img, x, y, color);
 }
@@ -52,6 +52,31 @@ void    draw_wall(t_data *dt, int wall_top_pixel, int wall_bot_pixel, int ray)
     {
         ft_mlx_put_pixel(dt, ray, wall_top_pixel, color);
         wall_top_pixel++;
+    }
+}
+
+void draw_floor(t_data *dt, int wall_bot_pixel, int ray)
+{
+    int y;
+
+    y = wall_bot_pixel;
+    while (y < S_H)
+    {
+        if (y < 0 || y > S_H)
+            break;
+        mlx_put_pixel(dt->img, ray, y, dt->pars.floor_color);
+        y++;
+    }
+}
+void draw_ceiling(t_data *dt, int wall_top_pixel, int ray)
+{
+    int y;
+
+    y = 0;
+    while (y < wall_top_pixel)
+    {
+        mlx_put_pixel(dt->img, ray, y, dt->pars.ceiling_color);
+        y++;
     }
 }
 
@@ -81,17 +106,6 @@ void    render_wall(t_data *dt, int ray)
     if (wall_bot_pixel > S_H)
         wall_bot_pixel = S_H;
     draw_wall(dt, wall_top_pixel, wall_bot_pixel, ray);
-    int i = wall_bot_pixel;
-   
-    while (i < S_H)
-    {
-        ft_mlx_put_pixel(dt, ray, i, dt->pars.floor_color);
-        i++;
-    }
-    i = 0;
-    while (i < wall_top_pixel)
-    {
-        ft_mlx_put_pixel(dt, ray, i, dt->pars.ceiling_color);
-        i++;
-    }
+    draw_floor(dt, wall_bot_pixel, ray);
+    draw_ceiling(dt, wall_top_pixel, ray);
 }
