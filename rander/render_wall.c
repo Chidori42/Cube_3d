@@ -6,7 +6,7 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 17:57:50 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/10/03 18:03:11 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/10/03 21:37:53 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,12 +62,14 @@ void draw_floor(t_data *dt, int wall_bot_pixel, int ray)
     y = wall_bot_pixel;
     while (y < S_H)
     {
-        if (y < 0 || y > S_H)
+        if (y >= 0 && y < S_H && ray >= 0 && ray < S_W)
+            mlx_put_pixel(dt->img, ray, y, dt->pars.floor_color);
+        else
             break;
-        mlx_put_pixel(dt->img, ray, y, dt->pars.floor_color);
         y++;
     }
 }
+
 void draw_ceiling(t_data *dt, int wall_top_pixel, int ray)
 {
     int y;
@@ -75,7 +77,10 @@ void draw_ceiling(t_data *dt, int wall_top_pixel, int ray)
     y = 0;
     while (y < wall_top_pixel)
     {
-        mlx_put_pixel(dt->img, ray, y, dt->pars.ceiling_color);
+        if (y >= 0 || y < S_H || ray >= 0 || ray < S_W)
+            mlx_put_pixel(dt->img, ray, y, dt->pars.ceiling_color);
+        else
+            break;
         y++;
     }
 }
@@ -99,10 +104,10 @@ void    render_wall(t_data *dt, int ray)
     actual_slice_height = TILE_SIZE;
     dist_to_proj_plane = (S_W / 2) / tan(normalize_angle(angle_in_rad / 2));
     wall_height = dist_to_proj_plane * (actual_slice_height / dt->ray->distance);
-    wall_top_pixel = (S_H / 2) - (wall_height / 2);
+    wall_top_pixel = (S_H / 2) - (wall_height / 4);
     if (wall_top_pixel < 0)
         wall_top_pixel = 0;
-    wall_bot_pixel = (S_H / 2) + (wall_height / 2);
+    wall_bot_pixel = (S_H / 2) + (wall_height / 4);
     if (wall_bot_pixel > S_H)
         wall_bot_pixel = S_H;
     draw_wall(dt, wall_top_pixel, wall_bot_pixel, ray);

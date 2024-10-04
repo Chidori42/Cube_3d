@@ -119,3 +119,4 @@ void weapen_hooks(void *p)
     else if (data->is_play)
         ft_shoot(data);
 }
+
