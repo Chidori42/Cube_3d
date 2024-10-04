@@ -6,7 +6,7 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 17:57:50 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/10/04 20:31:07 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/10/04 22:28:39 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,6 @@ void    draw_wall(t_data *dt, int wall_top_pixel, int wall_bot_pixel, int ray)
     int color;
 
     color = get_color(dt, dt->ray->ray_angle);
-    printf ("wall_top_pixel = %u\n", wall_top_pixel);
-    printf ("wall_bot_pixel = %u\n", wall_bot_pixel);
     while(wall_top_pixel < wall_bot_pixel)
     {
         if (wall_top_pixel < 0 || wall_top_pixel >= S_H)

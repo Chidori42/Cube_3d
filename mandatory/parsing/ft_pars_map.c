@@ -6,7 +6,7 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 20:47:41 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/09/29 16:09:37 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/10/04 22:55:00 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,7 @@ static int ft_check_borders(t_data *data)
 
 static int check_sides(t_data *data, int i, int j)
 {
-    if (data->map[j][i] == '0' || data->map[j][i] == 'N' || data->map[j][i] == 'S'
-        || data->map[j][i] == 'W' || data->map[j][i] == 'E') 
+    if (ft_strchr("0NSWE", data->map[j][i]))
     {
         if ((j - 1  > 0 && data->map[j - 1][i] == ' ')
             || (j + 1 < data->map_h && data->map[j + 1][i] == ' ')
@@ -69,9 +68,7 @@ static int ft_check_valid_char(t_data *data)
         {
             if (check_sides(data, i, j))
                 return (1);
-            if (data->map[j][i] != '1' && data->map[j][i] != '0' && data->map[j][i] != 'N'
-                && data->map[j][i] != 'S' && data->map[j][i] != 'E' && data->map[j][i] != 'W'
-                && data->map[j][i] != ' ')
+            if (!ft_strchr(" 01NSWE", data->map[j][i]))
             {
                 ft_putstr_fd("Error\ninvalid Character", 2);
                 return (1);
