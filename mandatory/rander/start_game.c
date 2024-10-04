@@ -6,7 +6,7 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 17:58:00 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/10/04 18:00:14 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/10/04 20:37:57 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ void key_handler(void* param)
         new_y = cos(dt->player->rot_angle) * PLYR_SPEED;
         move_player(dt, new_x, new_y);
     }
-    game_loop(dt);
+    casting_rays(dt);
 }
 
 void init_player(t_data *dt)
@@ -111,13 +111,6 @@ void init_player(t_data *dt)
 	dt->player->y = dt->p_y_pos_in_map * TILE_SIZE + TILE_SIZE / 2;
 	dt->player->fov_in_rd = (FOV_ANGLE * M_PI) / 180; 
 	dt->player->rot_angle = M_PI; 
-}
-
-void game_loop(t_data *data) 
-{
-    ft_clear_image(data->img);
-    casting_rays(data);
-    draw_minimap(data);
 }
 
 void start_game(t_data *data)
@@ -136,10 +129,6 @@ void start_game(t_data *data)
         exit(1) ;
     }
     mlx_image_to_window(data->mlx, data->img, 0, 0);
-    data->weapen_img = mlx_texture_to_image(data->mlx, data->weapen_txt[0]);
-    mlx_resize_image(data->weapen_img, 375, 400);
-    mlx_image_to_window(data->mlx, data->weapen_img, 600, 600);
 	mlx_loop_hook(data->mlx,  key_handler, data);
-    mlx_loop_hook(data->mlx, weapen_hooks, data);
 	mlx_loop(data->mlx);
 }

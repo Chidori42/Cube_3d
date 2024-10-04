@@ -6,11 +6,11 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 14:54:35 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/10/03 21:25:19 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/10/04 20:30:53 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub.h"
+#include "../cub_bonus.h"
 
 void draw_player_circle(mlx_image_t *img, float x, float y, int size, int color)
 {

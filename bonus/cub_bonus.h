@@ -6,7 +6,7 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 05:43:32 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/10/03 21:08:03 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/10/04 20:13:11 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@
 # include <math.h>
 # include <stdio.h>
 # include <fcntl.h>
-# include "libft/libft.h"
-#include "MLX42/include/MLX42/MLX42.h"
+# include "../libft/libft.h"
+#include "../MLX42/include/MLX42/MLX42.h"
 # include <stdlib.h>
 #include <string.h>
 # include <fcntl.h>

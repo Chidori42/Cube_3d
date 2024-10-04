@@ -6,11 +6,11 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 17:57:50 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/10/03 21:37:53 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/10/04 20:31:07 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub.h"
+#include "../cub_bonus.h"
 
 int get_color(t_data *dt, float ray_angle)
 {
@@ -48,39 +48,41 @@ void    draw_wall(t_data *dt, int wall_top_pixel, int wall_bot_pixel, int ray)
     int color;
 
     color = get_color(dt, dt->ray->ray_angle);
+    printf ("wall_top_pixel = %u\n", wall_top_pixel);
+    printf ("wall_bot_pixel = %u\n", wall_bot_pixel);
     while(wall_top_pixel < wall_bot_pixel)
     {
+        if (wall_top_pixel < 0 || wall_top_pixel >= S_H)
+            break;
         ft_mlx_put_pixel(dt, ray, wall_top_pixel, color);
         wall_top_pixel++;
     }
 }
 
-void draw_floor(t_data *dt, int wall_bot_pixel, int ray)
+void draw_floor(t_data *dt, int  wall_bot_pixel, int ray)
 {
     int y;
 
     y = wall_bot_pixel;
     while (y < S_H)
     {
-        if (y >= 0 && y < S_H && ray >= 0 && ray < S_W)
-            mlx_put_pixel(dt->img, ray, y, dt->pars.floor_color);
-        else
+        if (y < 0 || y >= S_H || ray < 0 || ray >= S_W)
             break;
+        mlx_put_pixel(dt->img, ray, y, dt->pars.floor_color);
         y++;
     }
 }
 
-void draw_ceiling(t_data *dt, int wall_top_pixel, int ray)
+void draw_ceiling(t_data *dt, int  wall_top_pixel, int ray)
 {
     int y;
 
     y = 0;
     while (y < wall_top_pixel)
     {
-        if (y >= 0 || y < S_H || ray >= 0 || ray < S_W)
-            mlx_put_pixel(dt->img, ray, y, dt->pars.ceiling_color);
-        else
+        if (y < 0 || y >= S_H || ray < 0 || ray >= S_W)
             break;
+        mlx_put_pixel(dt->img, ray, y, dt->pars.ceiling_color);
         y++;
     }
 }

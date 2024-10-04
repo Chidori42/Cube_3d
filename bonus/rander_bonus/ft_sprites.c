@@ -6,11 +6,11 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 15:18:58 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/10/03 18:22:40 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/10/04 20:30:58 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub.h"
+#include "../cub_bonus.h"
 
 int	ft_get_pngs_path(t_data *data)
 {

@@ -3,25 +3,45 @@
 
 #Mandatory source files names.
 
-SRCS                    =	cub.c \
-							srcs/set_parametr.c \
-							srcs/ft_free_resorses.c \
-							srcs/ft_read_map.c \
-							srcs/help_func.c \
-							rander/ft_texters.c \
-							rander/ft_sprites.c \
-							rander/ft_minimap.c \
-							rander/render_wall.c \
-							rander/ray_casting.c \
-							rander/start_game.c \
-							parsing/ft_srcs.c \
-							parsing/ft_disperse_map.c \
-							parsing/ft_pars_map.c \
-							parsing/ft_pars_colors.c \
-							parsing/ft_pars_texters.c\
+SRCS                    =	mandatory/cub.c \
+							mandatory/srcs/set_parametr.c \
+							mandatory/srcs/ft_free_resorses.c \
+							mandatory/srcs/ft_read_map.c \
+							mandatory/srcs/help_func.c \
+							mandatory/rander/ft_texters.c \
+							mandatory/rander/render_wall.c \
+							mandatory/rander/ray_casting.c \
+							mandatory/rander/start_game.c \
+							mandatory/parsing/ft_srcs.c \
+							mandatory/parsing/ft_disperse_map.c \
+							mandatory/parsing/ft_pars_map.c \
+							mandatory/parsing/ft_pars_colors.c \
+							mandatory/parsing/ft_pars_texters.c\
 #Mandatory object files name.
 
 OBJS                    = $(SRCS:%c=%o)
+
+#bonus source files names.
+
+SRCS_BONUS                    =	bonus/cub_bonus.c \
+							bonus/srcs_bonus/set_parametr.c \
+							bonus/srcs_bonus/ft_free_resorses.c \
+							bonus/srcs_bonus/ft_read_map.c \
+							bonus/srcs_bonus/help_func.c \
+							bonus/rander_bonus/ft_texters.c \
+							bonus/rander_bonus/ft_sprites.c \
+							bonus/rander_bonus/ft_minimap.c \
+							bonus/rander_bonus/render_wall.c \
+							bonus/rander_bonus/ray_casting.c \
+							bonus/rander_bonus/start_game.c \
+							bonus/parsing_bonus/ft_srcs.c \
+							bonus/parsing_bonus/ft_disperse_map.c \
+							bonus/parsing_bonus/ft_pars_map.c \
+							bonus/parsing_bonus/ft_pars_colors.c \
+							bonus/parsing_bonus/ft_pars_texters.c\
+#bonus object files name.
+
+OBJS_BONUS                    = $(SRCS_BONUS:%c=%o)
 
 MLX_REPO 		= if [ ! -d "MLX42" ]; then git clone https://github.com/codam-coding-college/MLX42; fi
 MLX_DIR 		= ./MLX42
@@ -67,10 +87,10 @@ LIBFT_SRCS              = 	./libft/ft_isalpha.c ./libft/ft_isdigit.c\
 
 all                     : $(NAME)
 
-%o                      : %c cub.h $(LIBFT) $(LIBFT_H)
-	cc  -c $(FLAGS) $< -o $@
+bonus: $(OBJS_BONUS) bonus/cub_bonus.h $(LIBFT_H) $(MLX_LIB) $(LIBFT)
+	cc $(FLAGS) $(LIBFT) $(OBJS_BONUS) -o $(NAME) $(MLX_FLAGS)
 
-$(NAME)                 : $(MLX_LIB) $(LIBFT) $(OBJS)
+$(NAME)                 : $(OBJS) mandatory/cub.h $(LIBFT_H) $(MLX_LIB) $(LIBFT)
 	cc  $(FLAGS) $(LIBFT) $(OBJS) -o $(NAME) $(MLX_FLAGS) 
 
 $(MLX_LIB):
@@ -84,6 +104,7 @@ $(LIBFT)                : $(LIBFT_SRCS) $(LIBFT_H)
 clean                   :
 	rm -f *.o
 	rm -f */*.o
+	rm -f */*/*.o
 	make clean -C ./libft
 
 fclean                  : clean

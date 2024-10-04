@@ -67,6 +67,7 @@
     "string": "c",
     "string_view": "c",
     "vector": "c",
-    "locale": "cpp"
+    "locale": "cpp",
+    "cub_bonus.h": "c"
   }
 }
