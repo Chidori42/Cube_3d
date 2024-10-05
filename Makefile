@@ -43,7 +43,6 @@ SRCS_BONUS                    =	bonus/cub_bonus.c \
 
 OBJS_BONUS                    = $(SRCS_BONUS:%c=%o)
 
-MLX_REPO 		= if [ ! -d "MLX42" ]; then git clone https://github.com/codam-coding-college/MLX42; fi
 MLX_DIR 		= ./MLX42
 MLX_BUILD_DIR 	= $(MLX_DIR)/build
 MLX_LIB			= $(MLX_BUILD_DIR)/libmlx42.a
@@ -94,7 +93,6 @@ $(NAME)                 : $(OBJS) mandatory/cub.h $(LIBFT_H) $(MLX_LIB) $(LIBFT)
 	cc  $(FLAGS) $(LIBFT) $(OBJS) -o $(NAME) $(MLX_FLAGS) 
 
 $(MLX_LIB):
-	$(MLX_REPO)
 	cd $(MLX_DIR) && cmake -B build && make -C build
 
 $(LIBFT)                : $(LIBFT_SRCS) $(LIBFT_H)
