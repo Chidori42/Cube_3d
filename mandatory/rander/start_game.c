@@ -6,7 +6,7 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 17:58:00 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/10/04 22:42:00 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/10/05 16:45:09 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,26 +82,23 @@ void key_handler(void* param)
     {
         new_x = cos(dt->player->rot_angle) * PLYR_SPEED;
         new_y = sin(dt->player->rot_angle) * PLYR_SPEED;
-        move_player(dt, new_x, new_y);
     }
     else if (mlx_is_key_down(dt->mlx, MLX_KEY_S))
     {
         new_x = -cos(dt->player->rot_angle) * PLYR_SPEED;
         new_y = -sin(dt->player->rot_angle) * PLYR_SPEED;
-        move_player(dt, new_x, new_y);
     }
     else if (mlx_is_key_down(dt->mlx, MLX_KEY_A))
     {
         new_x = sin(dt->player->rot_angle) * PLYR_SPEED;
         new_y = -cos(dt->player->rot_angle) * PLYR_SPEED;
-        move_player(dt, new_x, new_y);
     }
     else if (mlx_is_key_down(dt->mlx, MLX_KEY_D))
     {
         new_x = -sin(dt->player->rot_angle) * PLYR_SPEED;
         new_y = cos(dt->player->rot_angle) * PLYR_SPEED;
-        move_player(dt, new_x, new_y);
     }
+    move_player(dt, new_x, new_y);
     casting_rays(dt);
 }
 

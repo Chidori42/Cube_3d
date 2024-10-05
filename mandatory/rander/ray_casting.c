@@ -6,7 +6,7 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 17:57:43 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/10/02 20:01:33 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/10/05 16:53:44 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,6 @@ void cast_ray(t_data *dt, float ray_angle, int i)
     }
     render_wall(dt, i);
 }
-
 
 void casting_rays(t_data *dt)
 {

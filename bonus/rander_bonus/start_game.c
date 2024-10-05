@@ -6,7 +6,7 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 17:58:00 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/10/04 20:55:10 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/10/05 16:55:17 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,22 @@ void    move_player(t_data *dt, int move_x, int move_y)
 	}
 }
 
+void	player_rotation(t_data *dt, char rot_inc) 
+{
+	if (rot_inc == '+')
+	{
+		dt->player->rot_angle += ROTATION_SPEED; 
+		if (dt->player->rot_angle > 2 * M_PI)
+			dt->player->rot_angle -= 2 * M_PI;
+	}
+	else
+	{
+		dt->player->rot_angle -= ROTATION_SPEED; 
+		if (dt->player->rot_angle < 0)
+			dt->player->rot_angle += 2 * M_PI;
+	}
+}
+
 void key_handler(void* param)
 {
     t_data *dt = (t_data *)param;
@@ -62,26 +78,23 @@ void key_handler(void* param)
     {
         new_x = cos(dt->player->rot_angle) * PLYR_SPEED;
         new_y = sin(dt->player->rot_angle) * PLYR_SPEED;
-        move_player(dt, new_x, new_y);
     }
     else if (mlx_is_key_down(dt->mlx, MLX_KEY_S))
     {
         new_x = -cos(dt->player->rot_angle) * PLYR_SPEED;
         new_y = -sin(dt->player->rot_angle) * PLYR_SPEED;
-        move_player(dt, new_x, new_y);
     }
     else if (mlx_is_key_down(dt->mlx, MLX_KEY_A))
     {
         new_x = sin(dt->player->rot_angle) * PLYR_SPEED;
         new_y = -cos(dt->player->rot_angle) * PLYR_SPEED;
-        move_player(dt, new_x, new_y);
     }
     else if (mlx_is_key_down(dt->mlx, MLX_KEY_D))
     {
         new_x = -sin(dt->player->rot_angle) * PLYR_SPEED;
         new_y = cos(dt->player->rot_angle) * PLYR_SPEED;
-        move_player(dt, new_x, new_y);
     }
+    move_player(dt, new_x, new_y);
     game_loop(dt);
 }
 

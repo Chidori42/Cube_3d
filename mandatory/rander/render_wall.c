@@ -6,7 +6,7 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 17:57:50 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/10/04 22:44:27 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/10/05 16:46:33 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,8 @@ void draw_floor(t_data *dt, int  wall_bot_pixel, int ray)
     y = wall_bot_pixel;
     while (y < S_H)
     {
+        if (y < 0 || y >= S_H || ray < 0 || ray >= S_W)
+            break;
         mlx_put_pixel(dt->img, ray, y, dt->pars.floor_color);
         y++;
     }
@@ -76,6 +78,8 @@ void draw_ceiling(t_data *dt, int  wall_top_pixel, int ray)
     y = 0;
     while (y < wall_top_pixel)
     {
+        if (y < 0 || y >= S_H || ray < 0 || ray >= S_W)
+            break;
         mlx_put_pixel(dt->img, ray, y, dt->pars.ceiling_color);
         y++;
     }

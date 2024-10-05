@@ -3,6 +3,8 @@
 
 #Mandatory source files names.
 
+BONUS_DIR = bonus
+
 SRCS                    =	mandatory/cub.c \
 							mandatory/srcs/set_parametr.c \
 							mandatory/srcs/ft_free_resorses.c \
@@ -19,29 +21,29 @@ SRCS                    =	mandatory/cub.c \
 							mandatory/parsing/ft_pars_texters.c\
 #Mandatory object files name.
 
-OBJS                    = $(SRCS:%c=%o)
+OBJS                    = $(SRCS:%.c=%.o)
 
 #bonus source files names.
 
-SRCS_BONUS                    =	bonus/cub_bonus.c \
-							bonus/srcs_bonus/set_parametr.c \
-							bonus/srcs_bonus/ft_free_resorses.c \
-							bonus/srcs_bonus/ft_read_map.c \
-							bonus/srcs_bonus/help_func.c \
-							bonus/rander_bonus/ft_texters.c \
-							bonus/rander_bonus/ft_sprites.c \
-							bonus/rander_bonus/ft_minimap.c \
-							bonus/rander_bonus/render_wall.c \
-							bonus/rander_bonus/ray_casting.c \
-							bonus/rander_bonus/start_game.c \
-							bonus/parsing_bonus/ft_srcs.c \
-							bonus/parsing_bonus/ft_disperse_map.c \
-							bonus/parsing_bonus/ft_pars_map.c \
-							bonus/parsing_bonus/ft_pars_colors.c \
-							bonus/parsing_bonus/ft_pars_texters.c\
+SRCS_BONUS                    =	$(BONUS_DIR)/cub_bonus.c \
+							$(BONUS_DIR)/srcs_bonus/set_parametr.c \
+							$(BONUS_DIR)/srcs_bonus/ft_free_resorses.c \
+							$(BONUS_DIR)/srcs_bonus/ft_read_map.c \
+							$(BONUS_DIR)/srcs_bonus/help_func.c \
+							$(BONUS_DIR)/rander_bonus/ft_texters.c \
+							$(BONUS_DIR)/rander_bonus/ft_sprites.c \
+							$(BONUS_DIR)/rander_bonus/ft_minimap.c \
+							$(BONUS_DIR)/rander_bonus/render_wall.c \
+							$(BONUS_DIR)/rander_bonus/ray_casting.c \
+							$(BONUS_DIR)/rander_bonus/start_game.c \
+							$(BONUS_DIR)/parsing_bonus/ft_srcs.c \
+							$(BONUS_DIR)/parsing_bonus/ft_disperse_map.c \
+							$(BONUS_DIR)/parsing_bonus/ft_pars_map.c \
+							$(BONUS_DIR)/parsing_bonus/ft_pars_colors.c \
+							$(BONUS_DIR)/parsing_bonus/ft_pars_texters.c\
 #bonus object files name.
 
-OBJS_BONUS                    = $(SRCS_BONUS:%c=%o)
+OBJS_BONUS                    = $(SRCS_BONUS:%.c=%.o)
 
 MLX_DIR 		= ./MLX42
 MLX_BUILD_DIR 	= $(MLX_DIR)/build
@@ -86,11 +88,14 @@ LIBFT_SRCS              = 	./libft/ft_isalpha.c ./libft/ft_isdigit.c\
 
 all                     : $(NAME)
 
-bonus: $(OBJS_BONUS) bonus/cub_bonus.h $(LIBFT_H) $(MLX_LIB) $(LIBFT)
-	cc $(FLAGS) $(LIBFT) $(OBJS_BONUS) -o $(NAME) $(MLX_FLAGS)
+%.o: %.c mandatory/cub.h
+	cc $(CFLAGS) -c -o $@ $<
 
 $(NAME)                 : $(OBJS) mandatory/cub.h $(LIBFT_H) $(MLX_LIB) $(LIBFT)
-	cc  $(FLAGS) $(LIBFT) $(OBJS) -o $(NAME) $(MLX_FLAGS) 
+	cc  $(FLAGS) $(LIBFT) $(OBJS) -o $(NAME) $(MLX_FLAGS)
+
+bonus: $(OBJS_BONUS) $(BONUS_DIR)/cub_bonus.h $(LIBFT_H) $(MLX_LIB) $(LIBFT)
+	cc $(FLAGS) $(LIBFT) $(OBJS_BONUS) -o $(NAME) $(MLX_FLAGS)
 
 $(MLX_LIB):
 	cd $(MLX_DIR) && cmake -B build && make -C build
