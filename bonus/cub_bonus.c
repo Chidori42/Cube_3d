@@ -6,7 +6,7 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 08:54:18 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/10/04 20:30:21 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/10/08 03:32:37 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,23 +25,17 @@ int ft_valid_file(char *p)
 int	main(int ac, char **av)
 {
 	t_data		data;
-	t_pars		args;
-	t_texture	texture;
-	t_player 	player;
-	t_params 	params;
 
-	params.data = &data;
-	params.pars = &args;
-	params.player = &player;
-	params.texture = &texture;
 	if (ac == 2)
 	{
-		ft_setparam(&params);
+		ft_setparam(&data);
 		if (ft_valid_file(av[1]) || ft_disperse_map(&data, ft_read_map(av[1])))
 			return (ft_free_exit(&data), 1);
-		if (ft_check_map(&data, &args))
+		if (ft_check_map(&data, &data.pars))
 			return (ft_free_exit(&data), 1);
 		if (ft_init_weapen_images(&data))
+			return (ft_free_exit(&data), 1);
+		if (ft_init_texters(&data))
 			return (ft_free_exit(&data), 1);
 		init_data(&data);
     	start_game(&data);

@@ -6,7 +6,7 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 08:13:11 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/09/18 14:47:12 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/10/08 03:29:34 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,14 @@ t_texture   *ft_get_data(char *path)
     return (texture);
 }
 
-void ft_init_texters(t_params *param)
+int ft_init_texters(t_data *data)
 {
-    param->pars->north = ft_get_data(param->pars->no);
-    param->pars->south = ft_get_data(param->pars->so);
-    param->pars->west = ft_get_data(param->pars->we);
-    param->pars->east = ft_get_data(param->pars->ea);
+    data->pars.north = ft_get_data(data->pars.no);
+    data->pars.south = ft_get_data(data->pars.so);
+    data->pars.west = ft_get_data(data->pars.we);
+    data->pars.east = ft_get_data(data->pars.ea);
+    if (!(data->pars.north) || !(data->pars.south)
+        || !(data->pars.west) || !(data->pars.east))
+        return (1);
+    return (0);
 }

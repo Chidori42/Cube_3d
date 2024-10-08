@@ -6,7 +6,7 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 17:58:00 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/10/05 16:45:09 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/10/08 03:21:40 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ void key_handler(void* param)
         new_y = cos(dt->player->rot_angle) * PLYR_SPEED;
     }
     move_player(dt, new_x, new_y);
-    casting_rays(dt);
+    game_loop(dt);
 }
 
 void init_player(t_data *dt)
@@ -108,6 +108,12 @@ void init_player(t_data *dt)
 	dt->player->y = dt->p_y_pos_in_map * TILE_SIZE + TILE_SIZE / 2;
 	dt->player->fov_in_rd = (FOV_ANGLE * M_PI) / 180; 
 	dt->player->rot_angle = M_PI; 
+}
+
+void game_loop(t_data *data) 
+{
+    ft_clear_image(data->img);
+    casting_rays(data);
 }
 
 void start_game(t_data *data)

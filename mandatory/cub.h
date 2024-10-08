@@ -6,7 +6,7 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 05:43:32 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/10/04 20:37:10 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/10/08 03:30:01 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,24 +117,17 @@ char				**map;
 char				**texters;
 char 				**colors;
 t_pars				pars;
+t_texture 			texture;
 } t_data;
 
 
 
 ///=================////
- 
-typedef struct s_params
-{
-	t_pars 		*pars;
-	t_data 		*data;
-	t_player 	*player;
-	t_texture 	*texture;
-} t_params;
 
 void		set_hei_and_wid(t_data *data);
 char		*ft_read_map(char *p);
 void		ft_free_2dm(char **arr);
-void 		ft_setparam(t_params *param);
+void 		ft_setparam(t_data *data);
 int			ft_check_map(t_data *data, t_pars *args);
 int    		ft_pars_colors(t_data *data, t_pars *args);
 int 		ft_pars_texters(t_data *data, t_pars *args);
@@ -146,6 +139,7 @@ int 		ft_check_digit(char *str);
 void 		ft_set_colore(t_pars *args);
 int			ft_get_colore(int r, int g, int b);
 t_texture   *ft_get_data(char *path);
+int			ft_init_texters(t_data *data);
 void		ft_clear_image(mlx_image_t *img);
 
 
@@ -153,6 +147,7 @@ void		ft_clear_image(mlx_image_t *img);
 bool		check_map_collision(t_data *dt, int grid_x, int grid_y);
 void		get_player_pos(char **grid, t_data *dt);
 float		normalize_angle(float ray_angle);
+void		game_loop(t_data *data);
 void		init_data(t_data *dt);
 bool		find_wall_at(t_data *dt, int x, int y, char **grid);
 void		start_game(t_data *data);

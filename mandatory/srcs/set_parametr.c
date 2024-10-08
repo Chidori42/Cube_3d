@@ -6,7 +6,7 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 11:42:58 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/09/28 11:27:26 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/10/08 03:18:19 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,18 +52,18 @@ void	set_hei_and_wid(t_data *data)
 }
 
 
-void ft_setparam(t_params *param)
+void ft_setparam(t_data *data)
 {
-	param->data->is_play = false;
-	param->data->is_load = false;
-	param->data->texters = NULL;
-	param->data->colors = NULL;
-	param->data->map = NULL;
-	param->data->ammo = 8;
-	param->pars->no = NULL;
-	param->pars->so = NULL;
-	param->pars->we = NULL;
-	param->pars->ea = NULL;
-	param->pars->is_c = 0;
-	param->pars->is_f = 0;
+	data->is_play = false;
+	data->is_load = false;
+	data->texters = NULL;
+	data->colors = NULL;
+	data->map = NULL;
+	data->ammo = 8;
+	data->pars.no = NULL;
+	data->pars.so = NULL;
+	data->pars.we = NULL;
+	data->pars.ea = NULL;
+	data->pars.is_c = 0;
+	data->pars.is_f = 0;
 }

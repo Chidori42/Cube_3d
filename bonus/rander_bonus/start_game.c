@@ -6,7 +6,7 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 17:58:00 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/10/05 16:55:17 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/10/08 03:35:15 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,10 @@ void key_handler(void* param)
 
     if (mlx_is_key_down(dt->mlx, MLX_KEY_ESCAPE))
         exit(0);
+     if (mlx_is_key_down(dt->mlx, MLX_KEY_LEFT))
+        player_rotation(dt, '-');
+    else if (mlx_is_key_down(dt->mlx, MLX_KEY_RIGHT))
+        player_rotation(dt, '+');
     if (mlx_is_key_down(dt->mlx, MLX_KEY_W))
     {
         new_x = cos(dt->player->rot_angle) * PLYR_SPEED;

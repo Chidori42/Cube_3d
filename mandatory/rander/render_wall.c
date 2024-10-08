@@ -6,7 +6,7 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 17:57:50 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/10/05 16:46:33 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/10/08 04:24:57 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,19 +43,62 @@ void     ft_mlx_put_pixel(t_data *dt, int x, int y, int color)
         return;
     mlx_put_pixel(dt->img, x, y, color);
 }
-void    draw_wall(t_data *dt, int wall_top_pixel, int wall_bot_pixel, int ray)
-{
-    int color;
 
-    color = get_color(dt, dt->ray->ray_angle);
-    while(wall_top_pixel < wall_bot_pixel)
+
+void draw_wall(t_data *dt, int wall_top_pixel, int wall_bot_pixel, int ray)
+{
+    int     wall_height;
+    int     texture_y;
+    double  texture_pos;
+    int     color;
+    double  step;
+
+    // Calculate the height of the wall
+    wall_height = wall_bot_pixel - wall_top_pixel;
+
+    // Calculate the step to move through the texture vertically
+    step = (double)dt->pars.north->height / wall_height;
+
+    // Initial texture position in the texture Y-axis
+    texture_pos = (wall_top_pixel - (S_H / 2) + (wall_height / 2)) * step;
+
+    // Loop through each pixel from top to bottom of the wall
+    while (wall_top_pixel < wall_bot_pixel)
     {
-        if (wall_top_pixel < 0 || wall_top_pixel >= S_H)
-            break;
-        ft_mlx_put_pixel(dt, ray, wall_top_pixel, color);
+        // Make sure we are inside screen bounds
+        if (wall_top_pixel >= 0 && wall_top_pixel < S_H)
+        {
+            // Calculate the texture Y coordinate (clamping it within the texture bounds)
+            texture_y = (int)texture_pos;
+            if (texture_y >= dt->pars.north->height)
+                texture_y = dt->pars.north->height - 1;
+            else if (texture_y < 0)
+                texture_y = 0;
+
+            // Calculate the pixel index in the texture (using ray for X and texture_y for Y)
+            unsigned int pixel_index = texture_y * dt->pars.north->width * 4;  // Assuming 4 bytes per pixel (RGBA)
+            unsigned int ray_x = ray % dt->pars.north->width; // Make sure the ray stays within texture bounds
+            pixel_index += ray_x * 4;
+
+            // Get the RGBA values of the pixel
+            unsigned int r = dt->pars.north->pixel_data[pixel_index];
+            unsigned int g = dt->pars.north->pixel_data[pixel_index + 1];
+            unsigned int b = dt->pars.north->pixel_data[pixel_index + 2];
+            // Combine the RGB values into a single color
+            color = ft_get_colore(r, g, b);
+
+            // Draw the pixel on the screen
+            ft_mlx_put_pixel(dt, ray, wall_top_pixel, color);
+        }
+
+        // Move to the next pixel on the wall
         wall_top_pixel++;
+        
+        // Move texture position down for the next pixel
+        texture_pos += step;
     }
 }
+
 
 void draw_floor(t_data *dt, int  wall_bot_pixel, int ray)
 {
