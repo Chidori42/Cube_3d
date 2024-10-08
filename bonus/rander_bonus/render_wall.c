@@ -3,33 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   render_wall.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yakazdao <yakazdao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 17:57:50 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/10/05 16:49:47 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/10/08 11:52:52 by yakazdao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub_bonus.h"
-
-int get_color(t_data *dt, float ray_angle)
-{
-    ray_angle = normalize_angle(ray_angle);
-    if (dt->ray->is_vert)
-    {
-        if (ray_angle >0 && ray_angle < M_PI)
-            return (0xB5B5B5FF);
-        else
-            return (0xB5B5B5FF);
-    }
-    else
-    {
-        if (ray_angle > M_PI / 2 && ray_angle < 3 * (M_PI / 2))
-            return (0xF5F5F5FF);
-        else
-            return (0xF5F5F5FF);
-    }
-}
 
 void     ft_mlx_put_pixel(t_data *dt, int x, int y, int color)
 {
@@ -43,17 +24,57 @@ void     ft_mlx_put_pixel(t_data *dt, int x, int y, int color)
         return;
     mlx_put_pixel(dt->img, x, y, color);
 }
+// t_texture *select_texture(t_data *dt)
+// {
+//     if (dt->ray->is_vert == 0)
+//     {
+//         return (dt->ray->ray_dir_x > 0) ? dt->pars.west : dt->pars.east;
+//     }
+//     else
+//     {
+//         return (dt->ray->ray_dir_y > 0) ? dt->pars.south : dt->pars.north;
+//     }
+// }
+
+uint32_t get_texture_pix(t_data *dt)
+{
+    uint32_t r;
+    uint32_t g;
+    uint32_t b;
+    uint32_t a;
+    uint32_t index;
+
+    if (dt->x_offset >= 0 && dt->x_offset <= S_W &&  dt->y_offset >= 0 &&  dt->y_offset <= S_H)
+    {
+        index = (dt->y_offset * dt->pars.north->width  + dt->x_offset) * 4;
+        r = dt->pars.north->pixel_data[index];
+        g = dt->pars.north->pixel_data[index + 1];
+        b = dt->pars.north->pixel_data[index + 2];
+        a = dt->pars.north->pixel_data[index + 3];
+        return (r << 24 | g << 16 | b << 8 | a); 
+    }
+    return (0x000000ff);
+}
 void    draw_wall(t_data *dt, int wall_top_pixel, int wall_bot_pixel, int ray)
 {
-    int color;
-
-    color = get_color(dt, dt->ray->ray_angle);
-    while(wall_top_pixel < wall_bot_pixel)
+    uint32_t color;
+    float step;
+    float tex_pos;
+    int y;
+    
+    step = (int)dt->pars.north->height / dt->wall_height;
+    tex_pos = (wall_top_pixel - (S_H / 2 - dt->wall_height / 2)) * step;
+    y = wall_top_pixel;
+    while(y < wall_bot_pixel)
     {
-        if (wall_top_pixel < 0 || wall_top_pixel >= S_H)
+        if (y < 0 || y >= S_H)
             break;
-        ft_mlx_put_pixel(dt, ray, wall_top_pixel, color);
-        wall_top_pixel++;
+        dt->y_offset = (int)tex_pos & (dt->pars.north->height - 1);
+        color = get_texture_pix(dt);
+        // printf("==> 0x%08X\n", color);
+        ft_mlx_put_pixel(dt, ray, y, color);
+        tex_pos += step;
+        y++;
     }
 }
 
@@ -87,7 +108,6 @@ void draw_ceiling(t_data *dt, int  wall_top_pixel, int ray)
 
 void    render_wall(t_data *dt, int ray)
 {
-    float   wall_height;
     float   angle_in_rad;
     float   actual_slice_height;
     float   dist_to_proj_plane;
@@ -103,13 +123,17 @@ void    render_wall(t_data *dt, int ray)
 
     actual_slice_height = TILE_SIZE;
     dist_to_proj_plane = (S_W / 2) / tan(normalize_angle(angle_in_rad / 2));
-    wall_height = dist_to_proj_plane * (actual_slice_height / dt->ray->distance);
-    wall_top_pixel = (S_H / 2) - (wall_height / 4);
+    dt->wall_height = dist_to_proj_plane * (actual_slice_height / dt->ray->distance);
+    wall_top_pixel = (S_H / 2) - (dt->wall_height / 2);
     if (wall_top_pixel < 0)
         wall_top_pixel = 0;
-    wall_bot_pixel = (S_H / 2) + (wall_height / 4);
+    wall_bot_pixel = (S_H / 2) + (dt->wall_height / 2);
     if (wall_bot_pixel > S_H)
         wall_bot_pixel = S_H;
+    if (!dt->ray->is_vert)
+        dt->x_offset = (int)dt->ray->wall_x_hit % TILE_SIZE;
+    else
+        dt->x_offset = (int)dt->ray->wall_y_hit % TILE_SIZE;
     draw_wall(dt, wall_top_pixel, wall_bot_pixel, ray);
     draw_floor(dt, wall_bot_pixel, ray);
     draw_ceiling(dt, wall_top_pixel, ray);

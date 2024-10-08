@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub_bonus.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yakazdao <yakazdao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 05:43:32 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/10/08 03:31:36 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/10/08 10:11:48 by yakazdao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@
 # define PLYR_SPEED 4
 # define ROTATION_SPEED 0.045
 # define WALL_WIDTH 1
+# define TEX_WIDTH 30
+# define TEX_HEIGHT 30
 
 typedef struct s_player
 {
@@ -97,15 +99,16 @@ typedef struct s_pars
 
 typedef struct s_data
 {
- mlx_t		*mlx;
- mlx_image_t	*img;
- int		p_x_pos_in_map;
- int		p_y_pos_in_map;
- int		map_w;
- int		map_h;
- int		num_rays;
- t_ray		*ray;
- t_player	*player;
+mlx_t				*mlx;
+mlx_image_t			*img;
+int					p_x_pos_in_map;
+int					p_y_pos_in_map;
+int					map_w;
+int					map_h;
+int					num_rays;
+float				wall_height;
+t_ray				*ray;
+t_player			*player;
 bool 				is_play;
 bool 				is_load;
 int 				fram;
@@ -116,6 +119,8 @@ char				*weap_path[19];
 char				**map;
 char				**texters;
 char 				**colors;
+int					x_offset;
+int					y_offset;
 t_pars				pars;
 t_texture 			texture;
 } t_data;

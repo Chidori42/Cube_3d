@@ -3,8 +3,8 @@ SO ./textures/wall.png
 NO ./textures/wall1.png
 WE ./textures/wall.png
 
-C 2,255,01
-F 5,95,255
+C 5,95,255
+F 2,255,01
 
     11111111111111111111111111111
     10000000000000000001100000001
