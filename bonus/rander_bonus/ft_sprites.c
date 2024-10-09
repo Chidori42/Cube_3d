@@ -6,7 +6,7 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 15:18:58 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/10/04 20:30:58 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/10/09 03:05:08 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void ft_shoot(t_data *data)
 {
     static int frame_delay = 0;
 
-    if (frame_delay % 10 == 0)
+    if (frame_delay % 5 == 0)
     {
 		mlx_delete_image(data->mlx, data->weapen_img);
 		data->weapen_img = mlx_texture_to_image(data->mlx, data->weapen_txt[data->fram]);

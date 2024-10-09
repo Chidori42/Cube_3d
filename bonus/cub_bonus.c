@@ -6,7 +6,7 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 08:54:18 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/10/08 03:32:37 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/10/09 03:30:23 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ int	main(int ac, char **av)
 		if (ft_init_weapen_images(&data))
 			return (ft_free_exit(&data), 1);
 		if (ft_init_texters(&data))
+			return (ft_free_exit(&data), 1);
+		if (ft_init_door_images(&data))
 			return (ft_free_exit(&data), 1);
 		init_data(&data);
     	start_game(&data);

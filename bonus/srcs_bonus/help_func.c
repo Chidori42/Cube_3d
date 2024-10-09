@@ -6,7 +6,7 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 18:14:41 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/10/05 16:52:41 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/10/09 01:34:27 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ bool check_map_collision(t_data *dt, int grid_x, int grid_y)
         return (true);
     return (false);
 }
+
 
 float normalize_angle(float ray_angle)
 {

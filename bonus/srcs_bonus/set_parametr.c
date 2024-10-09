@@ -6,7 +6,7 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 11:42:58 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/10/08 03:33:55 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/10/09 03:27:34 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,10 @@ void ft_setparam(t_data *data)
 	data->colors = NULL;
 	data->map = NULL;
 	data->ammo = 8;
+	data->fram = 0;
+	data->door_frame = 0;
+	data->is_close = true;
+	data->is_open = false;
 	data->pars.no = NULL;
 	data->pars.so = NULL;
 	data->pars.we = NULL;

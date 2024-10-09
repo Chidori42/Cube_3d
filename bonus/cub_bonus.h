@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub_bonus.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yakazdao <yakazdao@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 05:43:32 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/10/08 10:11:48 by yakazdao         ###   ########.fr       */
+/*   Updated: 2024/10/09 03:33:04 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,14 +113,21 @@ bool 				is_play;
 bool 				is_load;
 int 				fram;
 int					ammo;
-mlx_texture_t		*weapen_txt[19];
+mlx_texture_t		*weapen_txt[14];
 mlx_image_t			*weapen_img;
-char				*weap_path[19];
+char				*weap_path[14];
+t_texture			*open_txt[7];
+t_texture			*close_txt[7];
+char				*d_open[7];
+char				*d_close[7];
+bool				is_open;
+bool				is_close;
 char				**map;
 char				**texters;
 char 				**colors;
 int					x_offset;
 int					y_offset;
+int 				door_frame;
 t_pars				pars;
 t_texture 			texture;
 } t_data;
@@ -152,7 +159,9 @@ void		ft_clear_image(mlx_image_t *img);
 int			ft_init_weapen_images(t_data *data);
 void		weapen_hooks(void *p);
 
-
+int			ft_init_door_images(t_data *data);
+void		ft_close(t_data *data);
+void		ft_open(t_data *data);
 bool		check_map_collision(t_data *dt, int grid_x, int grid_y);
 void		game_loop(t_data *data);
 void		get_player_pos(char **grid, t_data *dt);

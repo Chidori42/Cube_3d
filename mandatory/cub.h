@@ -6,7 +6,7 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 05:43:32 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/10/08 03:30:01 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/10/08 23:11:45 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,15 +97,16 @@ typedef struct s_pars
 
 typedef struct s_data
 {
- mlx_t		*mlx;
- mlx_image_t	*img;
- int		p_x_pos_in_map;
- int		p_y_pos_in_map;
- int		map_w;
- int		map_h;
- int		num_rays;
- t_ray		*ray;
- t_player	*player;
+mlx_t				*mlx;
+mlx_image_t			*img;
+int					p_x_pos_in_map;
+int					p_y_pos_in_map;
+int					map_w;
+int					map_h;
+int					num_rays;
+float				wall_height;
+t_ray				*ray;
+t_player			*player;
 bool 				is_play;
 bool 				is_load;
 int 				fram;
@@ -116,6 +117,8 @@ char				*weap_path[19];
 char				**map;
 char				**texters;
 char 				**colors;
+int					x_offset;
+int					y_offset;
 t_pars				pars;
 t_texture 			texture;
 } t_data;

@@ -1,6 +1,6 @@
 EA ./textures/wall.png
 SO ./textures/wall.png
-NO ./textures/wall1.png
+NO ./textures/wall.png
 WE ./textures/wall.png
 
 C 2,255,01

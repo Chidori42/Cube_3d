@@ -6,7 +6,7 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 17:58:00 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/10/08 03:35:15 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/10/09 02:35:34 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,7 @@ void game_loop(t_data *data)
     draw_minimap(data);
 }
 
+
 void retate_angle(void *param)
 {
     t_data *dt = (t_data *)param;
@@ -147,7 +148,6 @@ void start_game(t_data *data)
     mlx_resize_image(data->weapen_img, 375, 400);
     mlx_image_to_window(data->mlx, data->weapen_img, 600, 600);
 	mlx_loop_hook(data->mlx,  key_handler, data);
-    mlx_loop_hook(data->mlx, retate_angle, data);
     mlx_loop_hook(data->mlx, weapen_hooks, data);
 	mlx_loop(data->mlx);
 }

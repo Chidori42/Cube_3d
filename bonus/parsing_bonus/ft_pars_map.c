@@ -6,7 +6,7 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 20:47:41 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/10/04 23:11:15 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/10/09 02:59:28 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ static int ft_count_player(t_data *data)
     while (data->map && data->map[j])
     {
         i = 0;
+        printf("%s\n", data->map[j]);
         while (data->map[j][i])
         {
             if (ft_strchr("NSWE", data->map[j][i]))
