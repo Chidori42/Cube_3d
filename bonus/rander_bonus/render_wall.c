@@ -6,7 +6,7 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 17:57:50 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/10/09 03:24:15 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/10/10 10:46:04 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void    draw_wall(t_data *dt, t_texture *txt, int wall_top_pixel, int wall_bot_p
     float step;
     float tex_pos;
     int y;
-    
+
     step = (int)txt->height / dt->wall_height;
     tex_pos = (wall_top_pixel - (S_H / 2 - dt->wall_height / 2)) * step;
     y = wall_top_pixel;
@@ -122,7 +122,7 @@ void    render_wall(t_data *dt, int ray)
         dt->x_offset = (int)dt->ray->wall_x_hit % TILE_SIZE;
     else
         dt->x_offset = (int)dt->ray->wall_y_hit % TILE_SIZE;
-    draw_wall(dt, dt->pars.north, wall_top_pixel, wall_bot_pixel, ray);
+    draw_wall(dt, dt->pars.east, wall_top_pixel, wall_bot_pixel, ray);
     draw_floor(dt, wall_bot_pixel, ray);
     draw_ceiling(dt, wall_top_pixel, ray);
 }

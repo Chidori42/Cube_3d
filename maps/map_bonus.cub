@@ -1,7 +1,7 @@
-EA ./textures/wall.png
-SO ./textures/wall.png
-NO ./textures/wall_texters/SAMPLE/RIVET_1A.PNG
-WE ./textures/wall.png
+EA ./textures/wall_texters/SAMPLE/BRICK_3D.PNG
+SO ./textures/wall_texters/SAMPLE/BRICK_3D.PNG
+NO ./textures/wall_texters/SAMPLE/BRICK_3D.PNG
+WE ./textures/wall_texters/SAMPLE/BRICK_3D.PNG
 
 C 5,95,255
 F 2,255,01

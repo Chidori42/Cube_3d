@@ -6,8 +6,8 @@
       "type": "lldb",
       "request": "launch",
       "args": [],
-      "cwd": "/Users/ael-fagr/Desktop/Cube_3d",
-      "program": "/Users/ael-fagr/Desktop/Cube_3d/build/Debug/outDebug"
+      "cwd": "/Users/ael-fagr/Desktop/new_cub/bonus/rander_bonus",
+      "program": "/Users/ael-fagr/Desktop/new_cub/bonus/rander_bonus/build/Debug/outDebug"
     }
   ]
 }
