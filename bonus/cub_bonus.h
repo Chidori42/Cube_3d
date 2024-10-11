@@ -15,6 +15,7 @@
 
 # include <math.h>
 # include <stdio.h>
+#include <time.h>
 # include <fcntl.h>
 # include "../libft/libft.h"
 #include "../MLX42/include/MLX42/MLX42.h"
@@ -113,13 +114,10 @@ bool 				is_play;
 bool 				is_load;
 int 				fram;
 int					ammo;
-mlx_texture_t		*weapen_txt[14];
+mlx_texture_t		*weapen_txt[200];
 mlx_image_t			*weapen_img;
-char				*weap_path[14];
-t_texture			*open_txt[7];
-t_texture			*close_txt[7];
-char				*d_open[7];
-char				*d_close[7];
+char				*weap_path[200];
+t_texture			*door_txt;
 bool				is_open;
 bool				is_close;
 char				**map;
@@ -159,7 +157,7 @@ void		ft_clear_image(mlx_image_t *img);
 int			ft_init_weapen_images(t_data *data);
 void		weapen_hooks(void *p);
 
-int			ft_init_door_images(t_data *data);
+int			ft_init_door_image(t_data *data);
 void		ft_close(t_data *data);
 void		ft_open(t_data *data);
 bool		check_map_collision(t_data *dt, int grid_x, int grid_y);

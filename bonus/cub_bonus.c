@@ -37,7 +37,7 @@ int	main(int ac, char **av)
 			return (ft_free_exit(&data), 1);
 		if (ft_init_texters(&data))
 			return (ft_free_exit(&data), 1);
-		if (ft_init_door_images(&data))
+		if (ft_init_door_image(&data))
 			return (ft_free_exit(&data), 1);
 		init_data(&data);
     	start_game(&data);

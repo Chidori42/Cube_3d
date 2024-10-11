@@ -1,10 +1,10 @@
-EA ./textures/wall_texters/SAMPLE/BRICK_3D.PNG
-SO ./textures/wall_texters/SAMPLE/BRICK_3D.PNG
-NO ./textures/wall_texters/SAMPLE/BRICK_3D.PNG
-WE ./textures/wall_texters/SAMPLE/BRICK_3D.PNG
+EA ./textures/wall_texters/SAMPLE/TECH_1C.PNG
+SO ./textures/wall_texters/SAMPLE/TECH_1C.PNG
+NO ./textures/wall_texters/SAMPLE/TECH_1C.PNG
+WE ./textures/wall_texters/SAMPLE/TECH_1C.PNG
 
-C 5,95,255
-F 2,255,01
+C 200,220,255
+F 20,0,0
 
     11111111111111111111111111111
     10000000000000000001100000001

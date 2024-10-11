@@ -83,6 +83,7 @@ int ft_pars_texters(t_data *data, t_pars *args)
             return (ft_free_2dm(p1), 1);
         ft_free_2dm(p1);
     }
+    // printf("ea=%s we=%s so=%s no=%s\n", args->ea, args->we, args->so, args->no);
     if (i != 4 || !args->no || !args->so || !args->we || !args->ea)
         return (ft_putendl_fd("Error\ninvalid map22", 2), 1);
     return (0);

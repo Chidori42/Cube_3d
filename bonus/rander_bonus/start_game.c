@@ -144,10 +144,9 @@ void start_game(t_data *data)
         exit(1) ;
     }
     mlx_image_to_window(data->mlx, data->img, 0, 0);
-    // data->weapen_img = mlx_texture_to_image(data->mlx, data->weapen_txt[0]);
-    // mlx_resize_image(data->weapen_img, 375, 400);
-    // mlx_image_to_window(data->mlx, data->weapen_img, 600, 600);
+    data->weapen_img = mlx_texture_to_image(data->mlx, data->weapen_txt[0]);
+    mlx_image_to_window(data->mlx, data->weapen_img, 0, 0);
 	mlx_loop_hook(data->mlx,  key_handler, data);
-    // mlx_loop_hook(data->mlx, weapen_hooks, data);
+    mlx_loop_hook(data->mlx, weapen_hooks, data);
 	mlx_loop(data->mlx);
 }
