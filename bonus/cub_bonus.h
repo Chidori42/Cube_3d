@@ -40,6 +40,13 @@
 # define TEX_WIDTH 30
 # define TEX_HEIGHT 30
 
+#define TEXTURE_NO "NO"
+#define TEXTURE_SO "SO"
+#define TEXTURE_WE "WE"
+#define TEXTURE_EA "EA"
+#define COLOR_C "C"
+#define COLOR_F "F"
+
 typedef struct s_player
 {
  int	x;

@@ -51,7 +51,8 @@ void    get_player_pos(char **grid, t_data *dt)
         j = 0;
         while (grid[i][j])
         {
-            if (grid[i][j] == 'E' || grid[i][j] == 'S' || grid[i][j] == 'N' || grid[i][j] == 'W')
+            if (grid[i][j] == 'E' || grid[i][j] == 'S' 
+                || grid[i][j] == 'N' || grid[i][j] == 'W')
             {
                 dt->p_y_pos_in_map = i;
                 dt->p_x_pos_in_map = j;

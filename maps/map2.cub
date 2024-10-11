@@ -1,7 +1,7 @@
-EA ./textures/wall.png
-SO ./textures/wall.png
-NO ./textures/wall.png
-WE ./textures/wall.png
+EA ./textures/wall_texters/SAMPLE/TECH_1C.PNG
+SO ./textures/wall_texters/SAMPLE/TECH_1C.PNG
+NO ./textures/wall_texters/SAMPLE/TECH_1C.PNG
+WE ./textures/wall_texters/SAMPLE/TECH_1C.PNG
 
 C 2,255,01
 F 5,95,255

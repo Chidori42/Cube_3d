@@ -3,8 +3,14 @@ SO ./textures/wall_texters/SAMPLE/TECH_1C.PNG
 NO ./textures/wall_texters/SAMPLE/TECH_1C.PNG
 WE ./textures/wall_texters/SAMPLE/TECH_1C.PNG
 
+
+
+
+
+
 C 200,220,255
 F 20,0,0
+
 
     11111111111111111111111111111
     10000000000000000001100000001
