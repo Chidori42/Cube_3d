@@ -68,17 +68,23 @@ void	player_rotation(t_data *dt, char rot_inc)
 
 void ft_reset_door(t_data *dt)
 {
-    float grid_x;
-    float grid_y;
+    int grid_x;
+    int grid_y;
+    int new_x;
+    int new_y;
 
-    grid_x = (dt->player->x / TILE_SIZE) + 0.25;
-    grid_y = (dt->player->y / TILE_SIZE) + 0.25;
+    new_x = roundf(dt->player->x + 1);
+	new_y = roundf(dt->player->y + 1);  
+	grid_x = (new_x / TILE_SIZE);  
+	grid_y = (new_y / TILE_SIZE); 
+
     if (grid_x >= 0 && grid_x < dt->map_w && grid_y >= 0 && grid_y < dt->map_h)
     {
         if (dt->is_door == true && (dt->map[(int)grid_y][(int)grid_x] == 'D' \
             || dt->map[(int)grid_y][(int)grid_x] == 'O'))
 
         {
+            printf("hello\n");
             if (dt->map[(int)grid_y][(int)grid_x] == 'D')
                 dt->map[(int)grid_y][(int)grid_x] = 'O';
             else
