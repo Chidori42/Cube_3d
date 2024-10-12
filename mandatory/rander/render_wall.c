@@ -71,7 +71,6 @@ void    draw_wall(t_data *dt, int wall_top_pixel, int wall_bot_pixel, int ray)
             break;
         dt->y_offset = (int)tex_pos & (dt->pars.north->height - 1);
         color = get_texture_pix(dt);
-        // printf("==> 0x%08X\n", color);
         ft_mlx_put_pixel(dt, ray, y, color);
         tex_pos += step;
         y++;

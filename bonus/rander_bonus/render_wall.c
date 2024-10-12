@@ -25,7 +25,7 @@ void     ft_mlx_put_pixel(t_data *dt, int x, int y, int color)
     mlx_put_pixel(dt->img, x, y, color);
 }
 
-uint32_t get_texture_pix(t_data *dt)
+uint32_t get_texture_pix(t_data *dt, t_texture *txt)
 {
     uint32_t r;
     uint32_t g;
@@ -33,13 +33,13 @@ uint32_t get_texture_pix(t_data *dt)
     uint32_t a;
     uint32_t index;
 
-    if (dt->x_offset >= 0 && dt->x_offset <= S_W &&  dt->y_offset >= 0 &&  dt->y_offset <= S_H)
+    if (dt->x_offset >= 0 && dt->x_offset < S_W &&  dt->y_offset >= 0 &&  dt->y_offset < S_H)
     {
-        index = (dt->y_offset * dt->pars.north->width  + dt->x_offset) * 4;
-        r = dt->pars.north->pixel_data[index];
-        g = dt->pars.north->pixel_data[index + 1];
-        b = dt->pars.north->pixel_data[index + 2];
-        a = dt->pars.north->pixel_data[index + 3];
+        index = (dt->y_offset * txt->width  + dt->x_offset) * 4;
+        r = txt->pixel_data[index];
+        g = txt->pixel_data[index + 1];
+        b = txt->pixel_data[index + 2];
+        a = txt->pixel_data[index + 3];
         return (r << 24 | g << 16 | b << 8 | a); 
     }
     return (0x000000ff);
@@ -51,16 +51,19 @@ void    draw_wall(t_data *dt, t_texture *txt, int wall_top_pixel, int wall_bot_p
     float tex_pos;
     int y;
 
-    step = (int)txt->height / dt->wall_height;
+    if (dt->wall_height <= 0)
+        return ;
+    step = (float)txt->height / dt->wall_height;
     tex_pos = (wall_top_pixel - (S_H / 2 - dt->wall_height / 2)) * step;
     y = wall_top_pixel;
     while(y < wall_bot_pixel)
     {
-        if (y < 0 || y >= S_H)
-            break;
-        dt->y_offset = (int)tex_pos & (txt->height - 1);
-        color = get_texture_pix(dt);
-        ft_mlx_put_pixel(dt, ray, y, color);
+        if (y >= 0 && y < S_H)
+        {
+            dt->y_offset = (int)tex_pos % txt->height;
+            color = get_texture_pix(dt, txt);
+            ft_mlx_put_pixel(dt, ray, y, color);
+        }
         tex_pos += step;
         y++;
     }
@@ -122,7 +125,7 @@ void    render_wall(t_data *dt, int ray)
         dt->x_offset = (int)dt->ray->wall_x_hit % TILE_SIZE;
     else
         dt->x_offset = (int)dt->ray->wall_y_hit % TILE_SIZE;
-    draw_wall(dt, dt->pars.east, wall_top_pixel, wall_bot_pixel, ray);
+    draw_wall(dt, dt->pars.north, wall_top_pixel, wall_bot_pixel, ray);
     draw_floor(dt, wall_bot_pixel, ray);
     draw_ceiling(dt, wall_top_pixel, ray);
 }

@@ -61,9 +61,7 @@ void ft_setparam(t_data *data)
 	data->map = NULL;
 	data->ammo = 8;
 	data->fram = 0;
-	data->door_frame = 0;
-	data->is_close = true;
-	data->is_open = false;
+	data->is_door = false;
 	data->pars.no = NULL;
 	data->pars.so = NULL;
 	data->pars.we = NULL;
