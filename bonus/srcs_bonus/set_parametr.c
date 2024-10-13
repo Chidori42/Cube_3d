@@ -12,7 +12,7 @@
 
 #include "../cub_bonus.h"
 
-int draw_pixel(mlx_image_t *img, float pixel_size, int a, int b, int color)
+int draw_pixel(mlx_image_t *img, float pixel_size, float a, float b, int color)
 {
     int i;
     int j;

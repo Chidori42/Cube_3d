@@ -40,7 +40,6 @@ int	ft_init_weapen_images(t_data *data)
 		return (1);
 	while (i < 198)
 	{
-		printf("****%s***\n", data->weap_path[i]);
 		data->weapen_txt[i] = mlx_load_png(data->weap_path[i]);
 		if (!(data->weapen_txt[i]))
 			return (ft_putendl_fd("loadpng fail!!", 2), 1);

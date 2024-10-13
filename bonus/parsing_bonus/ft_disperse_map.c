@@ -85,9 +85,6 @@ int	get_data(t_data *data, char *colors, char *texters, char *map)
 		free(map);
 		return (1);
 	}
-	i = 0;
-	while (data->map[i])
-		printf("%s\n", data->map[i++]);
 	data->texters = ft_split(texters, '\n');
 	data->colors = ft_split(colors, '\n');
 	if (!data->texters || !data->colors || !data->map)

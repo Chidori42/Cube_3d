@@ -66,33 +66,6 @@ void	player_rotation(t_data *dt, char rot_inc)
 	}
 }
 
-void ft_reset_door(t_data *dt)
-{
-    int grid_x;
-    int grid_y;
-    int new_x;
-    int new_y;
-
-    new_x = roundf(dt->player->x + 1);
-	new_y = roundf(dt->player->y + 1);  
-	grid_x = (new_x / TILE_SIZE);  
-	grid_y = (new_y / TILE_SIZE); 
-
-    if (grid_x >= 0 && grid_x < dt->map_w && grid_y >= 0 && grid_y < dt->map_h)
-    {
-        if (dt->is_door == true && (dt->map[(int)grid_y][(int)grid_x] == 'D' \
-            || dt->map[(int)grid_y][(int)grid_x] == 'O'))
-
-        {
-            printf("hello\n");
-            if (dt->map[(int)grid_y][(int)grid_x] == 'D')
-                dt->map[(int)grid_y][(int)grid_x] = 'O';
-            else
-                dt->map[(int)grid_y][(int)grid_x] = 'D';
-        }
-    }
-}
-
 void key_handler(void* param)
 {
     t_data *dt = (t_data *)param;
@@ -101,8 +74,6 @@ void key_handler(void* param)
 
     if (mlx_is_key_down(dt->mlx, MLX_KEY_ESCAPE))
         exit(0);
-    if (mlx_is_key_down(dt->mlx, MLX_KEY_G))
-        ft_reset_door(dt);
      if (mlx_is_key_down(dt->mlx, MLX_KEY_LEFT))
         player_rotation(dt, '-');
     else if (mlx_is_key_down(dt->mlx, MLX_KEY_RIGHT))
