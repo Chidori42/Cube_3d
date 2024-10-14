@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render_wall.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yakazdao <yakazdao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 17:57:50 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/10/10 10:46:04 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/10/14 11:57:26 by yakazdao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,28 @@ void draw_ceiling(t_data *dt, int  wall_top_pixel, int ray)
         y++;
     }
 }
+t_texture *check_texture(t_data *dt)
+{
+    t_texture *tex;
 
+    if (dt->is_door)
+        tex = dt->door_txt;
+    else if (!dt->ray->is_vert)
+    {
+        if (dt->ray->ray_facing_up)
+            tex = dt->pars.north;
+        else if (dt->ray->ray_facing_down)
+            tex = dt->pars.south;
+    }
+    else 
+    {
+        if (dt->ray->ray_facing_left)
+            tex = dt->pars.west;
+        else if (dt->ray->ray_facing_right)
+            tex = dt->pars.east;
+    }
+    return (tex);
+}
 void    render_wall(t_data *dt, int ray)
 {
     float   angle_in_rad;
@@ -104,7 +125,7 @@ void    render_wall(t_data *dt, int ray)
     float   dist_to_proj_plane;
     int     wall_top_pixel;
     int     wall_bot_pixel;
-
+    t_texture *texture;
     float distorted_distance = dt->ray->distance;
     float angle_difference = dt->ray->ray_angle - dt->player->rot_angle;
 
@@ -121,11 +142,13 @@ void    render_wall(t_data *dt, int ray)
     wall_bot_pixel = (S_H / 2) + (dt->wall_height / 2);
     if (wall_bot_pixel > S_H)
         wall_bot_pixel = S_H;
+    
+    texture = check_texture(dt);
     if (!dt->ray->is_vert)
-        dt->x_offset = (int)dt->ray->wall_x_hit % TILE_SIZE;
+        dt->x_offset = (int)(dt->ray->wall_x_hit * texture->width / TILE_SIZE) % texture->width;
     else
-        dt->x_offset = (int)dt->ray->wall_y_hit % TILE_SIZE;
-    draw_wall(dt, dt->pars.north, wall_top_pixel, wall_bot_pixel, ray);
+        dt->x_offset = (int)(dt->ray->wall_y_hit * texture->height / TILE_SIZE) % texture->height;
+    draw_wall(dt, texture, wall_top_pixel, wall_bot_pixel, ray);
     draw_floor(dt, wall_bot_pixel, ray);
     draw_ceiling(dt, wall_top_pixel, ray);
 }

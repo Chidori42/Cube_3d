@@ -57,6 +57,7 @@
   "C_Cpp_Runner.useLinkTimeOptimization": false,
   "C_Cpp_Runner.msvcSecureNoWarnings": false,
   "files.associations": {
-    "cub_bonus.h": "c"
+    "cub_bonus.h": "c",
+    "algorithm": "c"
   }
 }
