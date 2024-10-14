@@ -24,17 +24,6 @@ void     ft_mlx_put_pixel(t_data *dt, int x, int y, int color)
         return;
     mlx_put_pixel(dt->img, x, y, color);
 }
-// t_texture *select_texture(t_data *dt)
-// {
-//     if (dt->ray->is_vert == 0)
-//     {
-//         return (dt->ray->ray_dir_x > 0) ? dt->pars.west : dt->pars.east;
-//     }
-//     else
-//     {
-//         return (dt->ray->ray_dir_y > 0) ? dt->pars.south : dt->pars.north;
-//     }
-// }
 
 uint32_t get_texture_pix(t_data *dt)
 {
@@ -46,36 +35,38 @@ uint32_t get_texture_pix(t_data *dt)
 
     if (dt->x_offset >= 0 && dt->x_offset <= S_W &&  dt->y_offset >= 0 &&  dt->y_offset <= S_H)
     {
-        index = (dt->y_offset * dt->pars.north->width  + dt->x_offset) * 4;
-        r = dt->pars.north->pixel_data[index];
-        g = dt->pars.north->pixel_data[index + 1];
-        b = dt->pars.north->pixel_data[index + 2];
-        a = dt->pars.north->pixel_data[index + 3];
+        index = (dt->y_offset * dt->texture->width  + dt->x_offset) * 4;
+        r = dt->texture->pixel_data[index];
+        g = dt->texture->pixel_data[index + 1];
+        b = dt->texture->pixel_data[index + 2];
+        a = dt->texture->pixel_data[index + 3];
         return (r << 24 | g << 16 | b << 8 | a); 
     }
     return (0x000000ff);
 }
-void    draw_wall(t_data *dt, int wall_top_pixel, int wall_bot_pixel, int ray)
+
+void draw_wall(t_data *dt, int wall_top_pixel, int wall_bot_pixel, int ray)
 {
     uint32_t color;
     float step;
     float tex_pos;
     int y;
-    
-    step = (int)dt->pars.north->height / dt->wall_height;
+
+    step = (float)dt->texture->height / dt->wall_height;
     tex_pos = (wall_top_pixel - (S_H / 2 - dt->wall_height / 2)) * step;
     y = wall_top_pixel;
-    while(y < wall_bot_pixel)
+    while (y < wall_bot_pixel)
     {
         if (y < 0 || y >= S_H)
             break;
-        dt->y_offset = (int)tex_pos & (dt->pars.north->height - 1);
+        dt->y_offset = (int)tex_pos & (dt->texture->height - 1);
         color = get_texture_pix(dt);
         ft_mlx_put_pixel(dt, ray, y, color);
         tex_pos += step;
         y++;
     }
 }
+
 
 void draw_floor(t_data *dt, int  wall_bot_pixel, int ray)
 {
@@ -105,13 +96,13 @@ void draw_ceiling(t_data *dt, int  wall_top_pixel, int ray)
     }
 }
 
-void    render_wall(t_data *dt, int ray)
+void render_wall(t_data *dt, int ray)
 {
-    float   angle_in_rad;
-    float   actual_slice_height;
-    float   dist_to_proj_plane;
-    int     wall_top_pixel;
-    int     wall_bot_pixel;
+    float angle_in_rad;
+    float actual_slice_height;
+    float dist_to_proj_plane;
+    int wall_top_pixel;
+    int wall_bot_pixel;
 
     float distorted_distance = dt->ray->distance;
     float angle_difference = dt->ray->ray_angle - dt->player->rot_angle;
@@ -129,10 +120,18 @@ void    render_wall(t_data *dt, int ray)
     wall_bot_pixel = (S_H / 2) + (dt->wall_height / 2);
     if (wall_bot_pixel > S_H)
         wall_bot_pixel = S_H;
-    if (!dt->ray->is_vert)
-        dt->x_offset = (int)dt->ray->wall_x_hit % TILE_SIZE;
-    else
-        dt->x_offset = (int)dt->ray->wall_y_hit % TILE_SIZE;
+
+    if (dt->ray->is_vert)
+    {
+        dt->texture = dt->pars.east;
+        dt->x_offset = (int)(dt->ray->wall_y_hit * dt->texture->width / TILE_SIZE) % dt->texture->width;
+    }
+    else 
+    {
+        dt->texture = dt->pars.north;
+        dt->x_offset = (int)(dt->ray->wall_x_hit * dt->texture->width / TILE_SIZE) % dt->texture->width;
+    }
+
     draw_wall(dt, wall_top_pixel, wall_bot_pixel, ray);
     draw_floor(dt, wall_bot_pixel, ray);
     draw_ceiling(dt, wall_top_pixel, ray);

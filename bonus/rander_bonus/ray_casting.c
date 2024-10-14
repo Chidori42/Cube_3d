@@ -93,6 +93,11 @@ void cast_ray(t_data *dt, float ray_angle, int i)
 {
     float   horz_distance;
     float   vert_distance;
+<<<<<<< HEAD
+=======
+
+    dt->is_door = false;
+>>>>>>> edc11626130d80887db1b0c54c3d622e80b784ce
     ray_angle = normalize_angle(ray_angle);
     dt->ray->ray_facing_down = ray_angle > 0 && ray_angle < M_PI;
     dt->ray->ray_facing_up = !dt->ray->ray_facing_down;

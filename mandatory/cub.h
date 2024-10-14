@@ -120,7 +120,7 @@ char 				**colors;
 int					x_offset;
 int					y_offset;
 t_pars				pars;
-t_texture 			texture;
+t_texture 			*texture;
 } t_data;
 
 

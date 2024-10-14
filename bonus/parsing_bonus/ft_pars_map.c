@@ -92,7 +92,6 @@ static int	ft_count_player(t_data *data)
 	while (data->map && data->map[j])
 	{
 		i = 0;
-		printf("%s\n", data->map[j]);
 		while (data->map[j][i])
 		{
 			if (ft_strchr("NSWE", data->map[j][i]))

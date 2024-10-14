@@ -25,7 +25,7 @@ void     ft_mlx_put_pixel(t_data *dt, int x, int y, int color)
     mlx_put_pixel(dt->img, x, y, color);
 }
 
-uint32_t get_texture_pix(t_data *dt, t_texture *txt)
+uint32_t get_texture_pix(t_data *dt)
 {
     uint32_t r;
     uint32_t g;
@@ -33,41 +33,40 @@ uint32_t get_texture_pix(t_data *dt, t_texture *txt)
     uint32_t a;
     uint32_t index;
 
-    if (dt->x_offset >= 0 && dt->x_offset < S_W &&  dt->y_offset >= 0 &&  dt->y_offset < S_H)
+    if (dt->x_offset >= 0 && dt->x_offset <= S_W &&  dt->y_offset >= 0 &&  dt->y_offset <= S_H)
     {
-        index = (dt->y_offset * txt->width  + dt->x_offset) * 4;
-        r = txt->pixel_data[index];
-        g = txt->pixel_data[index + 1];
-        b = txt->pixel_data[index + 2];
-        a = txt->pixel_data[index + 3];
+        index = (dt->y_offset * dt->texture->width  + dt->x_offset) * 4;
+        r = dt->texture->pixel_data[index];
+        g = dt->texture->pixel_data[index + 1];
+        b = dt->texture->pixel_data[index + 2];
+        a = dt->texture->pixel_data[index + 3];
         return (r << 24 | g << 16 | b << 8 | a); 
     }
     return (0x000000ff);
 }
-void    draw_wall(t_data *dt, t_texture *txt, int wall_top_pixel, int wall_bot_pixel, int ray)
+
+void draw_wall(t_data *dt, int wall_top_pixel, int wall_bot_pixel, int ray)
 {
     uint32_t color;
     float step;
     float tex_pos;
     int y;
 
-    if (dt->wall_height <= 0)
-        return ;
-    step = (float)txt->height / dt->wall_height;
+    step = (float)dt->texture->height / dt->wall_height;
     tex_pos = (wall_top_pixel - (S_H / 2 - dt->wall_height / 2)) * step;
     y = wall_top_pixel;
-    while(y < wall_bot_pixel)
+    while (y < wall_bot_pixel)
     {
-        if (y >= 0 && y < S_H)
-        {
-            dt->y_offset = (int)tex_pos % txt->height;
-            color = get_texture_pix(dt, txt);
-            ft_mlx_put_pixel(dt, ray, y, color);
-        }
+        if (y < 0 || y >= S_H)
+            break;
+        dt->y_offset = (int)tex_pos & (dt->texture->height - 1);
+        color = get_texture_pix(dt);
+        ft_mlx_put_pixel(dt, ray, y, color);
         tex_pos += step;
         y++;
     }
 }
+
 
 void draw_floor(t_data *dt, int  wall_bot_pixel, int ray)
 {
@@ -100,6 +99,7 @@ t_texture *choice_texture(t_data *dt)
 {
     t_texture *tex;
 
+<<<<<<< HEAD
     if (dt->is_door)
         tex = dt->door_txt;
     else if (!dt->ray->is_vert)
@@ -126,6 +126,16 @@ void    render_wall(t_data *dt, int ray)
     int     wall_top_pixel;
     int     wall_bot_pixel;
     t_texture *texture;
+=======
+void render_wall(t_data *dt, int ray)
+{
+    float angle_in_rad;
+    float actual_slice_height;
+    float dist_to_proj_plane;
+    int wall_top_pixel;
+    int wall_bot_pixel;
+
+>>>>>>> edc11626130d80887db1b0c54c3d622e80b784ce
     float distorted_distance = dt->ray->distance;
     float angle_difference = dt->ray->ray_angle - dt->player->rot_angle;
 
@@ -142,6 +152,7 @@ void    render_wall(t_data *dt, int ray)
     wall_bot_pixel = (S_H / 2) + (dt->wall_height / 2);
     if (wall_bot_pixel > S_H)
         wall_bot_pixel = S_H;
+<<<<<<< HEAD
     texture = choice_texture(dt);
     if (!dt->ray->is_vert)
         dt->x_offset = (int)(dt->ray->wall_x_hit * texture->width / TILE_SIZE) % texture->width;
@@ -151,3 +162,29 @@ void    render_wall(t_data *dt, int ray)
     draw_wall(dt, texture, wall_top_pixel, wall_bot_pixel, ray);
     draw_floor(dt, wall_bot_pixel, ray);
 }
+=======
+
+if (dt->is_door == true)
+    dt->texture = dt->door_txt;
+else if (dt->ray->is_vert)
+{
+    if (dt->ray->ray_facing_right) 
+        dt->texture = dt->pars.east;
+    else 
+        dt->texture = dt->pars.west;
+    dt->x_offset = (int)(dt->ray->wall_y_hit * dt->texture->width / TILE_SIZE) % dt->texture->width;
+}
+else 
+{
+    if (dt->ray->ray_facing_down)
+        dt->texture = dt->pars.south;
+    else
+        dt->texture = dt->pars.north;
+    dt->x_offset = (int)(dt->ray->wall_x_hit * dt->texture->width / TILE_SIZE) % dt->texture->width;
+}
+
+    draw_wall(dt, wall_top_pixel, wall_bot_pixel, ray);
+    draw_floor(dt, wall_bot_pixel, ray);
+    draw_ceiling(dt, wall_top_pixel, ray);
+}
+>>>>>>> edc11626130d80887db1b0c54c3d622e80b784ce

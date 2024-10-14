@@ -132,7 +132,7 @@ char 				**colors;
 int					x_offset;
 int					y_offset;
 t_pars				pars;
-t_texture 			texture;
+t_texture 			*texture;
 } t_data;
 
 
@@ -148,7 +148,7 @@ int    		ft_pars_colors(t_data *data, t_pars *args);
 int 		ft_pars_texters(t_data *data, t_pars *args);
 void 		ft_free_exit(t_data *data);
 int			ft_disperse_map(t_data *data, char *file_map);
-int 		draw_pixel(mlx_image_t *img, float pixel_size, int a, int b, int color);
+int			draw_pixel(mlx_image_t *img, float pixel_size, float a, float b, int color);
 void 		draw_player_circle(mlx_image_t *img, float x, float y, int size, int color);
 int         draw_minimap(t_data *dt);
 int 		ft_get_map(t_data *data, char *map);
@@ -163,8 +163,6 @@ int			ft_init_weapen_images(t_data *data);
 void		weapen_hooks(void *p);
 
 int			ft_init_door_image(t_data *data);
-void		ft_close(t_data *data);
-void		ft_open(t_data *data);
 bool		check_map_collision(t_data *dt, int grid_x, int grid_y);
 void		game_loop(t_data *data);
 void		get_player_pos(char **grid, t_data *dt);

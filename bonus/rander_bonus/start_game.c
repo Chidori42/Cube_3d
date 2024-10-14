@@ -66,6 +66,7 @@ void	player_rotation(t_data *dt, char rot_inc)
 	}
 }
 
+<<<<<<< HEAD
 void ft_reset_door(t_data *dt)
 {
     int grid_x;
@@ -91,6 +92,8 @@ void ft_reset_door(t_data *dt)
     }
 }
 
+=======
+>>>>>>> edc11626130d80887db1b0c54c3d622e80b784ce
 void key_handler(void* param)
 {
     t_data *dt = (t_data *)param;
@@ -99,8 +102,6 @@ void key_handler(void* param)
 
     if (mlx_is_key_down(dt->mlx, MLX_KEY_ESCAPE))
         exit(0);
-    if (mlx_is_key_down(dt->mlx, MLX_KEY_G))
-        ft_reset_door(dt);
      if (mlx_is_key_down(dt->mlx, MLX_KEY_LEFT))
         player_rotation(dt, '-');
     else if (mlx_is_key_down(dt->mlx, MLX_KEY_RIGHT))
