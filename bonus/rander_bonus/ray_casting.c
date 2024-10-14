@@ -6,7 +6,7 @@
 /*   By: yakazdao <yakazdao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 17:57:43 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/10/14 11:47:09 by yakazdao         ###   ########.fr       */
+/*   Updated: 2024/10/14 16:17:25 by yakazdao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,6 @@ void cast_ray(t_data *dt, float ray_angle, int i)
 {
     float   horz_distance;
     float   vert_distance;
-
     ray_angle = normalize_angle(ray_angle);
     dt->ray->ray_facing_down = ray_angle > 0 && ray_angle < M_PI;
     dt->ray->ray_facing_up = !dt->ray->ray_facing_down;
@@ -127,8 +126,7 @@ void casting_rays(t_data *dt)
 
     while (ray_id < dt->num_rays)
     {
-        dt->is_door_h = false;
-        dt->is_door_v = false;
+        dt->is_door = false;
         cast_ray(dt, dt->ray->ray_angle, ray_id);
         ray_id++;
         dt->ray->ray_angle += dt->player->fov_in_rd / dt->num_rays;

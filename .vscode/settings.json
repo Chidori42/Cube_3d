@@ -58,6 +58,7 @@
   "C_Cpp_Runner.msvcSecureNoWarnings": false,
   "files.associations": {
     "cub_bonus.h": "c",
-    "algorithm": "c"
+    "algorithm": "c",
+    "mlx42.h": "c"
   }
 }

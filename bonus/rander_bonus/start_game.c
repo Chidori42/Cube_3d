@@ -6,7 +6,7 @@
 /*   By: yakazdao <yakazdao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 17:58:00 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/10/13 11:23:22 by yakazdao         ###   ########.fr       */
+/*   Updated: 2024/10/14 16:05:39 by yakazdao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,7 +150,6 @@ void game_loop(t_data *data)
     casting_rays(data);
     draw_minimap(data);
 }
-
 
 void retate_angle(void *param)
 {

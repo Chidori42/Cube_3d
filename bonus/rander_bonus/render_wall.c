@@ -6,7 +6,7 @@
 /*   By: yakazdao <yakazdao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 17:57:50 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/10/14 11:57:26 by yakazdao         ###   ########.fr       */
+/*   Updated: 2024/10/14 13:35:11 by yakazdao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ void draw_ceiling(t_data *dt, int  wall_top_pixel, int ray)
         y++;
     }
 }
-t_texture *check_texture(t_data *dt)
+t_texture *choice_texture(t_data *dt)
 {
     t_texture *tex;
 
@@ -142,13 +142,12 @@ void    render_wall(t_data *dt, int ray)
     wall_bot_pixel = (S_H / 2) + (dt->wall_height / 2);
     if (wall_bot_pixel > S_H)
         wall_bot_pixel = S_H;
-    
-    texture = check_texture(dt);
+    texture = choice_texture(dt);
     if (!dt->ray->is_vert)
         dt->x_offset = (int)(dt->ray->wall_x_hit * texture->width / TILE_SIZE) % texture->width;
     else
         dt->x_offset = (int)(dt->ray->wall_y_hit * texture->height / TILE_SIZE) % texture->height;
+    draw_ceiling(dt, wall_top_pixel, ray);
     draw_wall(dt, texture, wall_top_pixel, wall_bot_pixel, ray);
     draw_floor(dt, wall_bot_pixel, ray);
-    draw_ceiling(dt, wall_top_pixel, ray);
 }
