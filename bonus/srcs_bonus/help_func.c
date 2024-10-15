@@ -16,7 +16,10 @@ bool check_map_collision(t_data *dt, int grid_x, int grid_y)
 {
     if (dt->map[grid_y][grid_x] != '1' && \
 	    (dt->map[grid_y][dt->player->x / TILE_SIZE] != '1' && \
-	    dt->map[dt->player->y / TILE_SIZE][grid_x] != '1'))
+	    dt->map[dt->player->y / TILE_SIZE][grid_x] != '1') &&
+        dt->map[grid_y][grid_x] != 'D' && \
+	    (dt->map[grid_y][dt->player->x / TILE_SIZE] != 'D' && \
+	    dt->map[dt->player->y / TILE_SIZE][grid_x] != 'D'))
         return (true);
     return (false);
 }
@@ -37,10 +40,15 @@ bool find_wall_at(t_data *dt, int x, int y, char **grid)
     int grid_y = floor(y / TILE_SIZE);
     if (grid_x < 0 || grid_x >= dt->map_w || grid_y < 0 || grid_y >= dt->map_h)
         return (false);
-    if (grid[grid_y][grid_x] == 'D' && dt->ray->distance >= 30)
-        return (dt->is_door = true, true);
-    return (grid[grid_y][grid_x] == '1');
+
+    if (grid[grid_y][grid_x] == 'D')
+        dt->is_door = true;
+    else if (grid[grid_y][grid_x] == 'O')
+        dt->is_door = false;
+    return (grid[grid_y][grid_x] == '1' || grid[grid_y][grid_x] == 'D');
 }
+
+
 
 void    get_player_pos(char **grid, t_data *dt)
 {

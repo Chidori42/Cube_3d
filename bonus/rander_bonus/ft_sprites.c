@@ -58,7 +58,6 @@ int	ft_init_weapen_images(t_data *data)
 void ft_load(t_data *data)
 {
     static int frame_delay = 0;
-	int end_fram;
 
 	if (data->start_fram == 0)
 		data->end_fram = 115;
@@ -103,6 +102,28 @@ void ft_shoot(t_data *data)
     frame_delay++;
 }
 
+void ft_animate(t_data *data)
+{
+    static int frame_delay = 0;
+	static int start = 132;
+	static int end = 150;
+
+	if (frame_delay % 2 == 0)
+    {
+		mlx_delete_image(data->mlx, data->weapen_img);
+		data->weapen_img = mlx_texture_to_image(data->mlx, data->weapen_txt[start]);
+		mlx_image_to_window(data->mlx, data->weapen_img, 0, 0);
+        start++;
+        if (start >= end)
+		{
+            frame_delay = 0;
+			start = 132;
+			data->is_animate = false;
+		}
+	}
+    frame_delay++;
+}
+
 void weapen_hooks(void *p)
 {
     t_data *data;
@@ -123,8 +144,14 @@ void weapen_hooks(void *p)
 		else if (data->end_fram == 180)
 			data->start_fram = 180;
 	}
+	if (!data->is_animate)
+		data->is_animate = true;
+
 	if (data->is_load)
-        ft_load(data);  
+        ft_load(data);
     else if (data->is_play)
         ft_shoot(data);
+	else if (!data->is_play && !data->is_load)
+		ft_animate(data);
+
 }

@@ -56,6 +56,7 @@ void ft_setparam(t_data *data)
 {
 	data->is_play = false;
 	data->is_load = false;
+	data->is_animate = false;
 	data->texters = NULL;
 	data->colors = NULL;
 	data->map = NULL;

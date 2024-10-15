@@ -33,7 +33,7 @@ uint32_t get_texture_pix(t_data *dt)
     uint32_t a;
     uint32_t index;
 
-    if (dt->x_offset >= 0 && dt->x_offset <= S_W &&  dt->y_offset >= 0 &&  dt->y_offset <= S_H)
+    if (dt->x_offset >= 0 && dt->x_offset < dt->texture->width && dt->y_offset >= 0 && dt->y_offset < dt->texture->height)
     {
         index = (dt->y_offset * dt->texture->width  + dt->x_offset) * 4;
         r = dt->texture->pixel_data[index];
@@ -59,14 +59,13 @@ void draw_wall(t_data *dt, int wall_top_pixel, int wall_bot_pixel, int ray)
     {
         if (y < 0 || y >= S_H)
             break;
-        dt->y_offset = (int)tex_pos & (dt->texture->height - 1);
+        dt->y_offset = (int)tex_pos % dt->texture->height;
         color = get_texture_pix(dt);
         ft_mlx_put_pixel(dt, ray, y, color);
         tex_pos += step;
         y++;
     }
 }
-
 
 void draw_floor(t_data *dt, int  wall_bot_pixel, int ray)
 {
@@ -96,21 +95,42 @@ void draw_ceiling(t_data *dt, int  wall_top_pixel, int ray)
     }
 }
 
+t_texture *choice_texture(t_data *dt)
+{
+    t_texture *tex;
+
+    if (dt->is_door)
+        tex = dt->door_txt;
+    else if (!dt->ray->is_vert)
+    {
+        if (dt->ray->ray_facing_up)
+            tex = dt->pars.north;
+        else if (dt->ray->ray_facing_down)
+            tex = dt->pars.south;
+    }
+    else
+    {
+        if (dt->ray->ray_facing_left)
+            tex = dt->pars.west;
+        else if (dt->ray->ray_facing_right)
+            tex = dt->pars.east;
+    }
+    return (tex);
+}
+
 void render_wall(t_data *dt, int ray)
 {
-    float angle_in_rad;
-    float actual_slice_height;
-    float dist_to_proj_plane;
-    int wall_top_pixel;
-    int wall_bot_pixel;
-
+    float   angle_in_rad;
+    float   actual_slice_height;
+    float   dist_to_proj_plane;
+    int     wall_top_pixel;
+    int     wall_bot_pixel;
+   
     float distorted_distance = dt->ray->distance;
     float angle_difference = dt->ray->ray_angle - dt->player->rot_angle;
-
     float corrected_distance = distorted_distance * cos(angle_difference);
     dt->ray->distance = corrected_distance;
     angle_in_rad = FOV_ANGLE * (M_PI / 180);
-
     actual_slice_height = TILE_SIZE;
     dist_to_proj_plane = (S_W / 2) / tan(normalize_angle(angle_in_rad / 2));
     dt->wall_height = dist_to_proj_plane * (actual_slice_height / dt->ray->distance);
@@ -120,19 +140,13 @@ void render_wall(t_data *dt, int ray)
     wall_bot_pixel = (S_H / 2) + (dt->wall_height / 2);
     if (wall_bot_pixel > S_H)
         wall_bot_pixel = S_H;
-
-    if (dt->ray->is_vert)
-    {
-        dt->texture = dt->pars.east;
-        dt->x_offset = (int)(dt->ray->wall_y_hit * dt->texture->width / TILE_SIZE) % dt->texture->width;
-    }
-    else 
-    {
-        dt->texture = dt->pars.north;
+    dt->texture = choice_texture(dt);
+    if (!dt->ray->is_vert)
         dt->x_offset = (int)(dt->ray->wall_x_hit * dt->texture->width / TILE_SIZE) % dt->texture->width;
-    }
+    else
+        dt->x_offset = (int)(dt->ray->wall_y_hit * dt->texture->height / TILE_SIZE) % dt->texture->height;
 
+    draw_ceiling(dt, wall_top_pixel, ray);
     draw_wall(dt, wall_top_pixel, wall_bot_pixel, ray);
     draw_floor(dt, wall_bot_pixel, ray);
-    draw_ceiling(dt, wall_top_pixel, ray);
 }

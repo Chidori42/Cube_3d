@@ -1,7 +1,7 @@
-EA ./textures/wall_texters/SAMPLE/wall_1.png
-SO ./textures/wall_texters/SAMPLE/FLOOR_1A.PNG
-NO ./textures/wall_texters/SAMPLE/PIPES_2B.PNG
-WE ./textures/wall_texters/SAMPLE/CRATE_2M.PNG
+EA ./textures/wall_texters/SAMPLE/background-back.png
+SO ./textures/wall_texters/SAMPLE/background-back.png
+NO ./textures/wall_texters/SAMPLE/background-back.png
+WE ./textures/wall_texters/SAMPLE/background-back.png
 
 C 200,220,255
 F 20,0,0

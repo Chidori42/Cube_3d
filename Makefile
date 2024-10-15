@@ -51,7 +51,7 @@ MLX_BUILD_DIR 	= $(MLX_DIR)/build
 MLX_LIB			= $(MLX_BUILD_DIR)/libmlx42.a
 
 MLX_FLAGS 				= -L$(MLX_BUILD_DIR) -lmlx42 -Iinclude -lglfw -L"/Users/$(USER)/.brew/opt/glfw/lib/" -lm
-FLAGS                   = -Wall -Wextra -Werror -g -fsanitize=address
+FLAGS                   = -Wall -Wextra -Werror
 NAME                    = cub3D
 NAME_BONUS              = cub3D_bonus
 

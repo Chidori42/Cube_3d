@@ -50,7 +50,7 @@ void    move_player(t_data *dt, int move_x, int move_y)
 	}
 }
 
-void	player_rotation(t_data *dt, char rot_inc) 
+void	player_rotation(t_data *dt, char rot_inc)
 {
 	if (rot_inc == '+')
 	{
@@ -106,8 +106,15 @@ void init_player(t_data *dt)
 {
     dt->player->x = dt->p_x_pos_in_map * TILE_SIZE + TILE_SIZE / 2; 
 	dt->player->y = dt->p_y_pos_in_map * TILE_SIZE + TILE_SIZE / 2;
-	dt->player->fov_in_rd = (FOV_ANGLE * M_PI) / 180; 
-	dt->player->rot_angle = M_PI; 
+	dt->player->fov_in_rd = (FOV_ANGLE * M_PI) / 180;
+    if (dt->map[dt->p_y_pos_in_map][dt->p_x_pos_in_map] == 'W')
+	    dt->player->rot_angle = M_PI;
+    else if (dt->map[dt->p_y_pos_in_map][dt->p_x_pos_in_map] == 'N')
+	    dt->player->rot_angle = (3 * M_PI) / 2;
+    else if (dt->map[dt->p_y_pos_in_map][dt->p_x_pos_in_map] == 'E')
+	    dt->player->rot_angle = 0;
+    else if (dt->map[dt->p_y_pos_in_map][dt->p_x_pos_in_map] == 'S')
+	    dt->player->rot_angle = M_PI / 2;
 }
 
 void game_loop(t_data *data) 
@@ -115,6 +122,40 @@ void game_loop(t_data *data)
     ft_clear_image(data->img);
     casting_rays(data);
     draw_minimap(data);
+}
+
+void open_close_door(t_data *dt)
+{
+    float next_x = dt->player->x + cos(dt->player->rot_angle) * TILE_SIZE;
+    float next_y = dt->player->y + sin(dt->player->rot_angle) * TILE_SIZE;
+
+    int grid_x = (int)floor(next_x / TILE_SIZE);
+    int grid_y = (int)floor(next_y / TILE_SIZE);
+    if (grid_x >= 0 && grid_x < dt->map_w && grid_y >= 0 && grid_y < dt->map_h)
+    {
+        if (dt->map[grid_y][grid_x] == 'D') 
+            dt->map[grid_y][grid_x] = 'O';
+        else if (dt->map[grid_y][grid_x] == 'O')
+            dt->map[grid_y][grid_x] = 'D';
+    }
+}
+
+void doors_hook(void *p)
+{
+    t_data *dt = (t_data *)p;
+
+    static bool door_key_pressed = false;
+
+    if (mlx_is_key_down(dt->mlx, MLX_KEY_C))
+    {
+        if (!door_key_pressed)
+        {
+            open_close_door(dt);
+            door_key_pressed = true;
+        }
+    }
+    else
+        door_key_pressed = false;
 }
 
 
@@ -147,6 +188,7 @@ void start_game(t_data *data)
     data->weapen_img = mlx_texture_to_image(data->mlx, data->weapen_txt[0]);
     mlx_image_to_window(data->mlx, data->weapen_img, 0, 0);
 	mlx_loop_hook(data->mlx,  key_handler, data);
+    mlx_loop_hook(data->mlx,  doors_hook, data);
     mlx_loop_hook(data->mlx, weapen_hooks, data);
 	mlx_loop(data->mlx);
 }

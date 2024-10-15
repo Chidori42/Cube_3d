@@ -119,6 +119,7 @@ t_ray				*ray;
 t_player			*player;
 bool 				is_play;
 bool 				is_load;
+bool				is_animate;
 int 				start_fram;
 int					end_fram;
 int					shoot_fram;
