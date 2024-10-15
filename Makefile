@@ -1,4 +1,3 @@
-
 ############################## varaibles section #######################
 
 #Mandatory source files names.
@@ -54,6 +53,7 @@ MLX_LIB			= $(MLX_BUILD_DIR)/libmlx42.a
 MLX_FLAGS 				= -L$(MLX_BUILD_DIR) -lmlx42 -Iinclude -lglfw -L"/Users/$(USER)/.brew/opt/glfw/lib/" -lm
 FLAGS                   = -Wall -Wextra -Werror -g -fsanitize=address
 NAME                    = cub3D
+NAME_BONUS              = cub3D_bonus
 
 LIBFT                   = ./libft/libft.a
 
@@ -96,8 +96,10 @@ all                     : $(NAME)
 $(NAME)                 : $(OBJS) mandatory/cub.h $(LIBFT_H) $(MLX_LIB) $(LIBFT)
 	cc  $(FLAGS) $(LIBFT) $(OBJS) -o $(NAME) $(MLX_FLAGS)
 
-bonus: $(OBJS_BONUS) $(BONUS_DIR)/cub_bonus.h $(LIBFT_H) $(MLX_LIB) $(LIBFT)
-	cc $(FLAGS) $(LIBFT) $(OBJS_BONUS) -o $(NAME) $(MLX_FLAGS)
+bonus : $(NAME_BONUS)
+
+$(NAME_BONUS): $(OBJS_BONUS) $(BONUS_DIR)/cub_bonus.h $(LIBFT_H) $(MLX_LIB) $(LIBFT)
+	cc $(FLAGS) $(LIBFT) $(OBJS_BONUS) -o $(NAME_BONUS) $(MLX_FLAGS)
 
 $(MLX_LIB):
 	$(MLX_REPO)
@@ -115,6 +117,7 @@ clean                   :
 
 fclean                  : clean
 	rm -f $(NAME)
+	rm -f $(NAME_BONUS)
 	rm -f $(MLX_LIB)
 	make fclean -C ./libft
 

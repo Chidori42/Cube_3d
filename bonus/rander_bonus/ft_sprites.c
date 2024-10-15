@@ -19,7 +19,7 @@ int	ft_get_pngs_path(t_data *data)
 	char	*path; 
 
 	i = 0;
-	while (i < 400)
+	while (i < 329)
 	{
 		path = ft_strdup("textures/knif/");
 		tmp = ft_strjoin(ft_itoa(i + 1), ".png");
@@ -38,7 +38,7 @@ int	ft_init_weapen_images(t_data *data)
 	int i = 0;
 	if (ft_get_pngs_path(data))
 		return (1);
-	while (i < 400)
+	while (i < 329)
 	{
 		printf("{%s}\n", data->weap_path[i]);
 		data->weapen_txt[i] = mlx_load_png(data->weap_path[i]);
@@ -50,7 +50,7 @@ int	ft_init_weapen_images(t_data *data)
 		i++;
 	}
 	i = 0;
-    while (i < 400)
+    while (i < 329)
         free(data->weap_path[i++]); 
 	return (0);
 }
@@ -58,20 +58,24 @@ int	ft_init_weapen_images(t_data *data)
 void ft_load(t_data *data)
 {
     static int frame_delay = 0;
+	int end_fram;
 
+	if (data->start_fram == 0)
+		data->end_fram = 115;
+	else if (data->start_fram == 115)
+		data->end_fram = 180;
+	else if (data->start_fram == 180)
+		data->end_fram = 283;
 	if (frame_delay % 2 == 0)
     {
 		mlx_delete_image(data->mlx, data->weapen_img);
-		data->weapen_img = mlx_texture_to_image(data->mlx, data->weapen_txt[data->fram]);
+		data->weapen_img = mlx_texture_to_image(data->mlx, data->weapen_txt[data->start_fram]);
 		mlx_image_to_window(data->mlx, data->weapen_img, 0, 0);
-        data->fram++;
-        if (data->fram >= 115)
+        data->start_fram++;
+        if (data->start_fram >= data->end_fram)
         {
             frame_delay = 0;
             data->is_load = false;
-			mlx_delete_image(data->mlx, data->weapen_img);
-			data->weapen_img = mlx_texture_to_image(data->mlx, data->weapen_txt[0]);
-			mlx_image_to_window(data->mlx, data->weapen_img, 0, 0);
         }
 	}
     frame_delay++;
@@ -84,10 +88,10 @@ void ft_shoot(t_data *data)
     if (frame_delay % 2 == 0)
     {
 		mlx_delete_image(data->mlx, data->weapen_img);
-		data->weapen_img = mlx_texture_to_image(data->mlx, data->weapen_txt[data->fram]);
+		data->weapen_img = mlx_texture_to_image(data->mlx, data->weapen_txt[data->shoot_fram]);
 		mlx_image_to_window(data->mlx, data->weapen_img, 0, 0);
-        data->fram++;
-        if (data->fram >= 400)
+        data->shoot_fram++;
+        if (data->shoot_fram >= 329)
         {
             frame_delay = 0;
             data->is_play = false;
@@ -107,14 +111,19 @@ void weapen_hooks(void *p)
     if (mlx_is_key_down(data->mlx, MLX_KEY_SPACE) && !data->is_play && !data->is_load)
 	{
         data->is_play = true;
-        data->fram = 350;
+        data->shoot_fram = 284;
 	}
 	else if (mlx_is_key_down(data->mlx, MLX_KEY_R) && !data->is_load && !data->is_play)
 	{
         data->is_load = true;
-        data->fram = 0;
+		if (data->end_fram == 0 || data->end_fram == 283)
+        	data->start_fram = 0;
+		else if (data->end_fram == 115)
+			data->start_fram = 115;
+		else if (data->end_fram == 180)
+			data->start_fram = 180;
 	}
-	if (data->is_load == true || data->ammo == 0)
+	if (data->is_load)
         ft_load(data);  
     else if (data->is_play)
         ft_shoot(data);
