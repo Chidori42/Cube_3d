@@ -95,38 +95,7 @@ void draw_ceiling(t_data *dt, int  wall_top_pixel, int ray)
         y++;
     }
 }
-t_texture *choice_texture(t_data *dt)
-{
-    t_texture *tex;
 
-<<<<<<< HEAD
-    if (dt->is_door)
-        tex = dt->door_txt;
-    else if (!dt->ray->is_vert)
-    {
-        if (dt->ray->ray_facing_up)
-            tex = dt->pars.north;
-        else if (dt->ray->ray_facing_down)
-            tex = dt->pars.south;
-    }
-    else 
-    {
-        if (dt->ray->ray_facing_left)
-            tex = dt->pars.west;
-        else if (dt->ray->ray_facing_right)
-            tex = dt->pars.east;
-    }
-    return (tex);
-}
-void    render_wall(t_data *dt, int ray)
-{
-    float   angle_in_rad;
-    float   actual_slice_height;
-    float   dist_to_proj_plane;
-    int     wall_top_pixel;
-    int     wall_bot_pixel;
-    t_texture *texture;
-=======
 void render_wall(t_data *dt, int ray)
 {
     float angle_in_rad;
@@ -135,7 +104,6 @@ void render_wall(t_data *dt, int ray)
     int wall_top_pixel;
     int wall_bot_pixel;
 
->>>>>>> edc11626130d80887db1b0c54c3d622e80b784ce
     float distorted_distance = dt->ray->distance;
     float angle_difference = dt->ray->ray_angle - dt->player->rot_angle;
 
@@ -152,39 +120,19 @@ void render_wall(t_data *dt, int ray)
     wall_bot_pixel = (S_H / 2) + (dt->wall_height / 2);
     if (wall_bot_pixel > S_H)
         wall_bot_pixel = S_H;
-<<<<<<< HEAD
-    texture = choice_texture(dt);
-    if (!dt->ray->is_vert)
-        dt->x_offset = (int)(dt->ray->wall_x_hit * texture->width / TILE_SIZE) % texture->width;
-    else
-        dt->x_offset = (int)(dt->ray->wall_y_hit * texture->height / TILE_SIZE) % texture->height;
-    draw_ceiling(dt, wall_top_pixel, ray);
-    draw_wall(dt, texture, wall_top_pixel, wall_bot_pixel, ray);
-    draw_floor(dt, wall_bot_pixel, ray);
-}
-=======
 
-if (dt->is_door == true)
-    dt->texture = dt->door_txt;
-else if (dt->ray->is_vert)
-{
-    if (dt->ray->ray_facing_right) 
+    if (dt->ray->is_vert)
+    {
         dt->texture = dt->pars.east;
+        dt->x_offset = (int)(dt->ray->wall_y_hit * dt->texture->width / TILE_SIZE) % dt->texture->width;
+    }
     else 
-        dt->texture = dt->pars.west;
-    dt->x_offset = (int)(dt->ray->wall_y_hit * dt->texture->width / TILE_SIZE) % dt->texture->width;
-}
-else 
-{
-    if (dt->ray->ray_facing_down)
-        dt->texture = dt->pars.south;
-    else
+    {
         dt->texture = dt->pars.north;
-    dt->x_offset = (int)(dt->ray->wall_x_hit * dt->texture->width / TILE_SIZE) % dt->texture->width;
-}
+        dt->x_offset = (int)(dt->ray->wall_x_hit * dt->texture->width / TILE_SIZE) % dt->texture->width;
+    }
 
     draw_wall(dt, wall_top_pixel, wall_bot_pixel, ray);
     draw_floor(dt, wall_bot_pixel, ray);
     draw_ceiling(dt, wall_top_pixel, ray);
 }
->>>>>>> edc11626130d80887db1b0c54c3d622e80b784ce

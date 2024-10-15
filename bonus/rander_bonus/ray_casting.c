@@ -78,7 +78,9 @@ float    vert_intersection(t_data *dt, float angle)
         float x_check = next_vert_x + (dt->ray->ray_facing_left ? -1 : 0);
         float y_check = next_vert_y;
         if (find_wall_at(dt, x_check, y_check, dt->map))
+        {
             break;
+        }
         else
         {
             next_vert_x += x_step;
@@ -93,11 +95,7 @@ void cast_ray(t_data *dt, float ray_angle, int i)
 {
     float   horz_distance;
     float   vert_distance;
-<<<<<<< HEAD
-=======
 
-    dt->is_door = false;
->>>>>>> edc11626130d80887db1b0c54c3d622e80b784ce
     ray_angle = normalize_angle(ray_angle);
     dt->ray->ray_facing_down = ray_angle > 0 && ray_angle < M_PI;
     dt->ray->ray_facing_up = !dt->ray->ray_facing_down;
@@ -131,7 +129,6 @@ void casting_rays(t_data *dt)
 
     while (ray_id < dt->num_rays)
     {
-        dt->is_door = false;
         cast_ray(dt, dt->ray->ray_angle, ray_id);
         ray_id++;
         dt->ray->ray_angle += dt->player->fov_in_rd / dt->num_rays;

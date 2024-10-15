@@ -33,39 +33,6 @@ void draw_player_circle(mlx_image_t *img, float x, float y, int size, int color)
     }
     mlx_put_pixel(img, x, y, 0x00FF00);
 }
-void draw_line(t_data *data, int x1, int y1, int x2, int y2, int color) 
-{
-    int i = 0;
-
-    int dx = x2 - x1;
-    int dy = y2 - y1;
-    int steps = abs(dx) > abs(dy) ? abs(dx) : abs(dy);  // Choose the larger delta for step count
-
-    float x_inc = dx / (float) steps;  // Calculate incremental steps for x
-    float y_inc = dy / (float) steps;  // Calculate incremental steps for y
-
-    float x = x1;
-    float y = y1;
-
-    // Plot the starting pixel
-    mlx_put_pixel(data->img, x1, y1, 0x00FFFFFF);
-
-    while (i <= steps) 
-    {
-        x += x_inc;
-        y += y_inc;
-
-        // Cast the floating-point values to integers and plot
-        int x_int = (int)x;
-        int y_int = (int)y;
-
-        // Optional: Check for valid image bounds if necessary (e.g., if img has width and height limits)
-        if (x_int >= 0 && x_int < data->map_w * TILE_SIZE && y_int >= 0 && y_int < data->map_h * TILE_SIZE) {
-            mlx_put_pixel(data->img, x_int, y_int, color);  // White color
-        }
-        i++;
-    }
-}
 
 void draw_line(t_data *dt, int x0, int y0, int x1, int y1, int color)
 {
@@ -98,23 +65,28 @@ void draw_line(t_data *dt, int x0, int y0, int x1, int y1, int color)
 
 void minimap_rays(t_data *dt, int minimap_width, int minimap_height)
 {
-    double player_x = 100;
-    double player_y = 100;
-    double fov_angle = 60 * M_PI / 180.0;
-    double ray_length = 25;       
-    int num_rays = 20;                         
-    double angle_step = fov_angle / num_rays;    
+    int     num_rays;
+    int     i;
+    double  fov_angle;
+    double  ray_length;
+    double  angle_step;
 
-    for (int i = 0; i <= num_rays; i++)
+    num_rays = 10;
+    ray_length = 30;
+    fov_angle = FOV_ANGLE * M_PI / 180.0;
+    angle_step = fov_angle / num_rays;
+    i = 0;
+    while (i <= num_rays)
     {
         double ray_angle = dt->player->rot_angle - fov_angle / 2.0 + i * angle_step;
         if (ray_angle < 0) ray_angle += 2 * M_PI;
         if (ray_angle > 2 * M_PI) ray_angle -= 2 * M_PI;
-        double end_x = player_x + ray_length * cos(ray_angle);
-        double end_y = player_y + ray_length * sin(ray_angle);
-        draw_line(dt, player_x, player_y, end_x, end_y, 0xFF00FF);
+        double end_x = 100 + ray_length * cos(ray_angle);
+        double end_y = 100 + ray_length * sin(ray_angle);
+        draw_line(dt, 100, 100, end_x, end_y, 0xFF00FF);
+        i++;
     } 
-} 
+}
 
 void draw_centered_minimap(t_data *dt, int range, float size, float start_x, float start_y)
 {
@@ -147,7 +119,7 @@ void draw_centered_minimap(t_data *dt, int range, float size, float start_x, flo
         }
         i += 0.1;
     }
-    draw_player_circle(dt->img, 100, 100, 15, 0xFF00FF);
+    draw_player_circle(dt->img, 100, 100, 15, dt->pars.ceiling_color);
     minimap_rays(dt, range, range);
 }
 

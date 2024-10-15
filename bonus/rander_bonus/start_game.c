@@ -50,7 +50,7 @@ void    move_player(t_data *dt, int move_x, int move_y)
 	}
 }
 
-void	player_rotation(t_data *dt, char rot_inc)
+void	player_rotation(t_data *dt, char rot_inc) 
 {
 	if (rot_inc == '+')
 	{
@@ -66,34 +66,6 @@ void	player_rotation(t_data *dt, char rot_inc)
 	}
 }
 
-<<<<<<< HEAD
-void ft_reset_door(t_data *dt)
-{
-    int grid_x;
-    int grid_y;
-    int new_x;
-    int new_y;
-
-    new_x = roundf(dt->player->x + 1);
-	new_y = roundf(dt->player->y + 1);
-	grid_x = (new_x / TILE_SIZE);
-	grid_y = (new_y / TILE_SIZE); 
-    if (grid_x >= 0 && grid_x < dt->map_w && grid_y >= 0 && grid_y < dt->map_h)
-    {
-        if (dt->is_door == true && (dt->map[(int)grid_y][(int)grid_x] == 'D' \
-            || dt->map[(int)grid_y][(int)grid_x] == 'O'))
-
-        {
-            if (dt->map[(int)grid_y][(int)grid_x] == 'D')
-                dt->map[(int)grid_y][(int)grid_x] = 'O';
-            else
-                dt->map[(int)grid_y][(int)grid_x] = 'D';
-        }
-    }
-}
-
-=======
->>>>>>> edc11626130d80887db1b0c54c3d622e80b784ce
 void key_handler(void* param)
 {
     t_data *dt = (t_data *)param;
@@ -134,15 +106,8 @@ void init_player(t_data *dt)
 {
     dt->player->x = dt->p_x_pos_in_map * TILE_SIZE + TILE_SIZE / 2; 
 	dt->player->y = dt->p_y_pos_in_map * TILE_SIZE + TILE_SIZE / 2;
-	dt->player->fov_in_rd = (FOV_ANGLE * M_PI) / 180;
-    if (dt->map[dt->p_y_pos_in_map][dt->p_x_pos_in_map] == 'W')
-	    dt->player->rot_angle = M_PI;
-    else if (dt->map[dt->p_y_pos_in_map][dt->p_x_pos_in_map] == 'N')
-	    dt->player->rot_angle = (3 * M_PI) / 2;
-    else if (dt->map[dt->p_y_pos_in_map][dt->p_x_pos_in_map] == 'E')
-	    dt->player->rot_angle = 0;
-    else if (dt->map[dt->p_y_pos_in_map][dt->p_x_pos_in_map] == 'S')
-	    dt->player->rot_angle = M_PI / 2;
+	dt->player->fov_in_rd = (FOV_ANGLE * M_PI) / 180; 
+	dt->player->rot_angle = M_PI; 
 }
 
 void game_loop(t_data *data) 
@@ -151,6 +116,7 @@ void game_loop(t_data *data)
     casting_rays(data);
     draw_minimap(data);
 }
+
 
 void retate_angle(void *param)
 {

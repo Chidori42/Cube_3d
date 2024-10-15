@@ -1,14 +1,7 @@
-<<<<<<< HEAD
 EA ./textures/wall_texters/SAMPLE/wall_1.png
 SO ./textures/wall_texters/SAMPLE/FLOOR_1A.PNG
 NO ./textures/wall_texters/SAMPLE/PIPES_2B.PNG
 WE ./textures/wall_texters/SAMPLE/CRATE_2M.PNG
-=======
-EA ./textures/wall_texters/SAMPLE/TECH_1C.PNG
-SO ./textures/wall_texters/SAMPLE/PIPES_2B.PNG
-NO ./textures/wall_texters/SAMPLE/TECH_3B.PNG
-WE ./textures/wall_texters/SAMPLE/DOOR_1E.PNG
->>>>>>> edc11626130d80887db1b0c54c3d622e80b784ce
 
 
 
