@@ -6,7 +6,7 @@
 /*   By: yakazdao <yakazdao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 17:57:50 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/10/14 11:57:26 by yakazdao         ###   ########.fr       */
+/*   Updated: 2024/10/15 11:15:18 by yakazdao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,7 +142,6 @@ void    render_wall(t_data *dt, int ray)
     wall_bot_pixel = (S_H / 2) + (dt->wall_height / 2);
     if (wall_bot_pixel > S_H)
         wall_bot_pixel = S_H;
-    
     texture = check_texture(dt);
     if (!dt->ray->is_vert)
         dt->x_offset = (int)(dt->ray->wall_x_hit * texture->width / TILE_SIZE) % texture->width;

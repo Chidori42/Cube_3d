@@ -6,7 +6,7 @@
 /*   By: yakazdao <yakazdao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 17:57:43 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/10/14 11:47:09 by yakazdao         ###   ########.fr       */
+/*   Updated: 2024/10/15 11:14:19 by yakazdao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,8 +127,7 @@ void casting_rays(t_data *dt)
 
     while (ray_id < dt->num_rays)
     {
-        dt->is_door_h = false;
-        dt->is_door_v = false;
+        dt->is_door = false;
         cast_ray(dt, dt->ray->ray_angle, ray_id);
         ray_id++;
         dt->ray->ray_angle += dt->player->fov_in_rd / dt->num_rays;

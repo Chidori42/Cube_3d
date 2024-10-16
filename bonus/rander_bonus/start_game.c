@@ -6,7 +6,7 @@
 /*   By: yakazdao <yakazdao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 17:58:00 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/10/13 11:23:22 by yakazdao         ###   ########.fr       */
+/*   Updated: 2024/10/15 11:43:26 by yakazdao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,30 +65,11 @@ void	player_rotation(t_data *dt, char rot_inc)
 			dt->player->rot_angle += 2 * M_PI;
 	}
 }
-
-void ft_reset_door(t_data *dt)
+void game_loop(t_data *data) 
 {
-    int grid_x;
-    int grid_y;
-    int new_x;
-    int new_y;
-
-    new_x = roundf(dt->player->x + 1);
-	new_y = roundf(dt->player->y + 1);
-	grid_x = (new_x / TILE_SIZE);
-	grid_y = (new_y / TILE_SIZE); 
-    if (grid_x >= 0 && grid_x < dt->map_w && grid_y >= 0 && grid_y < dt->map_h)
-    {
-        if (dt->is_door == true && (dt->map[(int)grid_y][(int)grid_x] == 'D' \
-            || dt->map[(int)grid_y][(int)grid_x] == 'O'))
-
-        {
-            if (dt->map[(int)grid_y][(int)grid_x] == 'D')
-                dt->map[(int)grid_y][(int)grid_x] = 'O';
-            else
-                dt->map[(int)grid_y][(int)grid_x] = 'D';
-        }
-    }
+    ft_clear_image(data->img);
+    casting_rays(data);
+    draw_minimap(data);
 }
 
 void key_handler(void* param)
@@ -99,9 +80,7 @@ void key_handler(void* param)
 
     if (mlx_is_key_down(dt->mlx, MLX_KEY_ESCAPE))
         exit(0);
-    if (mlx_is_key_down(dt->mlx, MLX_KEY_G))
-        ft_reset_door(dt);
-     if (mlx_is_key_down(dt->mlx, MLX_KEY_LEFT))
+    if (mlx_is_key_down(dt->mlx, MLX_KEY_LEFT))
         player_rotation(dt, '-');
     else if (mlx_is_key_down(dt->mlx, MLX_KEY_RIGHT))
         player_rotation(dt, '+');
@@ -142,13 +121,6 @@ void init_player(t_data *dt)
 	    dt->player->rot_angle = 0;
     else if (dt->map[dt->p_y_pos_in_map][dt->p_x_pos_in_map] == 'S')
 	    dt->player->rot_angle = M_PI / 2;
-}
-
-void game_loop(t_data *data) 
-{
-    ft_clear_image(data->img);
-    casting_rays(data);
-    draw_minimap(data);
 }
 
 

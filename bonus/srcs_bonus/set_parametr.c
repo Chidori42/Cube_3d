@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_parametr.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yakazdao <yakazdao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 11:42:58 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/10/09 03:27:34 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/10/15 10:04:32 by yakazdao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void ft_setparam(t_data *data)
 	data->map = NULL;
 	data->ammo = 8;
 	data->fram = 0;
-	data->is_door = false;
+	// data->is_door = false;
 	data->pars.no = NULL;
 	data->pars.so = NULL;
 	data->pars.we = NULL;
