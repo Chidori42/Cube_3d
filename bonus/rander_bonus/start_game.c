@@ -169,6 +169,22 @@ void retate_angle(void *param)
     dt->player->rot_angle = dx * factor;
 }
 
+void ft_mouse_hook(void *p)
+{
+    t_data *dt;
+    int x;
+    int y;
+    int center_x;
+
+    dt = (t_data *)p;
+    mlx_get_mouse_pos(dt->mlx, &x, &y);
+    center_x = S_W / 2; 
+    int delta_x = x - center_x;
+    dt->player->rot_angle += delta_x * 0.002; 
+    mlx_set_mouse_pos(dt->mlx, center_x, S_H / 2);
+}
+
+
 void start_game(t_data *data)
 {
     init_player(data);
@@ -190,5 +206,6 @@ void start_game(t_data *data)
 	mlx_loop_hook(data->mlx,  key_handler, data);
     mlx_loop_hook(data->mlx,  doors_hook, data);
     mlx_loop_hook(data->mlx, weapen_hooks, data);
+    mlx_loop_hook(data->mlx, ft_mouse_hook, data);
 	mlx_loop(data->mlx);
 }

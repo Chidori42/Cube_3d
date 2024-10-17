@@ -1,7 +1,7 @@
-EA ./textures/wall_texters/SAMPLE/TECH_1C.PNG
-SO ./textures/wall_texters/SAMPLE/PIPES_2B.PNG
-NO ./textures/wall_texters/SAMPLE/TECH_3B.PNG
-WE ./textures/wall_texters/SAMPLE/DOOR_1E.PNG
+EA ./textures/wall_texters/pl.png
+SO ./textures/wall_texters/33.png
+NO ./textures/wall_texters/kl.png
+WE ./textures/wall_texters/wall.png
 
 C 200,255,225
 F 10,0,10

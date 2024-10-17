@@ -36,13 +36,16 @@ uint32_t get_texture_pix(t_data *dt)
     if (dt->x_offset >= 0 && dt->x_offset < dt->texture->width && dt->y_offset >= 0 && dt->y_offset < dt->texture->height)
     {
         index = (dt->y_offset * dt->texture->width  + dt->x_offset) * 4;
+        if (index + 3 < dt->texture->width * dt->texture->height * 4)
+        {
         r = dt->texture->pixel_data[index];
         g = dt->texture->pixel_data[index + 1];
         b = dt->texture->pixel_data[index + 2];
         a = dt->texture->pixel_data[index + 3];
-        return (r << 24 | g << 16 | b << 8 | a); 
+        return (r << 24 | g << 16 | b << 8 | a);
+        }
     }
-    return (0x000000ff);
+    return (0x00000000);
 }
 
 void draw_wall(t_data *dt, int wall_top_pixel, int wall_bot_pixel, int ray)
@@ -60,6 +63,8 @@ void draw_wall(t_data *dt, int wall_top_pixel, int wall_bot_pixel, int ray)
         if (y < 0 || y >= S_H)
             break;
         dt->y_offset = (int)tex_pos % dt->texture->height;
+        if (tex_pos < 0)
+            dt->y_offset = 0;
         color = get_texture_pix(dt);
         ft_mlx_put_pixel(dt, ray, y, color);
         tex_pos += step;
@@ -105,14 +110,14 @@ t_texture *choice_texture(t_data *dt)
     {
         if (dt->ray->ray_facing_up)
             tex = dt->pars.north;
-        else if (dt->ray->ray_facing_down)
+        else
             tex = dt->pars.south;
     }
     else
     {
         if (dt->ray->ray_facing_left)
             tex = dt->pars.west;
-        else if (dt->ray->ray_facing_right)
+        else
             tex = dt->pars.east;
     }
     return (tex);
@@ -126,8 +131,10 @@ void render_wall(t_data *dt, int ray)
     int     wall_top_pixel;
     int     wall_bot_pixel;
    
+   if (dt->ray->distance <= 0)
+        return;
     float distorted_distance = dt->ray->distance;
-    float angle_difference = dt->ray->ray_angle - dt->player->rot_angle;
+    float angle_difference = normalize_angle(dt->ray->ray_angle - dt->player->rot_angle);
     float corrected_distance = distorted_distance * cos(angle_difference);
     dt->ray->distance = corrected_distance;
     angle_in_rad = FOV_ANGLE * (M_PI / 180);

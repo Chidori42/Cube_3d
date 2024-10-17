@@ -1,7 +1,7 @@
-EA ./textures/wall_texters/SAMPLE/background-back.png
-SO ./textures/wall_texters/SAMPLE/background-back.png
-NO ./textures/wall_texters/SAMPLE/background-back.png
-WE ./textures/wall_texters/SAMPLE/background-back.png
+EA ./textures/wall_texters/pl.png
+SO ./textures/wall_texters/33.png
+NO ./textures/wall_texters/kl.png
+WE ./textures/wall_texters/wall.png
 
 C 200,220,255
 F 20,0,0

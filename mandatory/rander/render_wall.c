@@ -33,7 +33,7 @@ uint32_t get_texture_pix(t_data *dt)
     uint32_t a;
     uint32_t index;
 
-    if (dt->x_offset >= 0 && dt->x_offset < S_W &&  dt->y_offset >= 0 &&  dt->y_offset < S_H)
+    if (dt->x_offset >= 0 && dt->x_offset < dt->texture->width && dt->y_offset >= 0 && dt->y_offset < dt->texture->height)
     {
         index = (dt->y_offset * dt->texture->width  + dt->x_offset) * 4;
         r = dt->texture->pixel_data[index];
@@ -59,7 +59,7 @@ void draw_wall(t_data *dt, int wall_top_pixel, int wall_bot_pixel, int ray)
     {
         if (y < 0 || y >= S_H)
             break;
-        dt->y_offset = (int)tex_pos & (dt->texture->height - 1);
+        dt->y_offset = (int)tex_pos % (dt->texture->height);
         color = get_texture_pix(dt);
         ft_mlx_put_pixel(dt, ray, y, color);
         tex_pos += step;

@@ -12,27 +12,6 @@
 
 #include "../cub_bonus.h"
 
-void draw_player_circle(mlx_image_t *img, float x, float y, int size, int color)
-{
-    int i;
-    int j;
-    int r;
-
-    r = size / 2;
-    i = -r;
-    while (i < r)
-    {
-        j = -r;
-        while (j < r)
-        {
-            if (i * i + j * j <= r * r)
-                draw_pixel(img, 1, x + i, y + j, color);
-            j++;
-        }
-        i++;
-    }
-    mlx_put_pixel(img, x, y, 0x00FF00);
-}
 
 void draw_line(t_data *dt, int x0, int y0, int x1, int y1, int color)
 {
@@ -71,7 +50,7 @@ void minimap_rays(t_data *dt, int minimap_width, int minimap_height)
     double  ray_length;
     double  angle_step;
 
-    num_rays = 10;
+    num_rays = 200;
     ray_length = 30;
     fov_angle = FOV_ANGLE * M_PI / 180.0;
     angle_step = fov_angle / num_rays;
@@ -101,8 +80,8 @@ void draw_centered_minimap(t_data *dt, int range, float size, float start_x, flo
         j = 0;
         while (j < range)
         {
-            map_x = (start_x / TILE_SIZE - 4) + j;
-            map_y = (start_y / TILE_SIZE - 4) + i;
+            map_x = (start_x  / TILE_SIZE - 3.8) + j;
+            map_y = (start_y / TILE_SIZE - 3.8) + i;
 
             if (map_x > 0 && (int)map_x < dt->map_w && map_y > 0 && (int)map_y < dt->map_h)
             {
@@ -119,7 +98,7 @@ void draw_centered_minimap(t_data *dt, int range, float size, float start_x, flo
         }
         i += 0.1;
     }
-    draw_player_circle(dt->img, 100, 100, 15, dt->pars.ceiling_color);
+    draw_pixel(dt->img, 4, 98, 98, 0x000FFFF);
     minimap_rays(dt, range, range);
 }
 
@@ -132,8 +111,8 @@ int draw_minimap(t_data *dt)
 
     range = 8;
     size = 200 / range;
-    start_x = dt->player->x - range / 2;
-    start_y = dt->player->y - range / 2;
+    start_x = dt->player->x - (range / 2);
+    start_y = dt->player->y - (range / 2);
     
     draw_centered_minimap(dt, range, size, start_x, start_y);
     return (0);

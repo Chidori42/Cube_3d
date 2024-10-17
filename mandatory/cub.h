@@ -33,7 +33,7 @@
 # define S_H 1000
 # define TILE_SIZE 30
 # define FOV_ANGLE 60
-# define PLYR_SPEED 4
+# define PLYR_SPEED 10
 # define ROTATION_SPEED 0.045
 # define WALL_WIDTH 1
 
