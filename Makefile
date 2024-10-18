@@ -14,6 +14,8 @@ SRCS                    =	mandatory/cub.c \
 							mandatory/rander/ray_casting.c \
 							mandatory/rander/start_game.c \
 							mandatory/parsing/ft_srcs.c \
+							mandatory/parsing/ft_srcs2.c \
+							mandatory/parsing/ft_check_borders.c \
 							mandatory/parsing/ft_disperse_map.c \
 							mandatory/parsing/ft_pars_map.c \
 							mandatory/parsing/ft_pars_colors.c \

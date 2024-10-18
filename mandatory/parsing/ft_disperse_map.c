@@ -12,127 +12,83 @@
 
 #include "../cub.h"
 
-static char *ft_read_line(char *file_map)
+static	char	*ft_join_line(char **file_map, char *texters, char *line)
 {
-    int i;
-    char *line;
+	int		len;
+	char	*tmp;
 
-    i = 0;
-    while (file_map[i] && file_map[i] != '\n')
-        i++;
-    line = ft_substr(file_map, 0, i);
-    if (!line)
-        return (NULL);
-    return (line);
+	len = ft_strlen(line);
+	tmp = ft_strjoin(texters, line);
+	texters = ft_strjoin(tmp, "\n");
+	*file_map += len;
+	free(line);
+	return (texters);
 }
 
-char *ft_join_line(char **file_map, char *texters, char *line)
+static	bool	is_texture(const char *str)
 {
-    int len;
-    char *tmp;
-
-    len = ft_strlen(line);
-    tmp = ft_strjoin(texters, line);
-    texters = ft_strjoin(tmp, "\n");
-    *file_map += len; 
-    free(line);
-    return (texters);
+	if (!strncmp(str, TEXTURE_NO, 2) || \
+		!strncmp(str, TEXTURE_SO, 2) || \
+		!strncmp(str, TEXTURE_WE, 2) || \
+		!strncmp(str, TEXTURE_EA, 2))
+		return (true);
+	else
+		return (false);
 }
 
-char    **ft_add_spaces(t_data *data, char **str)
+static	bool	is_color(const char *str)
 {
-    int size;
-    int len;
-    char **new_str;
-    int i;
-    int j;
-
-    size = data->map_w + 1;
-    new_str = malloc(sizeof(char **) * (data->map_h + 1));
-    if (!new_str)
-        return (ft_free_2dm(str), NULL);
-    i = 0;
-    while (str[i] && i < data->map_h)
-    {
-        new_str[i] = malloc(sizeof(char) * (size + 1));
-        if (!new_str[i])
-            return (ft_free_2dm(str), NULL);
-        j = 0;
-        len = ft_strlen(str[i]);
-        while (j < size)
-        {
-            if (j < len)
-                new_str[i][j] = str[i][j];
-            else
-                new_str[i][j] = ' ';
-            j++;
-        }
-        new_str[i][j] = '\0';
-        i++;
-    }
-    new_str[i] = NULL;
-    return (ft_free_2dm(str), new_str);
+	if (!strncmp(str, COLOR_C, 1) || \
+		!strncmp(str, COLOR_F, 1))
+		return (true);
+	return (false);
 }
 
-int get_data(t_data *data, char *colors, char *texters, char *map)
+static int	ft_check_content(t_data *dt, char **tex, char **colr, char **mp)
 {
-    if (ft_get_map(data, map))
-    {
-        free(texters);
-        free(colors);
-        free(map);
-        return (1);
-    }
-    data->texters = ft_split(texters, '\n');
-    data->colors = ft_split(colors, '\n');
-    if (!data->texters || !data->colors || !data->map)
-    {
-        free(texters);
-        free(colors);
-        free(map);
-        return (ft_putstr_fd("Error\ninvalid file informations", 2), 1);
-    }
-    int i = 0;
-    while (data->texters[i])
-        printf("[%s]\n", data->texters[i++]);
-    free(texters);
-    free(colors);
-    free(map);
-    return (0);
+	if (is_texture((dt->file_map) + dt->index))
+	{
+		*tex = ft_join_line(&(dt->file_map), *tex, \
+		ft_read_line((dt->file_map) + dt->index));
+	}
+	else if (is_color((dt->file_map) + dt->index))
+	{
+		*colr = ft_join_line(&(dt->file_map), *colr, \
+		ft_read_line((dt->file_map) + dt->index));
+	}
+	else
+	{
+		*mp = ft_strjoin(*mp, (dt->file_map));
+		return (1);
+	}
+	return (0);
 }
 
-int ft_disperse_map(t_data *data, char *file_map)
+int	ft_disperse_map(t_data *dt)
 {
-    char *texters = NULL;
-    char *colors = NULL;
-    char *map = NULL;
-    char *tmp;
-    int i;
+	char	*tmp;
+	char	*map;
+	char	*colors;
+	char	*texters;
 
-    i = 0;
-    tmp = file_map;
-    while (file_map && file_map[i])
-    {
-        while (file_map[i] == ' ')
-            i++;
-        if ((!ft_strncmp(file_map + i, "NO", 2) || !ft_strncmp(file_map + i, "SO", 2)
-            || !ft_strncmp(file_map + i, "WE", 2) || !ft_strncmp(file_map + i, "EA", 2)))
-            texters = ft_join_line(&file_map, texters, ft_read_line(file_map + i));
-        else if ((!ft_strncmp(file_map + i, "C", 1) || !ft_strncmp(file_map + i, "F", 1)))
-            colors = ft_join_line(&file_map, colors, ft_read_line(file_map));
-        else
-        {
-            map = ft_strjoin(map, file_map);
-            break;
-        }
-        while (file_map[i] == '\n')
-            i++;
-        file_map += i;
-        i = 0;
-    }
-    free(tmp);
-    if (get_data(data, colors, texters, map))
-        return (1);
-    return (0);
+	map = NULL;
+	colors = NULL;
+	texters = NULL;
+	tmp = (dt->file_map);
+	(dt->index) = 0;
+	while ((dt->file_map) && (dt->file_map)[dt->index])
+	{
+		(dt->index) = 0;
+		while ((dt->file_map)[dt->index] == ' ')
+			dt->index++;
+		if (ft_check_content(dt, &texters, &colors, &map))
+			break ;
+		while ((dt->file_map)[dt->index] == '\n')
+			dt->index++;
+		(dt->file_map) += dt->index;
+	}
+	free(tmp);
+	if (get_data(dt, colors, texters, map))
+		return (1);
+	return (0);
 }
-

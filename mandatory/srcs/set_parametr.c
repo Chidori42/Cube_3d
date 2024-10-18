@@ -6,7 +6,7 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 11:42:58 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/10/08 03:18:19 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/10/18 05:38:54 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int draw_pixel(mlx_image_t *img, float pixel_size, int a, int b, int color)
 void	set_hei_and_wid(t_data *data)
 {
 	int	j;
-	int len;
+	int	len;
 
 	j = -1;
 	data->map_w = 0;
@@ -51,15 +51,11 @@ void	set_hei_and_wid(t_data *data)
 	data->map_h = j;
 }
 
-
-void ft_setparam(t_data *data)
+void	ft_setparam(t_data *data)
 {
-	data->is_play = false;
-	data->is_load = false;
 	data->texters = NULL;
 	data->colors = NULL;
 	data->map = NULL;
-	data->ammo = 8;
 	data->pars.no = NULL;
 	data->pars.so = NULL;
 	data->pars.we = NULL;

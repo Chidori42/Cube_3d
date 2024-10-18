@@ -6,11 +6,11 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 00:25:54 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/10/18 05:35:11 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/10/18 05:08:53 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub_bonus.h"
+#include "../cub.h"
 
 static	int	check_right_side(char **map)
 {
