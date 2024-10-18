@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: yakazdao <yakazdao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/02 17:58:00 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/10/15 11:43:26 by yakazdao         ###   ########.fr       */
+/*   Created: 2024/10/16 09:45:39 by yakazdao          #+#    #+#             */
+/*   Updated: 2024/10/18 10:50:23 by yakazdao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,8 @@ void    move_player(t_data *dt, int move_x, int move_y)
     new_x = roundf(dt->player->x + move_x);
 	new_y = roundf(dt->player->y + move_y);  
 	grid_x = (new_x / TILE_SIZE);  
-	grid_y = (new_y / TILE_SIZE); 
-	if (check_map_collision(dt, grid_x, grid_y))
+	grid_y = (new_y / TILE_SIZE);
+	if (map_collision(dt, grid_x, grid_y))
 	{
 		dt->player->x = new_x;
 		dt->player->y = new_y;
@@ -65,6 +65,7 @@ void	player_rotation(t_data *dt, char rot_inc)
 			dt->player->rot_angle += 2 * M_PI;
 	}
 }
+
 void game_loop(t_data *data) 
 {
     ft_clear_image(data->img);
@@ -123,6 +124,39 @@ void init_player(t_data *dt)
 	    dt->player->rot_angle = M_PI / 2;
 }
 
+void open_close_door(t_data *dt)
+{
+    float next_x = dt->player->x + cos(dt->player->rot_angle) * TILE_SIZE;
+    float next_y = dt->player->y + sin(dt->player->rot_angle) * TILE_SIZE;
+
+    int grid_x = (int)floor(next_x / TILE_SIZE);
+    int grid_y = (int)floor(next_y / TILE_SIZE);
+    if (grid_x >= 0 && grid_x < dt->map_w && grid_y >= 0 && grid_y < dt->map_h)
+    {
+        if (dt->map[grid_y][grid_x] == 'D')
+            dt->map[grid_y][grid_x] = 'O';
+        else if (dt->map[grid_y][grid_x] == 'O')
+            dt->map[grid_y][grid_x] = 'D';
+    }
+}
+
+void doors_hook(void *p)
+{
+    t_data *dt = (t_data *)p;
+
+    static bool door_key_pressed = false;
+
+    if (mlx_is_key_down(dt->mlx, MLX_KEY_C))
+    {
+        if (!door_key_pressed)
+        {
+            open_close_door(dt);
+            door_key_pressed = true;
+        }
+    }
+    else
+        door_key_pressed = false;
+}
 
 void retate_angle(void *param)
 {
@@ -153,6 +187,7 @@ void start_game(t_data *data)
     data->weapen_img = mlx_texture_to_image(data->mlx, data->weapen_txt[0]);
     mlx_image_to_window(data->mlx, data->weapen_img, 0, 0);
 	mlx_loop_hook(data->mlx,  key_handler, data);
+    mlx_loop_hook(data->mlx,  doors_hook, data);
     mlx_loop_hook(data->mlx, weapen_hooks, data);
 	mlx_loop(data->mlx);
 }

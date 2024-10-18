@@ -6,13 +6,13 @@
 /*   By: yakazdao <yakazdao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 11:42:58 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/10/15 10:04:32 by yakazdao         ###   ########.fr       */
+/*   Updated: 2024/10/16 09:49:28 by yakazdao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub_bonus.h"
 
-int draw_pixel(mlx_image_t *img, float pixel_size, int a, int b, int color)
+int draw_pixel(mlx_image_t *img, float pixel_size, float a, float b, int color)
 {
     int i;
     int j;
@@ -56,12 +56,16 @@ void ft_setparam(t_data *data)
 {
 	data->is_play = false;
 	data->is_load = false;
+	data->is_animate = false;
 	data->texters = NULL;
 	data->colors = NULL;
 	data->map = NULL;
-	data->ammo = 8;
-	data->fram = 0;
+
 	// data->is_door = false;
+	data->start_fram = 0;
+	data->shoot_fram = 0;
+	data->is_door = false;
+
 	data->pars.no = NULL;
 	data->pars.so = NULL;
 	data->pars.we = NULL;

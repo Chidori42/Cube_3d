@@ -1,10 +1,10 @@
 EA ./textures/wall_texters/SAMPLE/TECH_1C.PNG
-SO ./textures/wall_texters/SAMPLE/TECH_1C.PNG
-NO ./textures/wall_texters/SAMPLE/TECH_1C.PNG
-WE ./textures/wall_texters/SAMPLE/TECH_1C.PNG
+SO ./textures/wall_texters/SAMPLE/PIPES_2B.PNG
+NO ./textures/wall_texters/SAMPLE/TECH_3B.PNG
+WE ./textures/wall_texters/SAMPLE/DOOR_1E.PNG
 
-C 2,255,01
-F 5,95,255
+C 200,255,225
+F 10,0,10
 
     11111111111111111111111111111
     10000000000000000001100000001
