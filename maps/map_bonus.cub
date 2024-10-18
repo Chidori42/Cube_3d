@@ -1,13 +1,13 @@
-EA ./textures/wall_texters/pl.png
-SO ./textures/wall_texters/33.png
-NO ./textures/wall_texters/kl.png
-WE ./textures/wall_texters/wall.png
+EA ./textures/wall_texters/bob.png
+SO ./textures/wall_texters/bob2.png
+NO ./textures/wall_texters/braz.png
+WE ./textures/wall_texters/braz2.png
 
 C 200,220,255
 F 20,0,0
 
 1111111111111111
-1000000000000001111111  
+1000000000000001
 1000000000000001
 1001D10000010001
 1000N000000D0001
