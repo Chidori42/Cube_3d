@@ -42,11 +42,8 @@ bool find_wall_at(t_data *dt, int x, int y, char **grid)
         return (false);
     if (grid[grid_y][grid_x] == 'D')
         dt->is_door = true;
-    else if (grid[grid_y][grid_x] == 'O')
-    {
+    else
         dt->is_door = false;
-        return (false);
-    }
     return (grid[grid_y][grid_x] == '1' || grid[grid_y][grid_x] == 'D');
 }
 

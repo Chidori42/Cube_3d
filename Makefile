@@ -29,14 +29,16 @@ SRCS_BONUS                    =	$(BONUS_DIR)/cub_bonus.c \
 							$(BONUS_DIR)/srcs_bonus/ft_free_resorses.c \
 							$(BONUS_DIR)/srcs_bonus/ft_read_map.c \
 							$(BONUS_DIR)/srcs_bonus/help_func.c \
-							$(BONUS_DIR)/rander_bonus/ft_texters.c \
 							$(BONUS_DIR)/rander_bonus/ft_sprites.c \
 							$(BONUS_DIR)/rander_bonus/ft_doors_animistions.c \
 							$(BONUS_DIR)/rander_bonus/ft_minimap.c \
 							$(BONUS_DIR)/rander_bonus/render_wall.c \
 							$(BONUS_DIR)/rander_bonus/ray_casting.c \
 							$(BONUS_DIR)/rander_bonus/start_game.c \
+							$(BONUS_DIR)/rander_bonus/ft_texters.c \
+							$(BONUS_DIR)/parsing_bonus/ft_check_borders.c \
 							$(BONUS_DIR)/parsing_bonus/ft_srcs.c \
+							$(BONUS_DIR)/parsing_bonus/ft_srcs2.c \
 							$(BONUS_DIR)/parsing_bonus/ft_disperse_map.c \
 							$(BONUS_DIR)/parsing_bonus/ft_pars_map.c \
 							$(BONUS_DIR)/parsing_bonus/ft_pars_colors.c \
@@ -51,7 +53,7 @@ MLX_BUILD_DIR 	= $(MLX_DIR)/build
 MLX_LIB			= $(MLX_BUILD_DIR)/libmlx42.a
 
 MLX_FLAGS 				= -L$(MLX_BUILD_DIR) -lmlx42 -Iinclude -lglfw -L"/Users/$(USER)/.brew/opt/glfw/lib/" -lm
-FLAGS                   = -Wall -Wextra -Werror
+FLAGS                   = -Wall -Wextra -Werror -g -fsanitize=address
 NAME                    = cub3D
 NAME_BONUS              = cub3D_bonus
 

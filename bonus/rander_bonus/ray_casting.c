@@ -84,6 +84,8 @@ float vert_intersection(t_data *dt, float angle)
     return sqrt(pow(dt->player->x - dt->ray->v_wall_x_hit, 2) + pow(dt->player->y - dt->ray->v_wall_y_hit, 2));
 }
 
+
+
 void cast_ray(t_data *dt, float ray_angle, int i)
 {
     float horz_distance, vert_distance;
@@ -93,7 +95,7 @@ void cast_ray(t_data *dt, float ray_angle, int i)
     // Set ray directions based on the angle
     dt->ray->ray_facing_down = ray_angle > 0 && ray_angle < M_PI;
     dt->ray->ray_facing_up = !dt->ray->ray_facing_down;
-    dt->ray->ray_facing_right = ray_angle < M_PI / 2 || ray_angle > (3 * M_PI) / 2;
+    dt->ray->ray_facing_right = ray_angle < M_PI_2 || ray_angle > (3 * M_PI_2);
     dt->ray->ray_facing_left = !dt->ray->ray_facing_right;
 
     horz_distance = horz_intersection(dt, ray_angle);
@@ -127,7 +129,7 @@ void casting_rays(t_data *dt)
 
     while (ray_id < dt->num_rays)
     {
-        dt->is_door = false;
+
         cast_ray(dt, dt->ray->ray_angle, ray_id);
         dt->ray->ray_angle += dt->player->fov_in_rd / dt->num_rays;
         ray_id++;

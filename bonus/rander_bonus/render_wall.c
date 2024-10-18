@@ -33,17 +33,15 @@ uint32_t get_texture_pix(t_data *dt)
     uint32_t a;
     uint32_t index;
 
-    if (dt->x_offset >= 0 && dt->x_offset < dt->texture->width && dt->y_offset >= 0 && dt->y_offset < dt->texture->height)
+    if (dt->x_offset >= 0 && dt->x_offset < dt->texture->width
+        && dt->y_offset >= 0 && dt->y_offset < dt->texture->height)
     {
         index = (dt->y_offset * dt->texture->width  + dt->x_offset) * 4;
-        if (index + 3 < dt->texture->width * dt->texture->height * 4)
-        {
         r = dt->texture->pixel_data[index];
         g = dt->texture->pixel_data[index + 1];
         b = dt->texture->pixel_data[index + 2];
         a = dt->texture->pixel_data[index + 3];
         return (r << 24 | g << 16 | b << 8 | a);
-        }
     }
     return (0x00000000);
 }
@@ -104,9 +102,7 @@ t_texture *choice_texture(t_data *dt)
 {
     t_texture *tex;
 
-    if (dt->is_door)
-        tex = dt->door_txt;
-    else if (!dt->ray->is_vert)
+    if (!dt->ray->is_vert)
     {
         if (dt->ray->ray_facing_up)
             tex = dt->pars.north;
@@ -120,6 +116,8 @@ t_texture *choice_texture(t_data *dt)
         else
             tex = dt->pars.east;
     }
+    if (dt->is_door)
+        tex = dt->door_txt;
     return (tex);
 }
 

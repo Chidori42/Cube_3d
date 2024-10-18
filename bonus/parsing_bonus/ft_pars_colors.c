@@ -6,28 +6,28 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 02:57:49 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/10/04 20:31:19 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/10/18 00:54:17 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub_bonus.h"
 
-static int	check_valid_color(char *str)
+static	int	count_identify(t_pars *pars, char *character, char **p, int index)
 {
-	int	i;
-
-	i = 0;
-	while (str && str[i])
+	if (ft_strcmp(p[index], "C") == 0 || ft_strcmp(p[index], "F") == 0)
 	{
-		if ((str[i] == ',' && str[i + 1] == ',')
-			|| (str[i] == ',' && str[i + 1] == '\0'))
-			return (ft_putendl_fd("Error\ninvalid color identify", 2), 1);
-		i++;
+		if (p[index][0] == 'C')
+			pars->is_c++;
+		else
+			pars->is_f++;
+		*character = p[index][0];
 	}
+	else
+		return (ft_putendl_fd("Error\ninvalid color identify", 2), 1);
 	return (0);
 }
 
-static int	check_c_and_f(t_pars *args, char **p, char *character)
+static int	check_c_and_f(t_pars *pars, char **p, char *character)
 {
 	int	i;
 
@@ -36,16 +36,8 @@ static int	check_c_and_f(t_pars *args, char **p, char *character)
 	{
 		if (i == 0)
 		{
-			if (ft_strcmp(p[i], "C") == 0 || ft_strcmp(p[i], "F") == 0)
-			{
-				if (p[i][0] == 'C')
-					args->is_c++;
-				else
-					args->is_f++;
-				*character = p[i][0];
-			}
-			else
-				return (ft_putendl_fd("Error\ninvalid color identify", 2), 1);
+			if (count_identify(pars, &(*character), p, i))
+				return (1);
 		}
 		else
 		{
@@ -53,29 +45,37 @@ static int	check_c_and_f(t_pars *args, char **p, char *character)
 				|| ft_atoi(p[i]) > 255)
 				return (ft_putendl_fd("Error\ninvalid Number", 2), 1);
 			if (*character == 'C')
-				args->c[0] = ft_atoi(p[i]);
+				pars->c[0] = ft_atoi(p[i]);
 			else
-				args->f[0] = ft_atoi(p[i]);
+				pars->f[0] = ft_atoi(p[i]);
 		}
 	}
 	return (0);
 }
 
-static int	ft_check_colors(t_pars *args, char **str)
+static int	check_first_case(t_pars *pars, char *str, char *character)
+{
+	char	**p;
+
+	p = ft_split(str, ' ');
+	if (p && check_c_and_f(pars, p, &(*character)))
+		return (ft_free_2dm(p), 1);
+	ft_free_2dm(p);
+	return (0);
+}
+
+static int	ft_check_colors(t_pars *pars, char **str)
 {
 	int		i;
 	char	charactr;
-	char	**p;
 
 	i = -1;
 	while (str[++i])
 	{
 		if (i == 0)
 		{
-			p = ft_split(str[i], ' ');
-			if (p && check_c_and_f(args, p, &charactr))
-				return (ft_free_2dm(p), 1);
-			ft_free_2dm(p);
+			if (check_first_case(pars, str[i], &charactr))
+				return (1);
 		}
 		else
 		{
@@ -83,9 +83,9 @@ static int	ft_check_colors(t_pars *args, char **str)
 				|| ft_atoi(str[i]) > 255)
 				return (ft_putendl_fd("Error\ninvalid Number", 2), 1);
 			if (charactr == 'C')
-				args->c[i] = ft_atoi(str[i]);
+				pars->c[i] = ft_atoi(str[i]);
 			else
-				args->f[i] = ft_atoi(str[i]);
+				pars->f[i] = ft_atoi(str[i]);
 		}
 	}
 	if (i != 3)

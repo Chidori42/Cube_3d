@@ -59,6 +59,7 @@
   "files.associations": {
     "cub_bonus.h": "c",
     "algorithm": "c",
-    "mlx42.h": "c"
+    "mlx42.h": "c",
+    "chrono": "c"
   }
 }

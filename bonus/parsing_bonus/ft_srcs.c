@@ -6,7 +6,7 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 18:07:16 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/10/04 20:31:29 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/10/18 00:54:35 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,21 @@ void	ft_set_colore(t_pars *args)
 {
 	args->floor_color = ft_get_colore(args->f[0], args->f[1], args->f[2]);
 	args->ceiling_color = ft_get_colore(args->c[0], args->c[1], args->c[2]);
+}
+
+int	check_valid_color(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str && str[i])
+	{
+		if ((str[i] == ',' && str[i + 1] == ',')
+			|| (str[i] == ',' && str[i + 1] == '\0'))
+			return (ft_putendl_fd("Error\ninvalid color identify", 2), 1);
+		i++;
+	}
+	return (0);
 }
 
 int	ft_get_map(t_data *data, char *map)

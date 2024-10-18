@@ -6,36 +6,36 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 11:42:58 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/10/09 03:27:34 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/10/18 02:19:02 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub_bonus.h"
 
-int draw_pixel(mlx_image_t *img, float pixel_size, float a, float b, int color)
+int	draw_pixel(mlx_image_t *img, float pixel_size, float a, float b, int color)
 {
-    int i;
-    int j;
+	int	i;
+	int	j;
 
-    i = 0;
-    j = 0;
+	i = 0;
+	j = 0;
 	while (i < pixel_size)
-    {
-        j = 0;
-        while (j < pixel_size)
-        {
-            mlx_put_pixel(img, (a  + j), (b + i), color);
-            j++;
-        }
-        i++;
-    }
+	{
+		j = 0;
+		while (j < pixel_size)
+		{
+			mlx_put_pixel(img, (a + j), (b + i), color);
+			j++;
+		}
+		i++;
+	}
 	return (0);
 }
 
 void	set_hei_and_wid(t_data *data)
 {
 	int	j;
-	int len;
+	int	len;
 
 	j = -1;
 	data->map_w = 0;
@@ -51,8 +51,7 @@ void	set_hei_and_wid(t_data *data)
 	data->map_h = j;
 }
 
-
-void ft_setparam(t_data *data)
+void	ft_setparam(t_data *data)
 {
 	data->is_play = false;
 	data->is_load = false;
@@ -63,6 +62,7 @@ void ft_setparam(t_data *data)
 	data->start_fram = 0;
 	data->shoot_fram = 0;
 	data->is_door = false;
+	data->door_key_pressed = false;
 	data->pars.no = NULL;
 	data->pars.so = NULL;
 	data->pars.we = NULL;
