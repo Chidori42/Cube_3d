@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_doors_animistions.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yakazdao <yakazdao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 01:37:46 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/10/09 03:39:11 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/10/18 13:42:50 by yakazdao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int ft_load_door(t_data *dt)
 {
-	dt->door_txt = ft_get_data("textures/Door/DOOR1.PNG");
+	dt->door_txt = ft_get_data("textures/wall_texters/SAMPLE/DOOR_1C.PNG");
 	if (!(dt->door_txt))
 		return (ft_putendl_fd("load door_png fail!!", 2), 1);
     return (0);
