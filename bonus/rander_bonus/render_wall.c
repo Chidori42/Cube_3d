@@ -6,7 +6,7 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 17:57:50 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/10/18 21:17:38 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/10/18 23:29:13 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void     ft_mlx_put_pixel(t_data *dt, int x, int y, int color)
         return;
     mlx_put_pixel(dt->img, x, y, color);
 }
+
 void    apply_shadow(uint32_t *color, t_data *dt)
 {
     uint32_t    r;
@@ -31,7 +32,7 @@ void    apply_shadow(uint32_t *color, t_data *dt)
     uint32_t    b;
     double        intensity;
 
-    intensity = 1 - (dt->ray->distance / dt->max_distance);
+    intensity = 0.9 - (dt->ray->distance / dt->max_distance);
     if (intensity < 0.3)
         intensity = 0.3;
     r = (*color >> 24) & 0xFF;
@@ -42,7 +43,6 @@ void    apply_shadow(uint32_t *color, t_data *dt)
     b *= intensity;
     *color = (r << 24) | (g << 16) | (b << 8) | 0xff;
 }
- 
 
 uint32_t get_texture_pix(t_data *dt)
 {
@@ -138,6 +138,40 @@ t_texture *choice_texture(t_data *dt)
     return (tex);
 }
 
+// void render_wall(t_data *dt, int ray)
+// {
+//     float   angle_in_rad;
+//     float   actual_slice_height;
+//     float   dist_to_proj_plane;
+//     int     wall_top_pixel;
+//     int     wall_bot_pixel;
+   
+//     float distorted_distance = dt->ray->distance;
+//     float angle_difference = normalize_angle(dt->ray->ray_angle - dt->player->rot_angle);
+//     float corrected_distance = distorted_distance * cos(angle_difference);
+//     dt->ray->distance = corrected_distance;
+//     if (dt->ray->distance == 0)
+//         dt->ray->distance = 0.0001;
+//     angle_in_rad = FOV_ANGLE * (M_PI / 180);
+//     actual_slice_height = TILE_SIZE;
+//     dist_to_proj_plane = (S_W / 2) / tan(angle_in_rad / 2);
+//     dt->wall_height = dist_to_proj_plane * (actual_slice_height / dt->ray->distance);
+//     wall_top_pixel = (S_H / 2) - (dt->wall_height / 2);
+//     if (wall_top_pixel < 0)
+//         wall_top_pixel = 0;
+//     wall_bot_pixel = (S_H / 2) + (dt->wall_height / 2);
+//     if (wall_bot_pixel > S_H)
+//         wall_bot_pixel = S_H;
+//     dt->texture = choice_texture(dt);
+//     if (!dt->ray->is_vert)
+//         dt->x_offset = (int)(dt->ray->wall_x_hit * dt->texture->width / TILE_SIZE) % dt->texture->width;
+//     else
+//         dt->x_offset = (int)(dt->ray->wall_y_hit * dt->texture->height / TILE_SIZE) % dt->texture->height;
+//     draw_ceiling(dt, wall_top_pixel, ray);
+//     draw_wall(dt, wall_top_pixel, wall_bot_pixel, ray);
+//     draw_floor(dt, wall_bot_pixel, ray);
+// }
+
 void render_wall(t_data *dt, int ray)
 {
     float   angle_in_rad;
@@ -147,25 +181,30 @@ void render_wall(t_data *dt, int ray)
     int     wall_bot_pixel;
    
     float distorted_distance = dt->ray->distance;
-    float angle_difference = dt->ray->ray_angle - dt->player->rot_angle;
+    float angle_difference = normalize_angle(dt->ray->ray_angle - dt->player->rot_angle);
     float corrected_distance = distorted_distance * cos(angle_difference);
     dt->ray->distance = corrected_distance;
+
     angle_in_rad = FOV_ANGLE * (M_PI / 180);
+    dist_to_proj_plane = (S_W / 2) / tan(angle_in_rad / 2);
+
     actual_slice_height = TILE_SIZE;
-    dist_to_proj_plane = (S_W / 2) / tan(normalize_angle(angle_in_rad / 2));
     dt->wall_height = dist_to_proj_plane * (actual_slice_height / dt->ray->distance);
     wall_top_pixel = (S_H / 2) - (dt->wall_height / 2);
     if (wall_top_pixel < 0)
         wall_top_pixel = 0;
+
     wall_bot_pixel = (S_H / 2) + (dt->wall_height / 2);
     if (wall_bot_pixel > S_H)
         wall_bot_pixel = S_H;
+
     dt->texture = choice_texture(dt);
-    if (!dt->ray->is_vert)
-        dt->x_offset = (int)(dt->ray->wall_x_hit * dt->texture->width / TILE_SIZE) % dt->texture->width;
+    if (dt->ray->is_vert)
+        dt->x_offset = (int)(dt->ray->wall_y_hit * dt->texture->width / TILE_SIZE) % dt->texture->width;
     else
-        dt->x_offset = (int)(dt->ray->wall_y_hit * dt->texture->height / TILE_SIZE) % dt->texture->height;
+        dt->x_offset = (int)(dt->ray->wall_x_hit * dt->texture->width / TILE_SIZE) % dt->texture->width;
     draw_ceiling(dt, wall_top_pixel, ray);
     draw_wall(dt, wall_top_pixel, wall_bot_pixel, ray);
     draw_floor(dt, wall_bot_pixel, ray);
 }
+
