@@ -6,7 +6,7 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 05:43:32 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/10/18 21:22:42 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/10/19 22:28:25 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,10 +138,10 @@ typedef struct s_data
 	bool				door_key_pressed;
 	t_pars				pars;
 	t_texture			*texture;
-	int grid_x;
-	int grid_y;
-	float intensity;
-	float max_distance;
+	int					grid_x;
+	int					grid_y;
+	float				intensity;
+	float				max_distance;
 }		t_data;
 
 /*************************************************/

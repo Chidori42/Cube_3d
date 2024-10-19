@@ -6,7 +6,7 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 17:58:00 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/10/19 05:36:13 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/10/19 23:13:10 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,21 +158,21 @@ void doors_hook(void *p)
         door_key_pressed = false;
 }
 
-void ft_mouse_hook(void *p)
-{
-    t_data  *dt;
-    int     x;
-    int     y;
-    int     delta_x;
-    int     center_x;
+// void ft_mouse_hook(void *p)
+// {
+//     t_data  *dt;
+//     int     x;
+//     int     y;
+//     int     delta_x;
+//     int     center_x;
 
-    dt = (t_data *)p;
-    mlx_get_mouse_pos(dt->mlx, &x, &y);
-    center_x = S_W / 2; 
-    delta_x = x - center_x;
-    dt->player->rot_angle += delta_x * FACTOR; 
-    mlx_set_mouse_pos(dt->mlx, center_x, S_H / 2);
-}
+//     dt = (t_data *)p;
+//     mlx_get_mouse_pos(dt->mlx, &x, &y);
+//     center_x = S_W / 2; 
+//     delta_x = x - center_x;
+//     dt->player->rot_angle += delta_x * FACTOR; 
+//     mlx_set_mouse_pos(dt->mlx, center_x, S_H / 2);
+// }
 
 void start_game(t_data *data)
 {
@@ -195,6 +195,6 @@ void start_game(t_data *data)
 	mlx_loop_hook(data->mlx,  key_handler, data);
     mlx_loop_hook(data->mlx,  doors_hook, data);
     mlx_loop_hook(data->mlx, weapen_hooks, data);
-    mlx_loop_hook(data->mlx, ft_mouse_hook, data);
+    // mlx_loop_hook(data->mlx, ft_mouse_hook, data);
 	mlx_loop(data->mlx);
 }

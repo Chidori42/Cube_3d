@@ -6,7 +6,7 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 15:18:58 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/10/18 03:15:59 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/10/19 22:04:40 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,5 +149,4 @@ void	weapen_hooks(void *p)
 	else if (!dt->is_play && !dt->is_load)
 		ft_animate(dt);
 	mlx_image_to_window(dt->mlx, dt->weapen_img, 0, 0);
-	dt->weapen_img->instances->enabled = true;
 }
