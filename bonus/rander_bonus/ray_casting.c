@@ -6,7 +6,7 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 17:57:43 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/10/18 23:14:54 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/10/19 05:25:19 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,10 @@ void cast_ray(t_data *dt, float ray_angle, int i)
          dt->grid_x =  dt->grid_x + (dt->ray->ray_facing_left ? -1 : 0);
     if (!dt->ray->is_vert)
         dt->grid_y = dt->grid_y + (dt->ray->ray_facing_up ? -1 : 0);
+    if (dt->map[dt->grid_y][dt->grid_x] == 'D')
+        dt->is_door = true;
+    else if (dt->map[dt->grid_y][dt->grid_x] == 'O')
+        dt->is_door = false;
     render_wall(dt, i);
 }
 

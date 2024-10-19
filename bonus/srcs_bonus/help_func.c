@@ -6,7 +6,7 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 18:14:41 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/10/18 21:22:38 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/10/19 05:25:23 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,6 @@ bool find_wall_at(t_data *dt, int x, int y, char **grid)
     int grid_y = floor(y / TILE_SIZE);
     if (grid_x < 0 || grid_x >= dt->map_w || grid_y < 0 || grid_y >= dt->map_h)
         return (false);
-    if (grid[grid_y][grid_x] == 'D')
-        dt->is_door = true;
-    else if (grid[grid_y][grid_x] == 'O')
-        dt->is_door = false;
     return (grid[grid_y][grid_x] == '1' || grid[grid_y][grid_x] == 'D');
 }
 

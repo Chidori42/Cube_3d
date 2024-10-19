@@ -6,7 +6,7 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 17:57:50 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/10/18 23:37:50 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/10/19 02:17:43 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,8 @@ uint32_t get_texture_pix(t_data *dt)
     uint32_t a;
     uint32_t index;
 
-    if (dt->x_offset >= 0 && dt->x_offset < dt->texture->width && dt->y_offset >= 0 && dt->y_offset < dt->texture->height)
+    if (dt->x_offset >= 0 && dt->x_offset < dt->texture->width
+        && dt->y_offset >= 0 && dt->y_offset < dt->texture->height)
     {
         index = (dt->y_offset * dt->texture->width  + dt->x_offset) * 4;
         r = dt->texture->pixel_data[index];
