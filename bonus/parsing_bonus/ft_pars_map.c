@@ -6,7 +6,7 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 20:47:41 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/10/18 01:20:02 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/10/19 02:03:42 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,17 +88,15 @@ int	check_door_sides(t_data *dt, char **map)
 		{
 			if (map[j][i] == 'D')
 			{
-				if ((i + 1 < (int)ft_strlen(map[j]) && (map[j][i + 1] == '1')
-					&& (i - 1 >= 0 && map[j][i - 1] == '1'))
-					|| ((j + 1 < dt->map_h && map[j + 1][i] == '1')
-					&& (j - 1 >= 0 && map[j - 1][i] == '1')))
-					return (0);
+				if (!((map[j][i + 1] == '1' && map[j][i - 1] == '1')
+					|| (map[j + 1][i] == '1' && map[j - 1][i] == '1')))
+					return (ft_putstr_fd("Error\ninvalid door position", 2), 1);
 			}
 			i++;
 		}
 		j++;
 	}
-	return (ft_putstr_fd("Error\ninvalid door position", 2), 1);
+	return (0);
 }
 
 int	ft_check_map(t_data *data, t_pars *args)
