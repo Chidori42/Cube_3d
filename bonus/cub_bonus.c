@@ -6,7 +6,7 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 08:54:18 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/10/19 23:49:41 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/10/20 00:26:54 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,13 +44,13 @@ int main(int ac, char **av)
 			return (ft_free_exit(&data), 1);
 		if (ft_check_map(&data, &data.pars))
 			return (ft_free_exit(&data), 1);
-		ft_putendl_fd("\x1b[35mLOADING WEAPON TEXTURES......\033[0m", 1);
+		ft_putendl_fd("\x1b[32mLOADING WEAPON TEXTURES......\033[0m", 1);
 		if (ft_init_weapen_images(&data))
 			return (ft_free_exit(&data), 1);
-		ft_putendl_fd("\x1b[35mLOADING WALL TEXTURES......\033[0m", 1);
+		ft_putendl_fd("\x1b[33mLOADING WALL TEXTURES......\033[0m", 1);
 		if (ft_init_texters(&data))
 			return (ft_free_exit(&data), 1);
-		ft_putendl_fd("\x1b[35mLOADING DOOR TEXTURES......\033[0m", 1);
+		ft_putendl_fd("\x1b[34mLOADING DOOR TEXTURES......\033[0m", 1);
 		if (ft_init_door_image(&data))
 			return (ft_free_exit(&data), 1);
 		init_data(&data);

@@ -6,7 +6,7 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 00:25:54 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/10/19 23:58:22 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/10/20 01:36:59 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static	int	check_left_side(char **map)
 		j = 0;
 		while (map[i][j] == ' ' && map[i][j])
 			j++;
-		if (map[i][j] != '1')
+		if (map[i][j] != '1' && map[i][j] != '\0')
 		{
 			ft_putendl_fd("\x1b[31mError\ninvalid left border\033[0m", 2);
 			return (1);
