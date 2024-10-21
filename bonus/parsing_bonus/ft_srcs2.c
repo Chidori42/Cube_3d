@@ -6,7 +6,7 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 00:48:55 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/10/18 00:59:51 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/10/20 22:51:37 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,6 @@ char	**ft_add_spaces(t_data *data, char **str)
 
 int	get_data(t_data *data, char *colors, char *texters, char *map)
 {
-	int	i;
-
 	if (ft_get_map(data, map))
 	{
 		free(texters);

@@ -6,7 +6,7 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 17:58:00 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/10/20 00:46:51 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/10/21 01:26:49 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,6 +129,9 @@ void open_close_door(t_data *dt)
     float next_x = dt->player->x + cos(dt->player->rot_angle) * TILE_SIZE;
     float next_y = dt->player->y + sin(dt->player->rot_angle) * TILE_SIZE;
 
+    if ((dt->map[dt->player->y / TILE_SIZE][dt->player->x / TILE_SIZE] == 'D' || dt->map[dt->player->y / TILE_SIZE][dt->player->x / TILE_SIZE] == 'O')
+        && (dt->map[(int)next_y / TILE_SIZE][(int)next_x / TILE_SIZE] == 'D' || dt->map[(int)next_y / TILE_SIZE][(int)next_x / TILE_SIZE] == 'O'))
+        return ;
     int grid_x = (int)floor(next_x / TILE_SIZE);
     int grid_y = (int)floor(next_y / TILE_SIZE);
     if (grid_x >= 0 && grid_x < dt->map_w && grid_y >= 0 && grid_y < dt->map_h)
