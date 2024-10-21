@@ -6,7 +6,7 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 15:18:58 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/10/19 22:04:40 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/10/21 22:57:53 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,7 @@ int	ft_init_weapen_images(t_data *data)
 	{
 		data->weapen_txt[i] = mlx_load_png(data->weap_path[i]);
 		if (!(data->weapen_txt[i]))
-		{
 			return (ft_putendl_fd("loadpng fail!!", 2), 1);
-		}
 		i++;
 	}
 	i = 0;

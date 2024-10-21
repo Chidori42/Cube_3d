@@ -6,7 +6,7 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 14:54:35 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/10/21 06:57:35 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/10/21 23:40:19 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,8 @@ void	draw_centered_minimap(t_data *dt, int range, float size, float start_x, flo
 		j = 0;
 		while (j < range)
 		{
-			map_x = (start_x / TILE_SIZE - 3.8) + j;
-			map_y = (start_y / TILE_SIZE - 3.8) + i;
+			map_x = start_x / TILE_SIZE + j;
+			map_y = start_y / TILE_SIZE + i;
 			if (map_x > 0 && (int)map_x < dt->map_w && map_y > 0 && (int)map_y < dt->map_h)
 			{
 				if (dt->map[(int)map_y][(int)map_x] == '1')
@@ -105,8 +105,8 @@ int	draw_minimap(t_data *dt)
 
 	range = 8;
 	size = 200 / range;
-	start_x = dt->player->x - (range / 2);
-	start_y = dt->player->y - (range / 2);
+	start_x = (dt->player->x - ((range / 2) * TILE_SIZE));
+	start_y = (dt->player->y - ((range / 2) * TILE_SIZE));
 	draw_centered_minimap(dt, range, size, start_x, start_y);
 	return (0);
 }

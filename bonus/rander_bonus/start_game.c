@@ -6,7 +6,7 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 17:58:00 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/10/21 22:01:21 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/10/21 23:18:03 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,8 @@ int circle_collision(t_data *dt, double x, double y)
     if (is_wall(dt, x - PLYR_SPEED, y - PLYR_SPEED) ||
         is_wall(dt, x + PLYR_SPEED, y - PLYR_SPEED) ||
         is_wall(dt, x - PLYR_SPEED, y + PLYR_SPEED) ||
-        is_wall(dt, x + PLYR_SPEED, y + PLYR_SPEED)) {
+        is_wall(dt, x + PLYR_SPEED, y + PLYR_SPEED))
         return (1);
-    }
     return (0);
 }
 
@@ -68,7 +67,7 @@ void	player_rotation(t_data *dt, char rot_inc)
 {
 	if (rot_inc == '+')
 	{
-		dt->player->rot_angle += ROTATION_SPEED; 
+		dt->player->rot_angle += ROTATION_SPEED;
 		if (dt->player->rot_angle > 2 * M_PI)
 			dt->player->rot_angle -= 2 * M_PI;
 	}

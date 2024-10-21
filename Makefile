@@ -32,7 +32,7 @@ SRCS_BONUS                    =	$(BONUS_DIR)/cub_bonus.c \
 							$(BONUS_DIR)/srcs_bonus/ft_read_map.c \
 							$(BONUS_DIR)/srcs_bonus/help_func.c \
 							$(BONUS_DIR)/rander_bonus/ft_sprites.c \
-							$(BONUS_DIR)/rander_bonus/ft_doors_animistions.c \
+							$(BONUS_DIR)/rander_bonus/ft_load_door.c \
 							$(BONUS_DIR)/rander_bonus/ft_minimap.c \
 							$(BONUS_DIR)/rander_bonus/render_wall.c \
 							$(BONUS_DIR)/rander_bonus/ray_casting.c \
