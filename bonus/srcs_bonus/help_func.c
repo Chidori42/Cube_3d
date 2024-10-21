@@ -6,24 +6,11 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 18:14:41 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/10/21 21:21:58 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/10/21 21:57:28 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub_bonus.h"
-
-// bool map_collision(t_data *dt, int grid_x, int grid_y)
-// {
-//     if (dt->map[grid_y][grid_x] != '1' && \
-// 	    (dt->map[grid_y][dt->player->x / TILE_SIZE] != '1' && \
-// 	    dt->map[dt->player->y / TILE_SIZE][grid_x] != '1') &&
-//         dt->map[grid_y][grid_x] != 'D' && \
-// 	    (dt->map[grid_y][dt->player->x / TILE_SIZE] != 'D' && \
-// 	    dt->map[dt->player->y / TILE_SIZE][grid_x] != 'D'))
-//         return (true);
-//     return (false);
-// }
-
 
 float normalize_angle(float ray_angle)
 {

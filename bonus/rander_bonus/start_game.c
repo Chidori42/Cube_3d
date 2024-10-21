@@ -6,7 +6,7 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 17:58:00 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/10/21 21:56:00 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/10/21 22:01:21 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,22 +32,22 @@ void ft_clear_image(mlx_image_t *img)
     }
 }
 
-int is_wall(t_data *dt, double x, double y)
+bool is_wall(t_data *dt, double x, double y)
 {
     int map_x = (int)(x / TILE_SIZE);
     int map_y = (int)(y / TILE_SIZE);
     
     if (map_x >= 0 && map_x < dt->map_w&& map_y >= 0 && map_y < dt->map_h) 
         return (dt->map[map_y][map_x] == '1' || dt->map[map_y][map_x] == 'D');
-    return (1);
+    return (false);
 }
 
 int circle_collision(t_data *dt, double x, double y)
 {
-    if (is_wall(dt, x - 0.25 - PLYR_SPEED, y - 0.25 - PLYR_SPEED) ||
-        is_wall(dt, x + 0.25 + PLYR_SPEED, y - 0.25 - PLYR_SPEED) ||
-        is_wall(dt, x - 0.25 - PLYR_SPEED, y + 0.25 + PLYR_SPEED) ||
-        is_wall(dt, x + 0.25 + PLYR_SPEED, y + 0.25 + PLYR_SPEED)) {
+    if (is_wall(dt, x - PLYR_SPEED, y - PLYR_SPEED) ||
+        is_wall(dt, x + PLYR_SPEED, y - PLYR_SPEED) ||
+        is_wall(dt, x - PLYR_SPEED, y + PLYR_SPEED) ||
+        is_wall(dt, x + PLYR_SPEED, y + PLYR_SPEED)) {
         return (1);
     }
     return (0);
