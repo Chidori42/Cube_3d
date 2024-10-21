@@ -6,7 +6,7 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 20:47:41 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/10/19 02:03:42 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/10/21 05:12:33 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static int	check_sides(t_data *data, int i, int j)
 			|| (i + 1 < (int)ft_strlen(data->map[j]) \
 				&& data->map[j][i + 1] == ' ')
 			|| (i - 1 >= 0 && data->map[j][i - 1] == ' '))
-			return (ft_putstr_fd("Error\ninvalid map1", 2), 1);
+			return (ft_putstr_fd("Error\ninvalid map", 2), 1);
 	}
 	return (0);
 }

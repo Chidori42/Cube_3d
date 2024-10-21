@@ -6,7 +6,7 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 17:58:00 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/10/21 01:26:49 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/10/21 21:56:00 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,22 +32,36 @@ void ft_clear_image(mlx_image_t *img)
     }
 }
 
-void    move_player(t_data *dt, int move_x, int move_y)
+int is_wall(t_data *dt, double x, double y)
 {
-    int grid_x;
-    int grid_y;
-    int new_x;
-    int new_y;
+    int map_x = (int)(x / TILE_SIZE);
+    int map_y = (int)(y / TILE_SIZE);
+    
+    if (map_x >= 0 && map_x < dt->map_w&& map_y >= 0 && map_y < dt->map_h) 
+        return (dt->map[map_y][map_x] == '1' || dt->map[map_y][map_x] == 'D');
+    return (1);
+}
 
-    new_x = roundf(dt->player->x + move_x);
-	new_y = roundf(dt->player->y + move_y);  
-	grid_x = (new_x / TILE_SIZE);  
-	grid_y = (new_y / TILE_SIZE);
-	if (map_collision(dt, grid_x, grid_y))
-	{
-		dt->player->x = new_x;
-		dt->player->y = new_y;
-	}
+int circle_collision(t_data *dt, double x, double y)
+{
+    if (is_wall(dt, x - 0.25 - PLYR_SPEED, y - 0.25 - PLYR_SPEED) ||
+        is_wall(dt, x + 0.25 + PLYR_SPEED, y - 0.25 - PLYR_SPEED) ||
+        is_wall(dt, x - 0.25 - PLYR_SPEED, y + 0.25 + PLYR_SPEED) ||
+        is_wall(dt, x + 0.25 + PLYR_SPEED, y + 0.25 + PLYR_SPEED)) {
+        return (1);
+    }
+    return (0);
+}
+
+void move_player(t_data *dt, double move_x, double move_y)
+{
+    double potential_x = roundf(dt->player->x + move_x);
+    double potential_y = roundf(dt->player->y + move_y);
+
+    if (!circle_collision(dt, potential_x, dt->player->y))
+        dt->player->x = potential_x;
+    if (!circle_collision(dt, dt->player->x, potential_y))
+        dt->player->y = potential_y;
 }
 
 void	player_rotation(t_data *dt, char rot_inc)

@@ -6,7 +6,7 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 05:43:32 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/10/19 22:28:25 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/10/21 21:22:04 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,7 +173,7 @@ int			check_valid_color(char *str);
 int			get_data(t_data *data, char *colors, char *texters, char *map);
 
 int			ft_init_door_image(t_data *data);
-bool		map_collision(t_data *dt, int grid_x, int grid_y);
+// bool		map_collision(t_data *dt, int grid_x, int grid_y);
 void		game_loop(t_data *data);
 void		get_player_pos(char **grid, t_data *dt);
 float		normalize_angle(float ray_angle);
