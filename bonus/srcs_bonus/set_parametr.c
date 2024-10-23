@@ -6,7 +6,7 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 11:42:58 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/10/21 05:11:04 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/10/23 23:26:19 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	ft_setparam(t_data *data)
 {
 	data->is_play = false;
 	data->is_load = false;
-	data->is_animate = false;
+	data->is_mouse = false;
 	data->texters = NULL;
 	data->colors = NULL;
 	data->map = NULL;

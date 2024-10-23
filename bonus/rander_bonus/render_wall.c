@@ -6,7 +6,7 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 17:57:50 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/10/19 02:17:43 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/10/23 23:37:44 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,8 +95,6 @@ void draw_floor(t_data *dt, int  wall_bot_pixel, int ray)
     y = wall_bot_pixel;
     while (y < S_H)
     {
-        if (y < 0 || y >= S_H || ray < 0 || ray >= S_W)
-            break;
         mlx_put_pixel(dt->img, ray, y, dt->pars.floor_color);
         y++;
     }
@@ -109,8 +107,6 @@ void draw_ceiling(t_data *dt, int  wall_top_pixel, int ray)
     y = 0;
     while (y < wall_top_pixel)
     {
-        if (y < 0 || y >= S_H || ray < 0 || ray >= S_W)
-            break;
         mlx_put_pixel(dt->img, ray, y, dt->pars.ceiling_color);
         y++;
     }
@@ -169,7 +165,7 @@ void render_wall(t_data *dt, int ray)
     if (dt->ray->is_vert)
         dt->x_offset = (int)(dt->ray->wall_y_hit * dt->texture->width / TILE_SIZE) % dt->texture->width;
     else
-        dt->x_offset = (int)(dt->ray->wall_x_hit * dt->texture->width / TILE_SIZE) % dt->texture->width;
+        dt->x_offset = (int)(dt->ray->wall_x_hit * dt->texture->height / TILE_SIZE) % dt->texture->height;
     draw_ceiling(dt, wall_top_pixel, ray);
     draw_wall(dt, wall_top_pixel, wall_bot_pixel, ray);
     draw_floor(dt, wall_bot_pixel, ray);

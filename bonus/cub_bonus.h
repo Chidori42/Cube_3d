@@ -6,7 +6,7 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 05:43:32 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/10/21 21:57:59 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/10/23 23:42:38 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,6 @@ typedef struct s_data
 	t_player			*player;
 	bool				is_play;
 	bool				is_load;
-	bool				is_animate;
 	int					start_fram;
 	int					end_fram;
 	int					frame_delay;
@@ -142,6 +141,7 @@ typedef struct s_data
 	int					grid_y;
 	float				intensity;
 	float				max_distance;
+	bool				is_mouse;
 }		t_data;
 
 /*************************************************/

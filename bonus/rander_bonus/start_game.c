@@ -6,31 +6,11 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 17:58:00 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/10/21 23:18:03 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/10/23 23:43:32 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub_bonus.h"
-
-void ft_clear_image(mlx_image_t *img)
-{
-    uint32_t        i;
-    uint32_t        j;
-    unsigned int    clear;
-    
-    i = 0;
-    clear = 255 << 24 | 255 << 16 | 255 << 8 | 0;
-    while (i < img->height)
-    {
-        j = 0;
-        while (j < img->width)
-        {
-            mlx_put_pixel(img, j, i, clear);
-            j++;
-        }
-        i++;
-    }
-}
 
 bool is_wall(t_data *dt, double x, double y)
 {
@@ -44,10 +24,10 @@ bool is_wall(t_data *dt, double x, double y)
 
 int circle_collision(t_data *dt, double x, double y)
 {
-    if (is_wall(dt, x - PLYR_SPEED, y - PLYR_SPEED) ||
-        is_wall(dt, x + PLYR_SPEED, y - PLYR_SPEED) ||
-        is_wall(dt, x - PLYR_SPEED, y + PLYR_SPEED) ||
-        is_wall(dt, x + PLYR_SPEED, y + PLYR_SPEED))
+    if (is_wall(dt, x - 2, y - 2) ||
+        is_wall(dt, x + 2, y - 2) ||
+        is_wall(dt, x - 2, y + 2) ||
+        is_wall(dt, x + 2, y + 2))
         return (1);
     return (0);
 }
@@ -81,7 +61,6 @@ void	player_rotation(t_data *dt, char rot_inc)
 
 void game_loop(t_data *data) 
 {
-    ft_clear_image(data->img);
     casting_rays(data);
     draw_minimap(data);
 }
@@ -94,10 +73,20 @@ void key_handler(void* param)
 
     if (mlx_is_key_down(dt->mlx, MLX_KEY_ESCAPE))
         exit(0);
-    if (mlx_is_key_down(dt->mlx, MLX_KEY_LEFT))
-        player_rotation(dt, '-');
-    else if (mlx_is_key_down(dt->mlx, MLX_KEY_RIGHT))
-        player_rotation(dt, '+');
+    if (mlx_is_mouse_down(dt->mlx, MLX_MOUSE_BUTTON_RIGHT))
+    {
+        if (dt->is_mouse == false)
+            dt->is_mouse = true;
+        else if (dt->is_mouse == true)
+            dt->is_mouse = false;
+    }
+    if (dt->is_mouse == false)
+    {
+        if (mlx_is_key_down(dt->mlx, MLX_KEY_LEFT))
+            player_rotation(dt, '-');
+        else if (mlx_is_key_down(dt->mlx, MLX_KEY_RIGHT))
+            player_rotation(dt, '+');
+    }
     if (mlx_is_key_down(dt->mlx, MLX_KEY_W))
     {
         new_x = cos(dt->player->rot_angle) * PLYR_SPEED;
@@ -174,26 +163,28 @@ void doors_hook(void *p)
         door_key_pressed = false;
 }
 
-// void ft_mouse_hook(void *p)
-// {
-//     t_data  *dt;
-//     int     x;
-//     int     y;
-//     int     delta_x;
-//     int     center_x;
+void ft_mouse_hook(void *p)
+{
+    t_data  *dt;
+    int     x;
+    int     y;
+    int     delta_x;
+    int     center_x;
 
-//     dt = (t_data *)p;
-//     mlx_get_mouse_pos(dt->mlx, &x, &y);
-//     center_x = S_W / 2; 
-//     delta_x = x - center_x;
-//     dt->player->rot_angle += delta_x * FACTOR; 
-//     mlx_set_mouse_pos(dt->mlx, center_x, S_H / 2);
-// }
+    dt = (t_data *)p;
+    if (dt->is_mouse == false)
+        return ;
+    mlx_get_mouse_pos(dt->mlx, &x, &y);
+    center_x = S_W / 2; 
+    delta_x = x - center_x;
+    dt->player->rot_angle += delta_x * FACTOR; 
+    mlx_set_mouse_pos(dt->mlx, center_x, S_H / 2);
+}
 
 void start_game(t_data *data)
 {
     init_player(data);
-    data->mlx = mlx_init(S_W, S_H, "CUB3D", true);
+    data->mlx = mlx_init(S_W, S_H, "CUB3D", false);
     if (!data->mlx)
     {
         perror("Error initializing window");
@@ -205,12 +196,13 @@ void start_game(t_data *data)
         perror("Error creating image");
         exit(1) ;
     }
+    game_loop(data);
     mlx_image_to_window(data->mlx, data->img, 0, 0);
     data->weapen_img = mlx_texture_to_image(data->mlx, data->weapen_txt[0]);
     mlx_image_to_window(data->mlx, data->weapen_img, 0, 0);
 	mlx_loop_hook(data->mlx,  key_handler, data);
     mlx_loop_hook(data->mlx,  doors_hook, data);
     mlx_loop_hook(data->mlx, weapen_hooks, data);
-    // mlx_loop_hook(data->mlx, ft_mouse_hook, data);
+    mlx_loop_hook(data->mlx, ft_mouse_hook, data);
 	mlx_loop(data->mlx);
 }

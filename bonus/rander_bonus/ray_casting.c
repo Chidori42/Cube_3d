@@ -6,7 +6,7 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 17:57:43 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/10/19 05:25:19 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/10/23 10:21:20 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,5 +124,4 @@ void casting_rays(t_data *dt)
         dt->ray->ray_angle += dt->player->fov_in_rd / dt->num_rays;
         ray_id++;
     }
-    // exit(0);
 }
