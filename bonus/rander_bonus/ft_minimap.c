@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_minimap.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yakazdao <yakazdao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 14:54:35 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/10/21 23:40:19 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/10/24 11:24:49 by yakazdao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,18 +39,16 @@ void draw_line(t_data *dt, int x0, int y0, int x1, int y1, int color)
 
 void minimap_rays(t_data *dt, int minimap_width, int minimap_height)
 {
-	int		num_rays;
 	int		i;
 	double	fov_angle;
 	double	ray_length;
 	double	angle_step;
 
-	num_rays = 200;
 	ray_length = 30;
 	fov_angle = FOV_ANGLE * M_PI / 180.0;
-	angle_step = fov_angle / num_rays;
+	angle_step = fov_angle / S_W;
 	i = 0;
-	while (i <= num_rays)
+	while (i <= S_W)
 	{
 		double ray_angle = dt->player->rot_angle - fov_angle / 2.0 + i * angle_step;
 		if (ray_angle < 0) ray_angle += 2 * M_PI;

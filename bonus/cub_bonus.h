@@ -6,7 +6,7 @@
 /*   By: yakazdao <yakazdao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 05:43:32 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/10/23 09:10:30 by yakazdao         ###   ########.fr       */
+/*   Updated: 2024/10/24 14:43:12 by yakazdao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,6 @@
 # define FOV_ANGLE 60
 # define PLYR_SPEED 5
 # define ROTATION_SPEED 0.1
-# define WALL_WIDTH 1
-# define TEX_WIDTH 30
-# define TEX_HEIGHT 30
-
 # define TEXTURE_NO "NO"
 # define TEXTURE_SO "SO"
 # define TEXTURE_WE "WE"
@@ -142,13 +138,12 @@ typedef struct s_data
 	int					grid_y;
 	float				intensity;
 	float				max_distance;
-
-	float x_intercept;
-    float y_intercept;
-    float x_step;
-    float y_step;
-    float x_check;
-    float y_check;
+	float				x_intr;
+	float				y_intr;
+	float				x_step;
+	float				y_step;
+	float				x_check;
+	float				y_check;
 }		t_data;
 
 /*************************************************/

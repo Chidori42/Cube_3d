@@ -6,7 +6,7 @@
 /*   By: yakazdao <yakazdao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 05:43:32 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/10/23 13:29:23 by yakazdao         ###   ########.fr       */
+/*   Updated: 2024/10/24 15:03:48 by yakazdao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,8 +144,8 @@ typedef struct s_data
 	float				intensity;
 	float				max_distance;
 
-	float x_intercept;
-    float y_intercept;
+	float x_intr;
+    float y_intr;
     float x_step;
     float y_step;
     float x_check;
