@@ -6,7 +6,7 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 17:57:43 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/10/23 10:21:20 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/10/24 10:24:20 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,7 @@ void casting_rays(t_data *dt)
     int ray_id = 0;
 
     dt->ray->ray_angle = dt->player->rot_angle - (dt->player->fov_in_rd / 2);
+    printf("angle = %f\n", dt->ray->ray_angle);
     while (ray_id < dt->num_rays)
     {
         dt->is_door = false;

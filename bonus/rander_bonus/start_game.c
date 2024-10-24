@@ -6,7 +6,7 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 17:58:00 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/10/23 23:43:32 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/10/24 10:39:21 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,15 +70,22 @@ void key_handler(void* param)
     t_data *dt = (t_data *)param;
     double new_x;
     double new_y;
+    static bool mause_key_pressed = false;
 
     if (mlx_is_key_down(dt->mlx, MLX_KEY_ESCAPE))
         exit(0);
-    if (mlx_is_mouse_down(dt->mlx, MLX_MOUSE_BUTTON_RIGHT))
+    if (mlx_is_mouse_down(dt->mlx, MLX_MOUSE_BUTTON_MIDDLE))
     {
-        if (dt->is_mouse == false)
-            dt->is_mouse = true;
-        else if (dt->is_mouse == true)
-            dt->is_mouse = false;
+        if (!mause_key_pressed)
+        {
+            if (dt->is_mouse == false)
+                dt->is_mouse = true;
+            else if (dt->is_mouse == true)
+                dt->is_mouse = false;
+            mause_key_pressed = true;
+        }
+        else
+            mause_key_pressed = false;
     }
     if (dt->is_mouse == false)
     {
@@ -168,17 +175,15 @@ void ft_mouse_hook(void *p)
     t_data  *dt;
     int     x;
     int     y;
-    int     delta_x;
-    int     center_x;
+
 
     dt = (t_data *)p;
     if (dt->is_mouse == false)
         return ;
     mlx_get_mouse_pos(dt->mlx, &x, &y);
-    center_x = S_W / 2; 
-    delta_x = x - center_x;
-    dt->player->rot_angle += delta_x * FACTOR; 
-    mlx_set_mouse_pos(dt->mlx, center_x, S_H / 2);
+    dt->player->rot_angle += (x - S_W / 2) * FACTOR; 
+    dt->player->rot_angle = normalize_angle(dt->player->rot_angle);
+    mlx_set_mouse_pos(dt->mlx, S_W / 2, S_H / 2);
 }
 
 void start_game(t_data *data)

@@ -3,34 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   start_game.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yakazdao <yakazdao@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 17:58:00 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/10/12 12:23:48 by yakazdao         ###   ########.fr       */
+/*   Updated: 2024/10/24 10:05:18 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub.h"
-
-void ft_clear_image(mlx_image_t *img)
-{
-    uint32_t        i;
-    uint32_t        j;
-    unsigned int    clear;
-    
-    i = 0;
-    clear = 255 << 24 | 255 << 16 | 255 << 8 | 0;
-    while (i < img->height)
-    {
-        j = 0;
-        while (j < img->width)
-        {
-            mlx_put_pixel(img, j, i, clear);
-            j++;
-        }
-        i++;
-    }
-}
 
 void    move_player(t_data *dt, int move_x, int move_y)
 {
@@ -99,7 +79,7 @@ void key_handler(void* param)
         new_y = cos(dt->player->rot_angle) * PLYR_SPEED;
     }
     move_player(dt, new_x, new_y);
-    game_loop(dt);
+    casting_rays(dt);
 }
 
 void init_player(t_data *dt)
@@ -108,12 +88,6 @@ void init_player(t_data *dt)
 	dt->player->y = dt->p_y_pos_in_map * TILE_SIZE + TILE_SIZE / 2;
 	dt->player->fov_in_rd = (FOV_ANGLE * M_PI) / 180; 
 	dt->player->rot_angle = M_PI; 
-}
-
-void game_loop(t_data *data) 
-{
-    ft_clear_image(data->img);
-    casting_rays(data);
 }
 
 void start_game(t_data *data)
