@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub_bonus.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yakazdao <yakazdao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 05:43:32 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/10/21 21:57:59 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/10/23 09:10:30 by yakazdao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@
 # define TILE_SIZE 30
 # define FOV_ANGLE 60
 # define PLYR_SPEED 5
-# define ROTATION_SPEED 0.045
+# define ROTATION_SPEED 0.1
 # define WALL_WIDTH 1
 # define TEX_WIDTH 30
 # define TEX_HEIGHT 30
@@ -142,6 +142,13 @@ typedef struct s_data
 	int					grid_y;
 	float				intensity;
 	float				max_distance;
+
+	float x_intercept;
+    float y_intercept;
+    float x_step;
+    float y_step;
+    float x_check;
+    float y_check;
 }		t_data;
 
 /*************************************************/
@@ -182,4 +189,13 @@ void		start_game(t_data *data);
 void		casting_rays(t_data *dt);
 void		key_handler(void *param);
 void		render_wall(t_data *dt, int ray);
+void		init_player(t_data *dt);
+int			circle_collision(t_data *dt, double x, double y);
+void		doors_hook(void *p);
+void		player_rotation(t_data *dt, char rot_inc);
+void		get_ray_facing(t_data *dt, float ray_angle);
+void		compare_ray_dis(t_data *dt, float horz_distance, float vert_distance);
+void		ft_mlx_put_pixel(t_data *dt, int x, int y, int color);
+void		apply_shadow(uint32_t *color, t_data *dt);
+uint32_t	get_texture_pix(t_data *dt);
 #endif

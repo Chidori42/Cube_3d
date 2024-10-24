@@ -3,23 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   help_func.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yakazdao <yakazdao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 18:14:41 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/10/03 14:42:50 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/10/23 09:46:24 by yakazdao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub.h"
-
-bool check_map_collision(t_data *dt, int grid_x, int grid_y)
-{
-    if (dt->map[grid_y][grid_x] != '1' && \
-	(dt->map[grid_y][dt->player->x / TILE_SIZE] != '1' && \
-	dt->map[dt->player->y / TILE_SIZE][grid_x] != '1'))
-        return (true);
-    return (false);
-}
 
 float normalize_angle(float ray_angle)
 {
@@ -30,13 +21,28 @@ float normalize_angle(float ray_angle)
 	return (ray_angle);
 }
 
-bool find_wall_at(t_data *dt, int x, int y, char **grid) 
+void init_player(t_data *dt)
+{
+    dt->player->x = (dt->p_x_pos_in_map * TILE_SIZE) + (TILE_SIZE / 2);
+	dt->player->y = (dt->p_y_pos_in_map * TILE_SIZE) + (TILE_SIZE / 2);
+	dt->player->fov_in_rd = (FOV_ANGLE * M_PI) / 180;
+    if (dt->map[dt->p_y_pos_in_map][dt->p_x_pos_in_map] == 'W')
+	    dt->player->rot_angle = M_PI;
+    else if (dt->map[dt->p_y_pos_in_map][dt->p_x_pos_in_map] == 'N')
+	    dt->player->rot_angle = (3 * M_PI) / 2;
+    else if (dt->map[dt->p_y_pos_in_map][dt->p_x_pos_in_map] == 'E')
+	    dt->player->rot_angle = 0;
+    else if (dt->map[dt->p_y_pos_in_map][dt->p_x_pos_in_map] == 'S')
+	    dt->player->rot_angle = M_PI / 2;
+}
+
+bool find_wall_at(t_data *dt, int x, int y, char **grid)
 {
     int grid_x = floor(x / TILE_SIZE);
     int grid_y = floor(y / TILE_SIZE);
     if (grid_x < 0 || grid_x >= dt->map_w || grid_y < 0 || grid_y >= dt->map_h)
         return (false);
-    return (grid[grid_y][grid_x] == '1');
+    return (grid[grid_y][grid_x] == '1' || grid[grid_y][grid_x] == 'D');
 }
 
 void    get_player_pos(char **grid, t_data *dt)
@@ -50,7 +56,8 @@ void    get_player_pos(char **grid, t_data *dt)
         j = 0;
         while (grid[i][j])
         {
-            if (grid[i][j] == 'E' || grid[i][j] == 'S' || grid[i][j] == 'N' || grid[i][j] == 'W')
+            if (grid[i][j] == 'E' || grid[i][j] == 'S'
+                || grid[i][j] == 'N' || grid[i][j] == 'W')
             {
                 dt->p_y_pos_in_map = i;
                 dt->p_x_pos_in_map = j;
@@ -68,4 +75,5 @@ void init_data(t_data *dt)
 	dt->ray = calloc(1, sizeof(t_ray));
     get_player_pos(dt->map, dt);
     dt->num_rays = S_W;
+    dt->max_distance = 500.0f;
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray_casting.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yakazdao <yakazdao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 17:57:43 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/10/19 05:25:19 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/10/23 09:56:46 by yakazdao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,65 +14,63 @@
 
 float horz_intersection(t_data *dt, float angle)
 {
-    float x_intercept, y_intercept, x_step, y_step;
-
-    y_intercept = floor(dt->player->y / TILE_SIZE) * TILE_SIZE;
-    y_intercept += dt->ray->ray_facing_down ? TILE_SIZE : 0;
-    x_intercept = dt->player->x + (y_intercept - dt->player->y) / tan(angle);
-    y_step = TILE_SIZE * (dt->ray->ray_facing_up ? -1 : 1);
-    x_step = TILE_SIZE / tan(angle);
-    if ((dt->ray->ray_facing_left && x_step > 0) || (dt->ray->ray_facing_right && x_step < 0))
-        x_step = -x_step;
-
-    float next_horz_x = x_intercept;
-    float next_horz_y = y_intercept;
-
-    while (next_horz_x >= 0 && next_horz_x / TILE_SIZE < dt->map_w &&
-           next_horz_y >= 0 && next_horz_y / TILE_SIZE < dt->map_h)
+    dt->y_intercept = floor(dt->player->y / TILE_SIZE) * TILE_SIZE;
+    if (dt->ray->ray_facing_down)
+        dt->y_intercept += TILE_SIZE;
+    dt->x_intercept = dt->player->x + (dt->y_intercept - dt->player->y) / tan(angle);
+    dt->y_step = TILE_SIZE;
+    if (dt->ray->ray_facing_up)
+        dt->y_step *= -1;
+    dt->x_step = TILE_SIZE / tan(angle);
+    if ((dt->ray->ray_facing_left && dt->x_step > 0) || (dt->ray->ray_facing_right && dt->x_step < 0))
+        dt->x_step = -dt->x_step;
+    while (dt->x_intercept >= 0 && dt->x_intercept / TILE_SIZE < dt->map_w &&
+           dt->y_intercept >= 0 && dt->y_intercept / TILE_SIZE < dt->map_h)
     {
-        float x_check = next_horz_x;
-        float y_check = next_horz_y + (dt->ray->ray_facing_up ? -1 : 0);
-
-        if (find_wall_at(dt, x_check, y_check, dt->map))
+        dt->x_check = dt->x_intercept;
+        dt->y_check = dt->y_intercept;
+        if (dt->ray->ray_facing_up)
+            dt->y_check -= 1;
+        if (find_wall_at(dt, dt->x_check, dt->y_check, dt->map))
             break;
-        next_horz_x += x_step;
-        next_horz_y += y_step;
+        dt->x_intercept += dt->x_step;
+        dt->y_intercept += dt->y_step;
     }
-    dt->ray->h_wall_x_hit = next_horz_x;
-    dt->ray->h_wall_y_hit = next_horz_y;
+    dt->ray->h_wall_x_hit = dt->x_intercept;
+    dt->ray->h_wall_y_hit = dt->y_intercept;
     return sqrt(pow(dt->player->x - dt->ray->h_wall_x_hit, 2) + pow(dt->player->y - dt->ray->h_wall_y_hit, 2));
 }
 
 float vert_intersection(t_data *dt, float angle)
 {
-    float x_intercept, y_intercept, x_step, y_step;
-
-    x_intercept = floor(dt->player->x / TILE_SIZE) * TILE_SIZE;
-    x_intercept += dt->ray->ray_facing_right ? TILE_SIZE : 0;
-    y_intercept = dt->player->y + (x_intercept - dt->player->x) * tan(angle);
-    x_step = TILE_SIZE * (dt->ray->ray_facing_left ? -1 : 1);
-    y_step = TILE_SIZE * tan(angle);
-    if ((dt->ray->ray_facing_up && y_step > 0) || (dt->ray->ray_facing_down && y_step < 0))
-        y_step = -y_step;
-
-    float next_vert_x = x_intercept;
-    float next_vert_y = y_intercept;
-
-    while (next_vert_x >= 0 && next_vert_x / TILE_SIZE < dt->map_w &&
-           next_vert_y >= 0 && next_vert_y / TILE_SIZE < dt->map_h)
+    dt->x_intercept = floor(dt->player->x / TILE_SIZE) * TILE_SIZE;
+    if (dt->ray->ray_facing_right)
+        dt->x_intercept += TILE_SIZE;
+    dt->y_intercept = dt->player->y + (dt->x_intercept - dt->player->x) * tan(angle);
+    dt->x_step = TILE_SIZE;
+    if (dt->ray->ray_facing_left)
+        dt->x_step *= -1;
+    dt->y_step = TILE_SIZE * tan(angle);
+    if ((dt->ray->ray_facing_up && dt->y_step > 0) || (dt->ray->ray_facing_down && dt->y_step < 0))
+        dt->y_step = -dt->y_step;
+    while (dt->x_intercept >= 0 && dt->x_intercept / TILE_SIZE < dt->map_w &&
+           dt->y_intercept >= 0 && dt->y_intercept / TILE_SIZE < dt->map_h)
     {
-        float x_check = next_vert_x + (dt->ray->ray_facing_left ? -1 : 0);
-        float y_check = next_vert_y;
-
-        if (find_wall_at(dt, x_check, y_check, dt->map))
+        dt->x_check = dt->x_intercept;
+        if (dt->ray->ray_facing_left)
+            dt->x_check -= 1;
+        dt->y_check = dt->y_intercept;
+        if (find_wall_at(dt, dt->x_check, dt->y_check, dt->map))
             break;
-        next_vert_x += x_step;
-        next_vert_y += y_step;
+        dt->x_intercept += dt->x_step;
+        dt->y_intercept += dt->y_step;
     }
-    dt->ray->v_wall_x_hit = next_vert_x;
-    dt->ray->v_wall_y_hit = next_vert_y;
+    dt->ray->v_wall_x_hit = dt->x_intercept;
+    dt->ray->v_wall_y_hit = dt->y_intercept;
     return sqrt(pow(dt->player->x - dt->ray->v_wall_x_hit, 2) + pow(dt->player->y - dt->ray->v_wall_y_hit, 2));
 }
+
+
 
 void cast_ray(t_data *dt, float ray_angle, int i)
 {
@@ -80,31 +78,22 @@ void cast_ray(t_data *dt, float ray_angle, int i)
     float   vert_distance;
 
     ray_angle = normalize_angle(ray_angle);
-    dt->ray->ray_facing_down = ray_angle > 0 && ray_angle < M_PI;
-    dt->ray->ray_facing_up = !dt->ray->ray_facing_down;
-    dt->ray->ray_facing_right = ray_angle < M_PI / 2 || ray_angle > (3 * M_PI) / 2;
-    dt->ray->ray_facing_left = !dt->ray->ray_facing_right;
+    get_ray_facing(dt, ray_angle);
     horz_distance = horz_intersection(dt, ray_angle);
     vert_distance = vert_intersection(dt, ray_angle);
-    dt->ray->is_vert = vert_distance < horz_distance;
-    if (dt->ray->is_vert)
-    {
-        dt->ray->distance = vert_distance;
-        dt->ray->wall_x_hit = dt->ray->v_wall_x_hit;
-        dt->ray->wall_y_hit = dt->ray->v_wall_y_hit;
-    }
-    else
-    {
-        dt->ray->distance = horz_distance;
-        dt->ray->wall_x_hit = dt->ray->h_wall_x_hit;
-        dt->ray->wall_y_hit = dt->ray->h_wall_y_hit;
-    }
+    compare_ray_dis(dt, horz_distance, vert_distance);
     dt->grid_x = floor(dt->ray->wall_x_hit / TILE_SIZE);
     dt->grid_y = floor(dt->ray->wall_y_hit / TILE_SIZE);
     if (dt->ray->is_vert)
-         dt->grid_x =  dt->grid_x + (dt->ray->ray_facing_left ? -1 : 0);
+    {
+        if (dt->ray->ray_facing_left)
+            dt->grid_x -= 1;
+    }
     if (!dt->ray->is_vert)
-        dt->grid_y = dt->grid_y + (dt->ray->ray_facing_up ? -1 : 0);
+    {
+        if (dt->ray->ray_facing_up)
+            dt->grid_y -= 1;
+    }
     if (dt->map[dt->grid_y][dt->grid_x] == 'D')
         dt->is_door = true;
     else if (dt->map[dt->grid_y][dt->grid_x] == 'O')
@@ -124,5 +113,4 @@ void casting_rays(t_data *dt)
         dt->ray->ray_angle += dt->player->fov_in_rd / dt->num_rays;
         ray_id++;
     }
-    // exit(0);
 }

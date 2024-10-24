@@ -9,10 +9,13 @@ SRCS                    =	mandatory/cub.c \
 							mandatory/srcs/ft_free_resorses.c \
 							mandatory/srcs/ft_read_map.c \
 							mandatory/srcs/help_func.c \
+							mandatory/srcs/help_func2.c \
 							mandatory/rander/ft_texters.c \
 							mandatory/rander/render_wall.c \
 							mandatory/rander/ray_casting.c \
 							mandatory/rander/start_game.c \
+							mandatory/rander/casting_utils.c \
+							mandatory/rander/render_wall_utils.c \
 							mandatory/parsing/ft_srcs.c \
 							mandatory/parsing/ft_srcs2.c \
 							mandatory/parsing/ft_check_borders.c \
@@ -31,13 +34,17 @@ SRCS_BONUS                    =	$(BONUS_DIR)/cub_bonus.c \
 							$(BONUS_DIR)/srcs_bonus/ft_free_resorses.c \
 							$(BONUS_DIR)/srcs_bonus/ft_read_map.c \
 							$(BONUS_DIR)/srcs_bonus/help_func.c \
+							$(BONUS_DIR)/srcs_bonus/help_func2.c \
 							$(BONUS_DIR)/rander_bonus/ft_sprites.c \
+							$(BONUS_DIR)/rander_bonus/doors.c \
 							$(BONUS_DIR)/rander_bonus/ft_load_door.c \
 							$(BONUS_DIR)/rander_bonus/ft_minimap.c \
 							$(BONUS_DIR)/rander_bonus/render_wall.c \
 							$(BONUS_DIR)/rander_bonus/ray_casting.c \
 							$(BONUS_DIR)/rander_bonus/start_game.c \
 							$(BONUS_DIR)/rander_bonus/ft_texters.c \
+							$(BONUS_DIR)/rander_bonus/casting_utils.c \
+							$(BONUS_DIR)/rander_bonus/render_wall_utils.c \
 							$(BONUS_DIR)/parsing_bonus/ft_check_borders.c \
 							$(BONUS_DIR)/parsing_bonus/ft_srcs.c \
 							$(BONUS_DIR)/parsing_bonus/ft_srcs2.c \

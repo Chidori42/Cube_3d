@@ -21,6 +21,21 @@ float normalize_angle(float ray_angle)
 	return (ray_angle);
 }
 
+void init_player(t_data *dt)
+{
+    dt->player->x = dt->p_x_pos_in_map * TILE_SIZE + TILE_SIZE / 2; 
+	dt->player->y = dt->p_y_pos_in_map * TILE_SIZE + TILE_SIZE / 2;
+	dt->player->fov_in_rd = (FOV_ANGLE * M_PI) / 180;
+    if (dt->map[dt->p_y_pos_in_map][dt->p_x_pos_in_map] == 'W')
+	    dt->player->rot_angle = M_PI;
+    else if (dt->map[dt->p_y_pos_in_map][dt->p_x_pos_in_map] == 'N')
+	    dt->player->rot_angle = (3 * M_PI) / 2;
+    else if (dt->map[dt->p_y_pos_in_map][dt->p_x_pos_in_map] == 'E')
+	    dt->player->rot_angle = 0;
+    else if (dt->map[dt->p_y_pos_in_map][dt->p_x_pos_in_map] == 'S')
+	    dt->player->rot_angle = M_PI / 2;
+}
+
 bool find_wall_at(t_data *dt, int x, int y, char **grid)
 {
     int grid_x = floor(x / TILE_SIZE);

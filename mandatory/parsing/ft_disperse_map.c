@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_disperse_map.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yakazdao <yakazdao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 20:48:30 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/10/19 02:33:33 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/10/22 15:58:13 by yakazdao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,8 +79,7 @@ int	ft_disperse_map(t_data *dt)
 	while ((dt->file_map) && (dt->file_map)[dt->index])
 	{
 		(dt->index) = 0;
-		while ((dt->file_map)[dt->index] == ' '
-			|| (dt->file_map)[dt->index] == '\n')
+		while ((dt->file_map)[dt->index] == ' ' || (dt->file_map)[dt->index] == '\n')
 			dt->index++;
 		if (ft_check_content(dt, &texters, &colors, &map))
 			break ;
@@ -88,8 +87,7 @@ int	ft_disperse_map(t_data *dt)
 			dt->index++;
 		(dt->file_map) += dt->index;
 	}
-	free(tmp);
 	if (get_data(dt, colors, texters, map))
-		return (1);
-	return (0);
+		return (free(tmp), 1);
+	return (free(tmp), 0);
 }

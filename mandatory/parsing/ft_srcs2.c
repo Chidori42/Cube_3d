@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_srcs2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yakazdao <yakazdao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/18 05:06:33 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/10/18 05:06:52 by ael-fagr         ###   ########.fr       */
+/*   Created: 2024/10/18 00:48:55 by ael-fagr          #+#    #+#             */
+/*   Updated: 2024/10/22 15:57:58 by yakazdao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,6 @@ char	**ft_add_spaces(t_data *data, char **str)
 
 int	get_data(t_data *data, char *colors, char *texters, char *map)
 {
-	int	i;
-
 	if (ft_get_map(data, map))
 	{
 		free(texters);

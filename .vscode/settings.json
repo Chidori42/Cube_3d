@@ -60,6 +60,8 @@
     "cub_bonus.h": "c",
     "algorithm": "c",
     "mlx42.h": "c",
-    "chrono": "c"
+    "chrono": "c",
+    "iterator": "c",
+    "ios": "c"
   }
 }

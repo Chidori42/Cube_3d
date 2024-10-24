@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub_bonus.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yakazdao <yakazdao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 08:54:18 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/10/20 00:26:54 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/10/22 16:12:13 by yakazdao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void print_message(const char *message, const char *color)
 	printf("%s%s\033[0m\n", color, message);
 }
 
-int main(int ac, char **av)
+int	main(int ac, char **av)
 {
     t_data	data;
 
