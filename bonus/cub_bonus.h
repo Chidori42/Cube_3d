@@ -6,7 +6,7 @@
 /*   By: yakazdao <yakazdao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 05:43:32 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/10/24 14:43:12 by yakazdao         ###   ########.fr       */
+/*   Updated: 2024/10/25 18:35:12 by yakazdao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -193,4 +193,5 @@ void		compare_ray_dis(t_data *dt, float horz_distance, float vert_distance);
 void		ft_mlx_put_pixel(t_data *dt, int x, int y, int color);
 void		apply_shadow(uint32_t *color, t_data *dt);
 uint32_t	get_texture_pix(t_data *dt);
+void		ft_exit(t_data *dt , char *err_msg);
 #endif

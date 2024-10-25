@@ -6,7 +6,7 @@
 /*   By: yakazdao <yakazdao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 17:58:00 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/10/24 15:09:08 by yakazdao         ###   ########.fr       */
+/*   Updated: 2024/10/25 10:36:51 by yakazdao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void	key_handler(void *param)
 
 	dt = (t_data *)param;
 	if (mlx_is_key_down(dt->mlx, MLX_KEY_ESCAPE))
-		exit(0);
+		ft_exit(dt, "exit");
 	if (mlx_is_key_down(dt->mlx, MLX_KEY_LEFT))
 		player_rotation(dt, '-');
 	else if (mlx_is_key_down(dt->mlx, MLX_KEY_RIGHT))
@@ -85,20 +85,15 @@ void	key_handler(void *param)
 void	start_game(t_data *data)
 {
 	init_player(data);
-	data->mlx = mlx_init(S_W, S_H, "CUB3D", true);
+	data->mlx = mlx_init(S_W, S_H, "CUB3D", false);
 	if (!data->mlx)
-	{
-		perror("Error initializing window");
-		ft_free_exit(data);
-	}
+		ft_exit(data, "Error initializing the window");
 	data->img = mlx_new_image(data->mlx, S_W, S_H);
 	if (!data->img)
-	{
-		perror("Error creating image");
-		exit(1);
-	}
+		ft_exit(data, "Error initializing the window");
 	game_loop(data);
-	mlx_image_to_window(data->mlx, data->img, 0, 0);
+	if (mlx_image_to_window(data->mlx, data->img, 0, 0) == -1)
+		ft_exit(data, "failled to push image pixels to window");
 	mlx_loop_hook(data->mlx, key_handler, data);
 	mlx_loop(data->mlx);
 }

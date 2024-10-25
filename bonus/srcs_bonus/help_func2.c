@@ -6,7 +6,7 @@
 /*   By: yakazdao <yakazdao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 15:16:04 by yakazdao          #+#    #+#             */
-/*   Updated: 2024/10/24 14:23:52 by yakazdao         ###   ########.fr       */
+/*   Updated: 2024/10/25 10:03:29 by yakazdao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,16 +59,14 @@ void	player_rotation(t_data *dt, char rot_inc)
 	if (rot_inc == '+')
 	{
 		dt->player->rot_angle += ROTATION_SPEED;
-		if (dt->player->rot_angle > 2 * M_PI)
-			dt->player->rot_angle -= 2 * M_PI;
+		dt->player->rot_angle = normalize_angle(dt->player->rot_angle);
 	}
 	else
 	{
 		dt->player->rot_angle -= ROTATION_SPEED;
-		if (dt->player->rot_angle < 0)
-			dt->player->rot_angle += 2 * M_PI;
+        dt->player->rot_angle = normalize_angle(dt->player->rot_angle);
 	}
-	game_loop(dt);
+    game_loop(dt);
 }
 
 void	game_loop( t_data *data)

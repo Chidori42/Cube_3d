@@ -6,7 +6,7 @@
 /*   By: yakazdao <yakazdao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 17:58:00 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/10/24 14:09:45 by yakazdao         ###   ########.fr       */
+/*   Updated: 2024/10/25 18:39:14 by yakazdao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void	key_handler(void *param)
 
 	dt = (t_data *)param;
 	if (mlx_is_key_down(dt->mlx, MLX_KEY_ESCAPE))
-		exit(0);
+		ft_exit(dt, "exit");
 	if (mlx_is_key_down(dt->mlx, MLX_KEY_LEFT))
 		player_rotation(dt, '-');
 	else if (mlx_is_key_down(dt->mlx, MLX_KEY_RIGHT))
@@ -87,21 +87,16 @@ void	start_game(t_data *data)
 	init_player(data);
 	data->mlx = mlx_init(S_W, S_H, "CUB3D", true);
 	if (!data->mlx)
-	{
-		perror("Error initializing window");
-		ft_free_exit(data);
-	}
+		ft_exit(data, "Error initializing window");
 	data->img = mlx_new_image(data->mlx, S_W, S_H);
 	if (!data->img)
-	{
-		perror("Error creating image");
-		exit(1);
-	}
+		ft_exit(data, "Error creating image");
 	game_loop(data);
 	mlx_image_to_window(data->mlx, data->img, 0, 0);
 	data->weapen_img = mlx_texture_to_image(data->mlx, data->weapen_txt[0]);
 	mlx_image_to_window(data->mlx, data->weapen_img, 0, 0);
-	mlx_loop_hook(data->mlx, key_handler, data);
+	if (mlx_loop_hook(data->mlx, key_handler, data) == -1)
+		ft_exit(data, "failled to push image pixels to window");
 	mlx_loop_hook(data->mlx, doors_hook, data);
 	mlx_loop_hook(data->mlx, weapen_hooks, data);
 	// mlx_loop_hook(data->mlx, ft_mouse_hook, data);

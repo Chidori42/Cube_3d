@@ -6,16 +6,18 @@
 /*   By: yakazdao <yakazdao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 10:00:26 by yakazdao          #+#    #+#             */
-/*   Updated: 2024/10/24 15:05:34 by yakazdao         ###   ########.fr       */
+/*   Updated: 2024/10/25 09:41:29 by yakazdao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub.h"
 
-void	free_render_allocation(t_data *dt)
+void ft_exit(t_data *dt , char *err_msg)
 {
+	perror(err_msg);
 	free(dt->player);
 	free(dt->ray);
+	ft_free_exit(dt);
 }
 
 void	ft_mlx_put_pixel(t_data *dt, int x, int y, int color)

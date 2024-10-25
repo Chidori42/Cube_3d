@@ -6,7 +6,7 @@
 /*   By: yakazdao <yakazdao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 18:13:34 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/10/22 15:56:41 by yakazdao         ###   ########.fr       */
+/*   Updated: 2024/10/25 09:40:19 by yakazdao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,6 @@ void ft_free_exit(t_data *data)
         ft_free_2dm((data->colors));
     if (data->map)
         ft_free_2dm((data->map));
-    exit(0);
+    exit(1);
 }
  

@@ -6,7 +6,7 @@
 /*   By: yakazdao <yakazdao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 05:43:32 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/10/24 15:03:48 by yakazdao         ###   ########.fr       */
+/*   Updated: 2024/10/25 09:41:38 by yakazdao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,6 @@
 # define FOV_ANGLE 60
 # define PLYR_SPEED 5
 # define ROTATION_SPEED 0.045
-# define WALL_WIDTH 1
-# define TEX_WIDTH 30
-# define TEX_HEIGHT 30
 
 # define TEXTURE_NO "NO"
 # define TEXTURE_SO "SO"
@@ -141,15 +138,13 @@ typedef struct s_data
 	t_texture			*texture;
 	int					grid_x;
 	int					grid_y;
-	float				intensity;
 	float				max_distance;
-
-	float x_intr;
-    float y_intr;
-    float x_step;
-    float y_step;
-    float x_check;
-    float y_check;
+	float				x_intr;
+    float				y_intr;
+    float				x_step;
+    float				y_step;
+	float				x_check;
+	float				y_check;
 }		t_data;
 
 /*************************************************/
@@ -199,5 +194,5 @@ void		compare_ray_dis(t_data *dt, float horz_distance, float vert_distance);
 void		ft_mlx_put_pixel(t_data *dt, int x, int y, int color);
 void		apply_shadow(uint32_t *color, t_data *dt);
 uint32_t	get_texture_pix(t_data *dt);
-void		free_render_allocation(t_data *dt);
+void		ft_exit(t_data *dt , char *err_msg);
 #endif

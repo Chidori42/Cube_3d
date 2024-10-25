@@ -6,11 +6,19 @@
 /*   By: yakazdao <yakazdao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 16:13:03 by yakazdao          #+#    #+#             */
-/*   Updated: 2024/10/24 14:55:09 by yakazdao         ###   ########.fr       */
+/*   Updated: 2024/10/25 18:34:59 by yakazdao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub_bonus.h"
+
+void ft_exit(t_data *dt , char *err_msg)
+{
+	perror(err_msg);
+	free(dt->player);
+	free(dt->ray);
+	ft_free_exit(dt);
+}
 
 void	get_ray_facing(t_data *dt, float ray_angle)
 {
