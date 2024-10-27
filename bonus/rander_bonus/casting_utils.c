@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   casting_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yakazdao <yakazdao@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 16:13:03 by yakazdao          #+#    #+#             */
-/*   Updated: 2024/10/25 18:34:59 by yakazdao         ###   ########.fr       */
+/*   Updated: 2024/10/27 01:49:09 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub_bonus.h"
 
-void ft_exit(t_data *dt , char *err_msg)
+void	ft_exit(t_data *dt, char *err_msg)
 {
 	perror(err_msg);
 	free(dt->player);

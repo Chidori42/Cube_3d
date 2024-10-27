@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray_casting.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yakazdao <yakazdao@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 17:57:43 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/10/24 15:28:22 by yakazdao         ###   ########.fr       */
+/*   Updated: 2024/10/27 02:02:15 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,11 @@ float	horz_intersection(t_data *dt, float angle)
 		if (dt->ray->ray_facing_up)
 			dt->y_check -= 1;
 		if (find_wall_at(dt, dt->x_check, dt->y_check, dt->map))
-            break ;
+			break ;
 		1 && (dt->x_intr += dt->x_step, dt->y_intr += dt->y_step);
 	}
 	1 && (dt->ray->h_wall_x_hit = dt->x_intr, dt->ray->h_wall_y_hit = dt->y_intr);
-	return sqrt(pow(dt->player->x - dt->ray->h_wall_x_hit, 2) + pow(dt->player->y - dt->ray->h_wall_y_hit, 2));
+	return (sqrt(pow(dt->player->x - dt->ray->h_wall_x_hit, 2) + pow(dt->player->y - dt->ray->h_wall_y_hit, 2)));
 }
 
 float	vert_intersection(t_data *dt, float angle)
@@ -65,7 +65,7 @@ float	vert_intersection(t_data *dt, float angle)
 		1 && (dt->x_intr += dt->x_step, dt->y_intr += dt->y_step);
 	}
 	1 && (dt->ray->v_wall_x_hit = dt->x_intr, dt->ray->v_wall_y_hit = dt->y_intr);
-	return sqrt(pow(dt->player->x - dt->ray->v_wall_x_hit, 2) + pow(dt->player->y - dt->ray->v_wall_y_hit, 2));
+	return (sqrt(pow(dt->player->x - dt->ray->v_wall_x_hit, 2) + pow(dt->player->y - dt->ray->v_wall_y_hit, 2)));
 }
 
 void	cast_ray(t_data *dt, float ray_angle, int i)

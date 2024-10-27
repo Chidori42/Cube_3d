@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   help_func2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yakazdao <yakazdao@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 15:16:04 by yakazdao          #+#    #+#             */
-/*   Updated: 2024/10/25 10:03:29 by yakazdao         ###   ########.fr       */
+/*   Updated: 2024/10/27 02:03:33 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,9 +64,9 @@ void	player_rotation(t_data *dt, char rot_inc)
 	else
 	{
 		dt->player->rot_angle -= ROTATION_SPEED;
-        dt->player->rot_angle = normalize_angle(dt->player->rot_angle);
+		dt->player->rot_angle = normalize_angle(dt->player->rot_angle);
 	}
-    game_loop(dt);
+	game_loop(dt);
 }
 
 void	game_loop( t_data *data)

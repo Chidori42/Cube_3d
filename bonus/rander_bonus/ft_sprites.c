@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_sprites.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yakazdao <yakazdao@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 15:18:58 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/10/22 18:22:11 by yakazdao         ###   ########.fr       */
+/*   Updated: 2024/10/27 00:07:02 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ void	ft_load(t_data *dt)
 		mlx_delete_image(dt->mlx, dt->weapen_img);
 		dt->weapen_img = mlx_texture_to_image(dt->mlx, \
 			dt->weapen_txt[dt->start_fram]);
+		mlx_image_to_window(dt->mlx, dt->weapen_img, 0, 0);
 		dt->start_fram++;
 		if (dt->start_fram >= dt->end_fram)
 		{
@@ -83,6 +84,7 @@ void	ft_shoot(t_data *dt)
 		mlx_delete_image(dt->mlx, dt->weapen_img);
 		dt->weapen_img = mlx_texture_to_image(dt->mlx, \
 			dt->weapen_txt[dt->shoot_fram]);
+		mlx_image_to_window(dt->mlx, dt->weapen_img, 0, 0);
 		dt->shoot_fram++;
 		if (dt->shoot_fram >= 329)
 		{
@@ -90,26 +92,7 @@ void	ft_shoot(t_data *dt)
 			dt->is_play = false;
 			mlx_delete_image(dt->mlx, dt->weapen_img);
 			dt->weapen_img = mlx_texture_to_image(dt->mlx, dt->weapen_txt[0]);
-		}
-	}
-	dt->frame_delay++;
-}
-
-void	ft_animate(t_data *dt)
-{
-	static int start = 132;
-	static int end = 150;
-
-	if (dt->frame_delay % 2 == 0)
-	{
-		mlx_delete_image(dt->mlx, dt->weapen_img);
-		dt->weapen_img = mlx_texture_to_image(dt->mlx, dt->weapen_txt[start]);
-		start++;
-		if (start >= end)
-		{
-			dt->frame_delay = 0;
-			start = 132;
-			dt->is_animate = false;
+			mlx_image_to_window(dt->mlx, dt->weapen_img, 0, 0);
 		}
 	}
 	dt->frame_delay++;
@@ -138,13 +121,8 @@ void	weapen_hooks(void *p)
 		else if (dt->end_fram == 180)
 			dt->start_fram = 180;
 	}
-	if (!dt->is_animate)
-		dt->is_animate = true;
 	if (dt->is_load)
 		ft_load(dt);
 	else if (dt->is_play)
 		ft_shoot(dt);
-	else if (!dt->is_play && !dt->is_load)
-		ft_animate(dt);
-	mlx_image_to_window(dt->mlx, dt->weapen_img, 0, 0);
 }
