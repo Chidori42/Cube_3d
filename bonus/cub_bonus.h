@@ -6,7 +6,7 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 05:43:32 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/10/27 02:04:04 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/10/27 18:46:04 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,6 @@ typedef struct s_data
 	int					y_offset;
 	char				*file_map;
 	int					index;
-	bool				door_key_pressed;
 	t_pars				pars;
 	t_texture			*texture;
 	int					grid_x;

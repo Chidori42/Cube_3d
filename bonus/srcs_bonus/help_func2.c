@@ -6,7 +6,7 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 15:16:04 by yakazdao          #+#    #+#             */
-/*   Updated: 2024/10/27 02:03:33 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/10/27 18:46:14 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,4 +73,5 @@ void	game_loop( t_data *data)
 {
 	casting_rays(data);
 	draw_minimap(data);
+	// free(data->ray);
 }

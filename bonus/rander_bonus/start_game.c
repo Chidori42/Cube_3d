@@ -6,7 +6,7 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 17:58:00 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/10/27 01:48:25 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/10/27 19:50:08 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ void	ft_mouse_hook(t_data *dt)
 	dt->player->rot_angle += (x - S_W / 2) * FACTOR;
 	dt->player->rot_angle = normalize_angle(dt->player->rot_angle);
 	mlx_set_mouse_pos(dt->mlx, S_W / 2, S_H / 2);
+	game_loop(dt);
 }
 
 void	key_left_right(t_data *dt)
@@ -107,6 +108,7 @@ void	key_handler(void *param)
 		b = false;
 	key_up_down(dt);
 	key_left_right(dt);
+	ft_mouse_hook(dt);
 }
 
 void	start_game(t_data *data)

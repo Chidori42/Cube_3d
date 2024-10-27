@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub_bonus.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yakazdao <yakazdao@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 08:54:18 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/10/22 16:12:13 by yakazdao         ###   ########.fr       */
+/*   Updated: 2024/10/27 02:43:53 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,13 @@ void print_message(const char *message, const char *color)
 	printf("%s%s\033[0m\n", color, message);
 }
 
+// void	f(){system("leaks cub3D_bonus");}
+
 int	main(int ac, char **av)
 {
     t_data	data;
 
+	// atexit(f);
 	if (ac == 2)
 	{
         ft_setparam(&data);
