@@ -6,7 +6,7 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 08:54:18 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/10/27 02:43:53 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/10/29 08:21:02 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,6 @@ static int	ft_valid_file(t_data *dt, char *p)
 	return (0);
 }
 
-void print_message(const char *message, const char *color)
-{
-	printf("%s%s\033[0m\n", color, message);
-}
-
 // void	f(){system("leaks cub3D_bonus");}
 
 int	main(int ac, char **av)
@@ -50,11 +45,11 @@ int	main(int ac, char **av)
 		ft_putendl_fd("\x1b[32mLOADING WEAPON TEXTURES......\033[0m", 1);
 		if (ft_init_weapen_images(&data))
 			return (ft_free_exit(&data), 1);
-		ft_putendl_fd("\x1b[33mLOADING WALL TEXTURES......\033[0m", 1);
-		if (ft_init_texters(&data))
-			return (ft_free_exit(&data), 1);
 		ft_putendl_fd("\x1b[34mLOADING DOOR TEXTURES......\033[0m", 1);
 		if (ft_init_door_image(&data))
+			return (ft_free_exit(&data), 1);
+		ft_putendl_fd("\x1b[33mLOADING WALL TEXTURES......\033[0m", 1);
+		if (ft_init_texters(&data))
 			return (ft_free_exit(&data), 1);
 		init_data(&data);
 		start_game(&data);

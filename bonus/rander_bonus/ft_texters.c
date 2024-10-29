@@ -6,7 +6,7 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 08:13:11 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/10/18 02:02:18 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/10/28 15:26:44 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ t_texture	*ft_get_data(char *path)
 	img = mlx_load_png(path);
 	if (!img)
 		return (ft_putendl_fd("Error\nloading texture failed", 2), NULL);
+	free (path);
 	texture->height = img->height;
 	texture->width = img->width;
 	texture->pixel_data = img->pixels;

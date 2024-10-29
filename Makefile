@@ -98,7 +98,6 @@ LIBFT_SRCS              = 	./libft/ft_isalpha.c ./libft/ft_isdigit.c\
 
 ############################ Rules Section ############################
 
-all                     : $(NAME)
 
 %.o: %.c mandatory/cub.h
 	cc $(CFLAGS) -c -o $@ $<
@@ -107,6 +106,8 @@ $(NAME)                 : $(OBJS) mandatory/cub.h $(LIBFT_H) $(MLX_LIB) $(LIBFT)
 	cc  $(FLAGS) $(LIBFT) $(OBJS) -o $(NAME) $(MLX_FLAGS)
 
 bonus : $(NAME_BONUS)
+all                     : $(NAME)
+
 
 $(NAME_BONUS): $(OBJS_BONUS) $(BONUS_DIR)/cub_bonus.h $(LIBFT_H) $(MLX_LIB) $(LIBFT)
 	cc $(FLAGS) $(LIBFT) $(OBJS_BONUS) -o $(NAME_BONUS) $(MLX_FLAGS)

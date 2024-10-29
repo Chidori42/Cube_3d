@@ -6,7 +6,7 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 17:58:00 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/10/27 19:50:08 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/10/29 21:00:51 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ void	key_handler(void *param)
 void	start_game(t_data *data)
 {
 	init_player(data);
-	data->mlx = mlx_init(S_W, S_H, "CUB3D", true);
+	data->mlx = mlx_init(S_W, S_H, "CUB3D", false);
 	if (!data->mlx)
 		ft_exit(data, "Error initializing window");
 	data->img = mlx_new_image(data->mlx, S_W, S_H);

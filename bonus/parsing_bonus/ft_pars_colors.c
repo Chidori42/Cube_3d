@@ -6,7 +6,7 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 02:57:49 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/10/18 00:54:17 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/10/29 20:28:33 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ static int	ft_check_colors(t_pars *pars, char **str)
 		}
 		else
 		{
+			printf("[%s]\n", str[i]);
 			if (ft_check_digit(str[i]) || ft_atoi(str[i]) < 0
 				|| ft_atoi(str[i]) > 255)
 				return (ft_putendl_fd("Error\ninvalid Number", 2), 1);
@@ -113,11 +114,9 @@ int	ft_pars_colors(t_data *data, t_pars *args)
 		ft_free_2dm(p);
 	}
 	if (i != 2)
-		return (ft_putstr_fd("Error\ninvalid number of colors", 2), 1);
+		return (ft_putstr_fd("Error\nDuplicate color", 2), 1);
 	if (args->is_f != 1 || args->is_c != 1)
 		return (ft_putstr_fd("Error\ninvalid color identify", 2), 1);
 	ft_set_colore(args);
-	data->pars.ceiling_color = args->ceiling_color;
-	data->pars.floor_color = args->floor_color;
 	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_srcs.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yakazdao <yakazdao@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 18:07:16 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/10/22 15:57:33 by yakazdao         ###   ########.fr       */
+/*   Updated: 2024/10/29 20:37:26 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ int	ft_check_digit(char *str)
 	i = -1;
 	while (str && str[++i])
 	{
-		if (!ft_isdigit(str[i]) && str[i] != ' ')
+		if (!ft_isdigit(str[i]))
 			return (1);
 	}
 	return (0);

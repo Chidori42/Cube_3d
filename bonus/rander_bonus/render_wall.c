@@ -6,7 +6,7 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 17:57:50 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/10/27 18:46:35 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/10/29 23:12:23 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,8 +108,8 @@ void	render_wall(t_data *dt, int ray)
 		dt->x_offset = (int)(dt->ray->wall_y_hit * dt->texture->width \
 			/ TILE_SIZE) % dt->texture->width;
 	else
-		dt->x_offset = (int)(dt->ray->wall_x_hit * dt->texture->width \
-			/ TILE_SIZE) % dt->texture->width;
+		dt->x_offset = (int)(dt->ray->wall_x_hit * dt->texture->height \
+			/ TILE_SIZE) % dt->texture->height;
 	draw_ceiling(dt, wall_top_pixel, ray);
 	draw_wall(dt, wall_top_pixel, wall_bot_pixel, ray);
 	draw_floor(dt, wall_bot_pixel, ray);
