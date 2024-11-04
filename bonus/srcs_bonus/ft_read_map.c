@@ -6,7 +6,7 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 11:42:52 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/10/19 23:54:52 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/11/03 11:21:20 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,5 +37,6 @@ char	*ft_read_map(char *p)
 		free(line);
 		line = get_next_line(fd);
 	}
+	close(fd);
 	return (str);
 }

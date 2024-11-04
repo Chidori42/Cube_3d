@@ -6,27 +6,11 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 11:42:52 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/09/21 11:20:53 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/11/03 12:14:01 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub.h"
-
-static	void	check_empty_line(char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str && str[i] != '\0')
-	{
-		if (str[i] == '\n' && str[i + 1] == '\0')
-		{
-			ft_putstr_fd("Error\ninvalid map", 2);
-			exit(1);
-		}
-		i++;
-	}
-}
 
 char	*ft_read_map(char *p)
 {
@@ -37,11 +21,14 @@ char	*ft_read_map(char *p)
 	str = NULL;
 	fd = open(p, O_RDWR);
 	if (fd == -1)
+	{
+		ft_putendl_fd("\x1b[31mError\nopning file\033[0m", 2);
 		exit(1);
+	}
 	line = get_next_line(fd);
 	if (!line)
 	{
-		ft_putstr_fd("Error\nempty file", 2);
+		ft_putendl_fd("\x1b[31mError\nempty file\033[0m", 2);
 		exit(1);
 	}
 	while (line)
@@ -50,6 +37,6 @@ char	*ft_read_map(char *p)
 		free(line);
 		line = get_next_line(fd);
 	}
-	check_empty_line(str);
+	close(fd);
 	return (str);
 }

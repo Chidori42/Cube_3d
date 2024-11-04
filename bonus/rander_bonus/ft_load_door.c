@@ -6,7 +6,7 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 01:37:46 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/10/23 23:19:31 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/11/03 14:09:06 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,7 @@
 
 static int	ft_load_door(t_data *dt)
 {
-	dt->door_txt = ft_get_data("textures/Door/dooor.png");
-	if (!(dt->door_txt))
-		return (ft_putendl_fd("load door_png fail!!", 2), 1);
+	dt->door_txt = ft_get_data(dt, ft_strdup("textures/Door/DOOR1.PNG"));
 	return (0);
 }
 

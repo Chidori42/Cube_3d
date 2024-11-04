@@ -6,7 +6,7 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 00:48:55 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/10/20 22:51:37 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/11/03 15:10:16 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,6 @@ static char	*add_spaces(char *str, int size)
 char	**ft_add_spaces(t_data *data, char **str)
 {
 	int		i;
-	int		j;
-	int		len;
 	int		size;
 	char	**new_str;
 
@@ -94,5 +92,20 @@ int	get_data(t_data *data, char *colors, char *texters, char *map)
 	free(texters);
 	free(colors);
 	free(map);
+	return (0);
+}
+
+int	ft_check_digit(char *str)
+{
+	int	i;
+
+	i = -1;
+	while (str && str[++i])
+	{
+		if (!ft_isdigit(str[i]))
+			return (1);
+	}
+	if (i > 3)
+		return (1);
 	return (0);
 }

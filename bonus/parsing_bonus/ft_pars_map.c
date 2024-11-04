@@ -6,7 +6,7 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 20:47:41 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/10/21 05:12:33 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/11/03 15:11:45 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,21 +75,21 @@ static int	ft_count_player(t_data *data)
 	return (0);
 }
 
-int	check_door_sides(t_data *dt, char **map)
+static int	check_door_sides(t_data *dt)
 {
 	int	i;
 	int	j;
 
 	j = 0;
-	while (map[j])
+	while (dt->map[j])
 	{
 		i = 0;
-		while (map[j][i])
+		while (dt->map[j][i])
 		{
-			if (map[j][i] == 'D')
+			if (dt->map[j][i] == 'D')
 			{
-				if (!((map[j][i + 1] == '1' && map[j][i - 1] == '1')
-					|| (map[j + 1][i] == '1' && map[j - 1][i] == '1')))
+				if (!((dt->map[j][i + 1] == '1' && dt->map[j][i - 1] == '1')
+					|| (dt->map[j + 1][i] == '1' && dt->map[j - 1][i] == '1')))
 					return (ft_putstr_fd("Error\ninvalid door position", 2), 1);
 			}
 			i++;
@@ -102,7 +102,7 @@ int	check_door_sides(t_data *dt, char **map)
 int	ft_check_map(t_data *data, t_pars *args)
 {
 	if (ft_check_valid_char(data) || ft_count_player(data)
-		|| ft_check_borders(data) || check_door_sides(data, data->map)
+		|| ft_check_borders(data) || check_door_sides(data)
 		|| ft_pars_colors(data, args) || ft_pars_texters(data, args))
 		return (1);
 	return (0);

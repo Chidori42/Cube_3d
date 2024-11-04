@@ -9,10 +9,13 @@ SRCS                    =	mandatory/cub.c \
 							mandatory/srcs/ft_free_resorses.c \
 							mandatory/srcs/ft_read_map.c \
 							mandatory/srcs/help_func.c \
+							mandatory/srcs/help_func2.c \
 							mandatory/rander/ft_texters.c \
 							mandatory/rander/render_wall.c \
 							mandatory/rander/ray_casting.c \
 							mandatory/rander/start_game.c \
+							mandatory/rander/casting_utils.c \
+							mandatory/rander/render_wall_utils.c \
 							mandatory/parsing/ft_srcs.c \
 							mandatory/parsing/ft_srcs2.c \
 							mandatory/parsing/ft_check_borders.c \
@@ -31,13 +34,17 @@ SRCS_BONUS                    =	$(BONUS_DIR)/cub_bonus.c \
 							$(BONUS_DIR)/srcs_bonus/ft_free_resorses.c \
 							$(BONUS_DIR)/srcs_bonus/ft_read_map.c \
 							$(BONUS_DIR)/srcs_bonus/help_func.c \
+							$(BONUS_DIR)/srcs_bonus/help_func2.c \
 							$(BONUS_DIR)/rander_bonus/ft_sprites.c \
+							$(BONUS_DIR)/rander_bonus/doors.c \
 							$(BONUS_DIR)/rander_bonus/ft_load_door.c \
 							$(BONUS_DIR)/rander_bonus/ft_minimap.c \
 							$(BONUS_DIR)/rander_bonus/render_wall.c \
 							$(BONUS_DIR)/rander_bonus/ray_casting.c \
 							$(BONUS_DIR)/rander_bonus/start_game.c \
 							$(BONUS_DIR)/rander_bonus/ft_texters.c \
+							$(BONUS_DIR)/rander_bonus/casting_utils.c \
+							$(BONUS_DIR)/rander_bonus/render_wall_utils.c \
 							$(BONUS_DIR)/parsing_bonus/ft_check_borders.c \
 							$(BONUS_DIR)/parsing_bonus/ft_srcs.c \
 							$(BONUS_DIR)/parsing_bonus/ft_srcs2.c \
@@ -49,13 +56,12 @@ SRCS_BONUS                    =	$(BONUS_DIR)/cub_bonus.c \
 
 OBJS_BONUS                    = $(SRCS_BONUS:%.c=%.o)
 
-MLX_REPO 		= if [ ! -d "MLX42" ]; then git clone https://github.com/codam-coding-college/MLX42; fi
 MLX_DIR 		= ./MLX42
 MLX_BUILD_DIR 	= $(MLX_DIR)/build
 MLX_LIB			= $(MLX_BUILD_DIR)/libmlx42.a
 
 MLX_FLAGS 				= -L$(MLX_BUILD_DIR) -lmlx42 -Iinclude -lglfw -L"/Users/$(USER)/.brew/opt/glfw/lib/" -lm
-FLAGS                   = -Wall -Wextra -Werror -g -fsanitize=address -Ofast
+FLAGS                   = -Wall -Wextra -Werror
 NAME                    = cub3D
 NAME_BONUS              = cub3D_bonus
 
@@ -92,22 +98,23 @@ LIBFT_SRCS              = 	./libft/ft_isalpha.c ./libft/ft_isdigit.c\
 
 ############################ Rules Section ############################
 
-all                     : $(NAME)
 
 %.o: %.c mandatory/cub.h
-	cc $(CFLAGS) -c -o $@ $<
+	cc $(FLAGS) -c -o $@ $<
 
 $(NAME)                 : $(OBJS) mandatory/cub.h $(LIBFT_H) $(MLX_LIB) $(LIBFT)
 	cc  $(FLAGS) $(LIBFT) $(OBJS) -o $(NAME) $(MLX_FLAGS)
 
 bonus : $(NAME_BONUS)
+all                     : $(NAME)
+
 
 $(NAME_BONUS): $(OBJS_BONUS) $(BONUS_DIR)/cub_bonus.h $(LIBFT_H) $(MLX_LIB) $(LIBFT)
 	cc $(FLAGS) $(LIBFT) $(OBJS_BONUS) -o $(NAME_BONUS) $(MLX_FLAGS)
 
 $(MLX_LIB):
-	$(MLX_REPO)
-	cd $(MLX_DIR) && cmake -B build && make -C build
+	rm -rf $(MLX_BUILD_DIR)
+	cd $(MLX_DIR) && cmake -B build && cmake --build build -j4
 
 $(LIBFT)                : $(LIBFT_SRCS) $(LIBFT_H)
 	make -C ./libft
@@ -122,6 +129,7 @@ clean                   :
 fclean                  : clean
 	rm -f $(NAME)
 	rm -f $(NAME_BONUS)
+	rm -rf $(MLX_BUILD_DIR)
 	rm -f $(MLX_LIB)
 	make fclean -C ./libft
 

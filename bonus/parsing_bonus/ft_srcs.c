@@ -6,7 +6,7 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 18:07:16 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/10/20 01:28:23 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/11/03 08:15:34 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,18 +68,5 @@ int	ft_get_map(t_data *data, char *map)
 	data->map = ft_add_spaces(data, data->map);
 	if (!data->map)
 		return (ft_putendl_fd("Error\nmalloc fail", 2), 1);
-	return (0);
-}
-
-int	ft_check_digit(char *str)
-{
-	int	i;
-
-	i = -1;
-	while (str && str[++i])
-	{
-		if (!ft_isdigit(str[i]) && str[i] != ' ')
-			return (1);
-	}
 	return (0);
 }

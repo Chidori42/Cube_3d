@@ -6,7 +6,7 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 18:07:16 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/09/28 11:26:32 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/11/03 08:27:15 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,20 @@ int	check_valid_color(char *str)
 	return (0);
 }
 
+static int	check_valid_map(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str && str[i])
+	{
+		if (str[i] == '\n' && str[i + 1] == '\n')
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
 int	ft_get_map(t_data *data, char *map)
 {
 	int	i;
@@ -45,6 +59,8 @@ int	ft_get_map(t_data *data, char *map)
 	i = 0;
 	if (!map)
 		return (ft_putendl_fd("Error\nNO map in file", 2), 1);
+	if (check_valid_map(map))
+		return (ft_putendl_fd("Error\nInvalid map", 2), 1);
 	data->map = ft_split(map, '\n');
 	if (!data->map)
 		return (ft_putendl_fd("Error\nmalloc fail", 2), 1);
@@ -52,18 +68,5 @@ int	ft_get_map(t_data *data, char *map)
 	data->map = ft_add_spaces(data, data->map);
 	if (!data->map)
 		return (ft_putendl_fd("Error\nmalloc fail", 2), 1);
-	return (0);
-}
-
-int	ft_check_digit(char *str)
-{
-	int	i;
-
-	i = -1;
-	while (str && str[++i])
-	{
-		if (!ft_isdigit(str[i]) && str[i] != ' ')
-			return (1);
-	}
 	return (0);
 }

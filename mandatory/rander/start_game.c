@@ -3,109 +3,101 @@
 /*                                                        :::      ::::::::   */
 /*   start_game.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yakazdao <yakazdao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 17:58:00 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/10/24 10:05:18 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/11/03 10:01:21 by yakazdao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub.h"
 
-void    move_player(t_data *dt, int move_x, int move_y)
+void	move_player(t_data *dt, double move_x, double move_y)
 {
-    int grid_x;
-    int grid_y;
-    int new_x;
-    int new_y;
+	double	potential_x;
+	double	potential_y;
 
-    new_x = roundf(dt->player->x + move_x);
-	new_y = roundf(dt->player->y + move_y);  
-	grid_x = (new_x / TILE_SIZE);  
-	grid_y = (new_y / TILE_SIZE); 
-	if (check_map_collision(dt, grid_x, grid_y))
+	potential_x = roundf(dt->player->x + move_x);
+	potential_y = roundf(dt->player->y + move_y);
+	if (!circle_collision(dt, potential_x, dt->player->y))
+		dt->player->x = potential_x;
+	if (!circle_collision(dt, dt->player->x, potential_y))
+		dt->player->y = potential_y;
+}
+
+void	key_up_down(t_data *dt)
+{
+	double	new_x;
+	double	new_y;
+
+	if (mlx_is_key_down(dt->mlx, MLX_KEY_W))
 	{
-		dt->player->x = new_x;
-		dt->player->y = new_y;
+		new_x = cos(dt->player->rot_angle) * PLYR_SPEED;
+		new_y = sin(dt->player->rot_angle) * PLYR_SPEED;
+		move_player(dt, new_x, new_y);
+		game_loop(dt);
+	}
+	else if (mlx_is_key_down(dt->mlx, MLX_KEY_S))
+	{
+		new_x = -cos(dt->player->rot_angle) * PLYR_SPEED;
+		new_y = -sin(dt->player->rot_angle) * PLYR_SPEED;
+		move_player(dt, new_x, new_y);
+		game_loop(dt);
 	}
 }
 
-void	player_rotation(t_data *dt, char rot_inc) 
+void	key_left_right(t_data *dt)
 {
-	if (rot_inc == '+')
+	double	new_x;
+	double	new_y;
+
+	if (mlx_is_key_down(dt->mlx, MLX_KEY_A))
 	{
-		dt->player->rot_angle += ROTATION_SPEED; 
-		if (dt->player->rot_angle > 2 * M_PI)
-			dt->player->rot_angle -= 2 * M_PI;
+		new_x = sin(dt->player->rot_angle) * PLYR_SPEED;
+		new_y = -cos(dt->player->rot_angle) * PLYR_SPEED;
+		move_player(dt, new_x, new_y);
+		game_loop(dt);
 	}
-	else
+	else if (mlx_is_key_down(dt->mlx, MLX_KEY_D))
 	{
-		dt->player->rot_angle -= ROTATION_SPEED; 
-		if (dt->player->rot_angle < 0)
-			dt->player->rot_angle += 2 * M_PI;
+		new_x = -sin(dt->player->rot_angle) * PLYR_SPEED;
+		new_y = cos(dt->player->rot_angle) * PLYR_SPEED;
+		move_player(dt, new_x, new_y);
+		game_loop(dt);
 	}
 }
 
-void key_handler(void* param)
+void	key_handler(void *param)
 {
-    t_data *dt = (t_data *)param;
-    double new_x;
-    double new_y;
+	t_data	*dt;
 
-    if (mlx_is_key_down(dt->mlx, MLX_KEY_ESCAPE))
-        exit(0);
-    if (mlx_is_key_down(dt->mlx, MLX_KEY_LEFT))
-        player_rotation(dt, '-');
-    else if (mlx_is_key_down(dt->mlx, MLX_KEY_RIGHT))
-        player_rotation(dt, '+');
-    if (mlx_is_key_down(dt->mlx, MLX_KEY_W))
-    {
-        new_x = cos(dt->player->rot_angle) * PLYR_SPEED;
-        new_y = sin(dt->player->rot_angle) * PLYR_SPEED;
-    }
-    else if (mlx_is_key_down(dt->mlx, MLX_KEY_S))
-    {
-        new_x = -cos(dt->player->rot_angle) * PLYR_SPEED;
-        new_y = -sin(dt->player->rot_angle) * PLYR_SPEED;
-    }
-    else if (mlx_is_key_down(dt->mlx, MLX_KEY_A))
-    {
-        new_x = sin(dt->player->rot_angle) * PLYR_SPEED;
-        new_y = -cos(dt->player->rot_angle) * PLYR_SPEED;
-    }
-    else if (mlx_is_key_down(dt->mlx, MLX_KEY_D))
-    {
-        new_x = -sin(dt->player->rot_angle) * PLYR_SPEED;
-        new_y = cos(dt->player->rot_angle) * PLYR_SPEED;
-    }
-    move_player(dt, new_x, new_y);
-    casting_rays(dt);
+	dt = (t_data *)param;
+	if (mlx_is_key_down(dt->mlx, MLX_KEY_ESCAPE))
+		ft_exit(dt, "exit");
+	if (mlx_is_key_down(dt->mlx, MLX_KEY_LEFT))
+		player_rotation(dt, '-');
+	else if (mlx_is_key_down(dt->mlx, MLX_KEY_RIGHT))
+		player_rotation(dt, '+');
+	key_up_down(dt);
+	key_left_right(dt);
 }
 
-void init_player(t_data *dt)
+void	start_game(t_data *data)
 {
-    dt->player->x = dt->p_x_pos_in_map * TILE_SIZE + TILE_SIZE / 2; 
-	dt->player->y = dt->p_y_pos_in_map * TILE_SIZE + TILE_SIZE / 2;
-	dt->player->fov_in_rd = (FOV_ANGLE * M_PI) / 180; 
-	dt->player->rot_angle = M_PI; 
-}
-
-void start_game(t_data *data)
-{
-    init_player(data);
-    data->mlx = mlx_init(S_W, S_H, "CUB", true);
-    if (!data->mlx)
-    {
-        perror("Error initializing window");
-        ft_free_exit(data);
-    }
-    data->img = mlx_new_image(data->mlx, S_W, S_H);
-    if (!data->img)
-    {
-        perror("Error creating image");
-        exit(1) ;
-    }
-    mlx_image_to_window(data->mlx, data->img, 0, 0);
-	mlx_loop_hook(data->mlx,  key_handler, data);
+	init_player(data);
+	data->mlx = mlx_init(S_W, S_H, "CUB3D", false);
+	if (!data->mlx)
+		ft_exit(data, "Error\ninitializing window");
+	data->img = mlx_new_image(data->mlx, S_W, S_H);
+	if (!data->img)
+	{
+		free (data->mlx);
+		ft_exit(data, "Error\ncreating image");
+	}
+	game_loop(data);
+	if (mlx_image_to_window(data->mlx, data->img, 0, 0) == -1)
+		ft_exit(data, "failled to push image pixels to window");
+	mlx_loop_hook(data->mlx, key_handler, data);
+	mlx_close_hook(data->mlx, ft_close, &data);
 	mlx_loop(data->mlx);
 }

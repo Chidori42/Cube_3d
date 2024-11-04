@@ -6,7 +6,7 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 03:37:07 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/10/04 20:31:25 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/10/28 14:59:51 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,6 @@ int	ft_pars_texters(t_data *data, t_pars *args)
 	}
 	if (i != 4 || !args->no || !args->so
 		|| !args->we || !args->ea)
-		return (ft_putendl_fd("Error\ninvalid map22", 2), 1);
+		return (ft_putendl_fd("Error\ninvalid Number of texts", 2), 1);
 	return (0);
 }

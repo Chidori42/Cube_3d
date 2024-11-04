@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub_bonus.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yakazdao <yakazdao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 05:43:32 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/10/23 23:42:38 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/11/03 15:42:07 by yakazdao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 # include <math.h>
 # include <stdio.h>
 # include <time.h>
-# include <fcntl.h>
 # include "../libft/libft.h"
 # include "../MLX42/include/MLX42/MLX42.h"
 # include <stdlib.h>
@@ -35,11 +34,7 @@
 # define TILE_SIZE 30
 # define FOV_ANGLE 60
 # define PLYR_SPEED 5
-# define ROTATION_SPEED 0.045
-# define WALL_WIDTH 1
-# define TEX_WIDTH 30
-# define TEX_HEIGHT 30
-
+# define ROTATION_SPEED 0.2
 # define TEXTURE_NO "NO"
 # define TEXTURE_SO "SO"
 # define TEXTURE_WE "WE"
@@ -79,29 +74,22 @@ typedef struct s_ray
 	float	wall_y_hit;
 }		t_ray;
 
-typedef struct s_texture
-{
-	int				height;
-	int				width;
-	unsigned char	*pixel_data;
-}		t_texture;
-
 typedef struct s_pars
 {
-	char		*no;
-	char		*so;
-	char		*we;
-	char		*ea;
-	int			is_c;
-	int			is_f;
-	int			c[3];
-	int			f[3];
-	int			floor_color;
-	int			ceiling_color;
-	t_texture	*north;
-	t_texture	*south;
-	t_texture	*west;
-	t_texture	*east;
+	char			*no;
+	char			*so;
+	char			*we;
+	char			*ea;
+	int				is_c;
+	int				is_f;
+	int				c[3];
+	int				f[3];
+	int				floor_color;
+	int				ceiling_color;
+	mlx_texture_t	*north;
+	mlx_texture_t	*south;
+	mlx_texture_t	*west;
+	mlx_texture_t	*east;
 }		t_pars;
 
 typedef struct s_data
@@ -116,8 +104,11 @@ typedef struct s_data
 	float				wall_height;
 	t_ray				*ray;
 	t_player			*player;
+	mlx_texture_t		*texture;
 	bool				is_play;
 	bool				is_load;
+	bool				is_animate;
+	bool				door_key_pressed;
 	int					start_fram;
 	int					end_fram;
 	int					frame_delay;
@@ -125,61 +116,80 @@ typedef struct s_data
 	mlx_texture_t		*weapen_txt[330];
 	mlx_image_t			*weapen_img;
 	char				*weap_path[330];
-	t_texture			*door_txt;
+	mlx_texture_t		*door_txt;
 	bool				is_door;
 	char				**map;
 	char				**texters;
 	char				**colors;
-	int					x_offset;
-	int					y_offset;
+	uint32_t			x_offset;
+	uint32_t			y_offset;
 	char				*file_map;
 	int					index;
-	bool				door_key_pressed;
 	t_pars				pars;
-	t_texture			*texture;
 	int					grid_x;
 	int					grid_y;
 	float				intensity;
 	float				max_distance;
+	float				x_intr;
+	float				y_intr;
+	float				x_step;
+	float				y_step;
+	float				x_check;
+	float				y_check;
 	bool				is_mouse;
+	bool				b_mouse;
+	float				min_angle;
+	float				mini_i;
+	float				mini_j;
+	int					color;
 }		t_data;
 
 /*************************************************/
 
-void		set_hei_and_wid(t_data *data);
-char		*ft_read_map(char *p);
-void		ft_free_2dm(char **arr);
-void		ft_setparam(t_data *data);
-int			ft_check_map(t_data *data, t_pars *args);
-int			ft_pars_colors(t_data *data, t_pars *args);
-int			ft_pars_texters(t_data *data, t_pars *args);
-void		ft_free_exit(t_data *data);
-int			ft_disperse_map(t_data *data);
-int			draw_pixel(mlx_image_t *img, float pixel_size, float a, float b, int color);
-int			draw_minimap(t_data *dt);
-int			ft_get_map(t_data *data, char *map);
-char		**ft_add_spaces(t_data *data, char **str);
-int			ft_check_digit(char *str);
-void		ft_set_colore(t_pars *args);
-int			ft_init_texters(t_data *data);
-int			ft_get_colore(int r, int g, int b);
-t_texture	*ft_get_data(char *path);
-void		ft_clear_image(mlx_image_t *img);
-int			ft_init_weapen_images(t_data *data);
-void		weapen_hooks(void *p);
-int			ft_check_borders(t_data *data);
-char		*ft_read_line(char *file_map);
-int			check_valid_color(char *str);
-int			get_data(t_data *data, char *colors, char *texters, char *map);
-
-int			ft_init_door_image(t_data *data);
-void		game_loop(t_data *data);
-void		get_player_pos(char **grid, t_data *dt);
-float		normalize_angle(float ray_angle);
-void		init_data(t_data *dt);
-bool		find_wall_at(t_data *dt, int x, int y, char **grid);
-void		start_game(t_data *data);
-void		casting_rays(t_data *dt);
-void		key_handler(void *param);
-void		render_wall(t_data *dt, int ray);
+void			set_hei_and_wid(t_data *data);
+char			*ft_read_map(char *p);
+void			ft_free_2dm(char **arr);
+void			ft_setparam(t_data *data);
+int				ft_check_map(t_data *data, t_pars *args);
+int				ft_pars_colors(t_data *data, t_pars *args);
+int				ft_pars_texters(t_data *data, t_pars *args);
+void			ft_free_exit(t_data *data);
+int				ft_disperse_map(t_data *data);
+int				draw_pixel(t_data *dt, float pixel_size, float a, float b);
+int				draw_minimap(t_data *dt);
+int				ft_get_map(t_data *data, char *map);
+char			**ft_add_spaces(t_data *data, char **str);
+int				ft_check_digit(char *str);
+void			ft_set_colore(t_pars *args);
+int				ft_init_texters(t_data *data);
+int				ft_get_colore(int r, int g, int b);
+mlx_texture_t	*ft_get_data(t_data *dt, char *path);
+int				ft_init_weapen_images(t_data *data);
+void			weapen_hooks(void *p);
+int				ft_check_borders(t_data *data);
+char			*ft_read_line(char *file_map);
+int				check_valid_color(char *str);
+int				get_data(t_data *data, char *colors, char *texters, char *map);
+int				ft_init_door_image(t_data *data);
+void			game_loop(t_data *data);
+void			get_player_pos(char **grid, t_data *dt);
+float			normalize_angle(float ray_angle);
+void			init_data(t_data *dt);
+bool			find_wall_at(t_data *dt, int x, int y, char **grid);
+void			start_game(t_data *data);
+void			casting_rays(t_data *dt);
+void			render_wall(t_data *dt, int ray);
+void			init_player(t_data *dt);
+int				circle_collision(t_data *dt, double x, double y);
+void			doors_hook(void *p);
+void			player_rotation(t_data *dt, char rot_inc);
+void			get_ray_facing(t_data *dt, float ray_angle);
+void			compare_ray_dis(t_data *dt, float horz_distance, \
+				float vert_distance);
+void			ft_mlx_put_pixel(t_data *dt, int x, int y, int color);
+void			apply_shadow(uint32_t *color, t_data *dt);
+uint32_t		get_texture_pix(t_data *dt);
+void			ft_exit(t_data *dt, char *err_msg);
+void			ft_close(void	*param);
+void			move_player(t_data *dt, double move_x, double move_y);
 #endif

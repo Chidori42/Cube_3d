@@ -6,7 +6,7 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 15:18:58 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/10/23 23:25:57 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/11/03 12:21:45 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,21 +35,29 @@ int	ft_get_pngs_path(t_data *data)
 
 int	ft_init_weapen_images(t_data *data)
 {
-	int	i;
+	int		i;
+	int		end_i;
+	bool	check_fail;
 
-	i = 0;
+	1 && (i = 0, end_i = 329, check_fail = false);
 	if (ft_get_pngs_path(data))
 		return (1);
 	while (i < 329)
 	{
 		data->weapen_txt[i] = mlx_load_png(data->weap_path[i]);
 		if (!(data->weapen_txt[i]))
-			return (ft_putendl_fd("loadpng fail!!", 2), 1);
+			1 && (end_i = i, check_fail = true);
 		i++;
 	}
 	i = 0;
 	while (i < 329)
+	{
+		if (check_fail == true && i < end_i)
+			free(data->weapen_txt[i]);
 		free(data->weap_path[i++]);
+	}
+	if (check_fail == true)
+		return (ft_putendl_fd("loadpng fail!!", 2), 1);
 	return (0);
 }
 
@@ -66,7 +74,8 @@ void	ft_load(t_data *dt)
 		mlx_delete_image(dt->mlx, dt->weapen_img);
 		dt->weapen_img = mlx_texture_to_image(dt->mlx, \
 			dt->weapen_txt[dt->start_fram]);
-		mlx_image_to_window(dt->mlx, dt->weapen_img, 0, 0);
+		if (mlx_image_to_window(dt->mlx, dt->weapen_img, 0, 0) == -1)
+			ft_exit(dt, "failed to init the window\n");
 		dt->start_fram++;
 		if (dt->start_fram >= dt->end_fram)
 		{
@@ -84,7 +93,8 @@ void	ft_shoot(t_data *dt)
 		mlx_delete_image(dt->mlx, dt->weapen_img);
 		dt->weapen_img = mlx_texture_to_image(dt->mlx, \
 			dt->weapen_txt[dt->shoot_fram]);
-		mlx_image_to_window(dt->mlx, dt->weapen_img, 0, 0);
+		if (mlx_image_to_window(dt->mlx, dt->weapen_img, 0, 0) == -1)
+			ft_exit(dt, "failed to init the window\n");
 		dt->shoot_fram++;
 		if (dt->shoot_fram >= 329)
 		{
@@ -92,7 +102,8 @@ void	ft_shoot(t_data *dt)
 			dt->is_play = false;
 			mlx_delete_image(dt->mlx, dt->weapen_img);
 			dt->weapen_img = mlx_texture_to_image(dt->mlx, dt->weapen_txt[0]);
-			mlx_image_to_window(dt->mlx, dt->weapen_img, 0, 0);
+			if (mlx_image_to_window(dt->mlx, dt->weapen_img, 0, 0) == -1)
+				ft_exit(dt, "failed to init the window\n");
 		}
 	}
 	dt->frame_delay++;

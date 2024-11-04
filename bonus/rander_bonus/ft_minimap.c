@@ -6,94 +6,66 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 14:54:35 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/10/21 23:40:19 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/11/03 12:10:43 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub_bonus.h"
 
-
-void draw_line(t_data *dt, int x0, int y0, int x1, int y1, int color)
+void	minimap_ray(t_data *dt)
 {
-	float dx, dy, steps;
-	float x_inc, y_inc;
-	float x, y;
-	int i;
+	double	x;
+	double	y;
+	int		j;
 
-	dx = x1 - x0;
-	dy = y1 - y0;
-	steps = (fabs(dx) > fabs(dy)) ? fabs(dx) : fabs(dy);
-	x_inc = dx / steps;
-	y_inc = dy / steps;
-	x = x0;
-	y = y0;
-	for (i = 0; i <= steps; i++)
+	x = 100;
+	y = 100;
+	j = -1;
+	while (++j < 30)
 	{
-		if (x < 0 || y < 0 || x > S_W || y > S_H)
-			break ;
-		draw_pixel(dt->img, 1, round(x), round(y), color);
-		x += x_inc;
-		y += y_inc;
+		dt->color = 0xFF00FF;
+		draw_pixel(dt, 1, x, y);
+		x += cos(dt->player->rot_angle);
+		y += sin(dt->player->rot_angle);
 	}
 }
 
-void minimap_rays(t_data *dt, int minimap_width, int minimap_height)
+void	ft_minimao_check(t_data *dt, float map_x, float map_y)
 {
-	int		num_rays;
-	int		i;
-	double	fov_angle;
-	double	ray_length;
-	double	angle_step;
-
-	num_rays = 200;
-	ray_length = 30;
-	fov_angle = FOV_ANGLE * M_PI / 180.0;
-	angle_step = fov_angle / num_rays;
-	i = 0;
-	while (i <= num_rays)
+	dt->color = 0x0000FFF;
+	if (map_x >= 0 && (int)map_x < dt->map_w \
+		&& map_y >= 0 && (int)map_y < dt->map_h)
 	{
-		double ray_angle = dt->player->rot_angle - fov_angle / 2.0 + i * angle_step;
-		if (ray_angle < 0) ray_angle += 2 * M_PI;
-		if (ray_angle > 2 * M_PI) ray_angle -= 2 * M_PI;
-		double end_x = 100 + ray_length * cos(ray_angle);
-		double end_y = 100 + ray_length * sin(ray_angle);
-		draw_line(dt, 100, 100, end_x, end_y, 0xFF00FF);
-		i++;
+		if (dt->map[(int)map_y][(int)map_x] == '1')
+			dt->color = 0x00FFFF;
+		else if (dt->map[(int)map_y][(int)map_x] == 'D')
+			dt->color = 0xFF00FF;
+		else
+			dt->color = 0x0000FFF;
+		draw_pixel(dt, 2.5, dt->mini_j * 25, dt->mini_i * 25);
 	}
+	else
+		draw_pixel(dt, 2.5, dt->mini_j * 25, dt->mini_i * 25);
 }
 
-void	draw_centered_minimap(t_data *dt, int range, float size, float start_x, float start_y)
+void	ft_minimap(t_data *dt, int range, float start_x, float start_y)
 {
-	float	i;
-	float	j;
 	float	map_x;
 	float	map_y;
 
-	i = 0;
-	while (i < range)
+	dt->mini_i = 0;
+	while (dt->mini_i < range)
 	{
-		j = 0;
-		while (j < range)
+		dt->mini_j = 0;
+		while (dt->mini_j < range)
 		{
-			map_x = start_x / TILE_SIZE + j;
-			map_y = start_y / TILE_SIZE + i;
-			if (map_x > 0 && (int)map_x < dt->map_w && map_y > 0 && (int)map_y < dt->map_h)
-			{
-				if (dt->map[(int)map_y][(int)map_x] == '1')
-					draw_pixel(dt->img, 4, j * size, i * size, 0x00FFFF);
-				else if (dt->map[(int)map_y][(int)map_x] == 'D')
-					draw_pixel(dt->img, 4, j * size, i * size, 0xFF00FF);
-				else
-					draw_pixel(dt->img, 4, j * size, i * size, 0x0000FFF);
-			}
-			else
-				draw_pixel(dt->img, 4, j * size, i * size, 0x0000FFF);
-			j += 0.1;
+			map_x = start_x / TILE_SIZE + dt->mini_j;
+			map_y = start_y / TILE_SIZE + dt->mini_i;
+			ft_minimao_check(dt, map_x, map_y);
+			dt->mini_j += 0.1;
 		}
-		i += 0.1;
+		dt->mini_i += 0.1;
 	}
-	draw_pixel(dt->img, 4, 98, 98, 0x000FFFF);
-	minimap_rays(dt, range, range);
 }
 
 int	draw_minimap(t_data *dt)
@@ -107,6 +79,9 @@ int	draw_minimap(t_data *dt)
 	size = 200 / range;
 	start_x = (dt->player->x - ((range / 2) * TILE_SIZE));
 	start_y = (dt->player->y - ((range / 2) * TILE_SIZE));
-	draw_centered_minimap(dt, range, size, start_x, start_y);
+	ft_minimap(dt, range, start_x, start_y);
+	dt->color = 0x000FFFF;
+	draw_pixel(dt, 4, 98, 98);
+	minimap_ray(dt);
 	return (0);
 }

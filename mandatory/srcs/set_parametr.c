@@ -6,31 +6,11 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 11:42:58 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/10/18 05:38:54 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/11/03 12:02:35 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub.h"
-
-int draw_pixel(mlx_image_t *img, float pixel_size, int a, int b, int color)
-{
-    int i;
-    int j;
-
-    i = 0;
-    j = 0;
-	while (i < pixel_size)
-    {
-        j = 0;
-        while (j < pixel_size)
-        {
-            mlx_put_pixel(img, (a  + j), (b + i), color);
-            j++;
-        }
-        i++;
-    }
-	return (0);
-}
 
 void	set_hei_and_wid(t_data *data)
 {

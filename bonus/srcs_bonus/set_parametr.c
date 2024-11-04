@@ -6,13 +6,13 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 11:42:58 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/10/23 23:26:19 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/11/03 12:18:24 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub_bonus.h"
 
-int	draw_pixel(mlx_image_t *img, float pixel_size, float a, float b, int color)
+int	draw_pixel(t_data *dt, float pixel_size, float a, float b)
 {
 	int	i;
 	int	j;
@@ -24,7 +24,7 @@ int	draw_pixel(mlx_image_t *img, float pixel_size, float a, float b, int color)
 		j = 0;
 		while (j < pixel_size)
 		{
-			mlx_put_pixel(img, (a + j), (b + i), color);
+			mlx_put_pixel(dt->img, (a + j), (b + i), dt->color);
 			j++;
 		}
 		i++;
@@ -53,20 +53,15 @@ void	set_hei_and_wid(t_data *data)
 
 void	ft_setparam(t_data *data)
 {
+	ft_memset(data, 0, sizeof(t_data));
+	data->pars.north = NULL;
+	data->pars.south = NULL;
+	data->pars.west = NULL;
+	data->pars.east = NULL;
 	data->is_play = false;
 	data->is_load = false;
+	data->is_animate = false;
 	data->is_mouse = false;
-	data->texters = NULL;
-	data->colors = NULL;
-	data->map = NULL;
-	data->start_fram = 0;
-	data->shoot_fram = 0;
-	data->is_door = false;
+	data->b_mouse = false;
 	data->door_key_pressed = false;
-	data->pars.no = NULL;
-	data->pars.so = NULL;
-	data->pars.we = NULL;
-	data->pars.ea = NULL;
-	data->pars.is_c = 0;
-	data->pars.is_f = 0;
 }

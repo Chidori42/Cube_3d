@@ -6,7 +6,7 @@
 /*   By: ael-fagr <ael-fagr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 20:36:51 by ael-fagr          #+#    #+#             */
-/*   Updated: 2024/08/25 12:04:23 by ael-fagr         ###   ########.fr       */
+/*   Updated: 2024/11/03 12:13:38 by ael-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	ft_atoi(const char *str)
 	sign = 1;
 	tmp = 0;
 	result = 0;
-	while (str[i] == 32 || (str[i] >= '\t' && str[i] <= '\r'))
+	while (str[i] == 32)
 		i++;
 	if (str[i] == '-' || str[i] == '+')
 		sign = 44 - str[i++];
@@ -37,9 +37,5 @@ int	ft_atoi(const char *str)
 		tmp = result;
 		i++;
 	}
-	while (str[i] == 32 || (str[i] >= '\t' && str[i] <= '\r'))
-		i++;
-	if (str[i] != '\0')
-		return (-1);
 	return ((result * sign));
 }
